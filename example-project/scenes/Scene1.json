@@ -1,0 +1,54 @@
+{
+  "objects": [
+    {
+      "name": "MainCamera",
+      "components": {
+        "Transform": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "Camera": {
+
+        }
+      }
+    },
+    {
+      "name": "Box",
+      "components": {
+        "Transform": {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "Mesh": {
+
+        }
+      }
+    }
+  ]
+}

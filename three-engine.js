@@ -83,6 +83,78 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
+/***/ "./src/CameraComponent.ts":
+/*!********************************!*\
+  !*** ./src/CameraComponent.ts ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst three_1 = __webpack_require__(/*! three */ \"./node_modules/three/build/three.module.js\");\nconst Component_1 = __importDefault(__webpack_require__(/*! ./Component */ \"./src/Component.ts\"));\nclass CameraComponent extends Component_1.default {\n    get threeCamera() {\n        return this.camera;\n    }\n    constructor(config) {\n        super(config);\n        this.camera = new three_1.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\n        this.camera.position.z = 5;\n    }\n}\nexports.default = CameraComponent;\n\n\n//# sourceURL=webpack:///./src/CameraComponent.ts?");
+
+/***/ }),
+
+/***/ "./src/Component.ts":
+/*!**************************!*\
+  !*** ./src/Component.ts ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nclass Component {\n    constructor(config) {\n    }\n    start(scene) {\n    }\n    update(timeDelta) { }\n}\nexports.default = Component;\n\n\n//# sourceURL=webpack:///./src/Component.ts?");
+
+/***/ }),
+
+/***/ "./src/Game.ts":
+/*!*********************!*\
+  !*** ./src/Game.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst three_1 = __webpack_require__(/*! three */ \"./node_modules/three/build/three.module.js\");\nconst GameScene_1 = __importDefault(__webpack_require__(/*! ./GameScene */ \"./src/GameScene.ts\"));\nconst GameObject_1 = __importDefault(__webpack_require__(/*! ./GameObject */ \"./src/GameObject.ts\"));\nconst CameraComponent_1 = __importDefault(__webpack_require__(/*! ./CameraComponent */ \"./src/CameraComponent.ts\"));\nconst MeshComponent_1 = __importDefault(__webpack_require__(/*! ./MeshComponent */ \"./src/MeshComponent.ts\"));\nclass Game {\n    constructor(config) {\n        this.activeScene = 0;\n        this.scenes = [];\n        this.renderer = new three_1.WebGLRenderer();\n        this.lastUpdate = Date.now();\n        config.sceneConfigs.forEach(c => this.createScene(c));\n        config.prefabConfigs.forEach(c => Game.prefabs.push(new GameObject_1.default(c)));\n        config.componentTypes.forEach(c => Game.componentTypes.push(c));\n        this.renderer.setSize(window.innerWidth, window.innerHeight);\n        document.body.appendChild(this.renderer.domElement);\n    }\n    createScene(config) {\n        var newScene = new GameScene_1.default(config);\n        this.scenes.push(newScene);\n        return newScene;\n    }\n    start() {\n        var updateLoop = () => {\n            requestAnimationFrame(updateLoop);\n            this.update();\n            this.render();\n        };\n        updateLoop();\n    }\n    update() {\n        this.scenes[this.activeScene].update(Date.now() - this.lastUpdate);\n    }\n    render() {\n        this.scenes[this.activeScene].render(this.renderer);\n    }\n}\nGame.prefabs = [];\nGame.componentTypes = [CameraComponent_1.default, MeshComponent_1.default];\nexports.default = Game;\n\n\n//# sourceURL=webpack:///./src/Game.ts?");
+
+/***/ }),
+
+/***/ "./src/GameObject.ts":
+/*!***************************!*\
+  !*** ./src/GameObject.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst Game_1 = __importDefault(__webpack_require__(/*! ./Game */ \"./src/Game.ts\"));\nconst Component_1 = __importDefault(__webpack_require__(/*! ./Component */ \"./src/Component.ts\"));\nclass GameObject {\n    constructor(config) {\n        this.components = [];\n        Object.entries(config.components).forEach(entry => {\n            var componentConstructor = Game_1.default.componentTypes.find(type => type.name === entry[0] || type.name === entry[0] + 'Component');\n            if (componentConstructor) {\n                this.components.push(new componentConstructor(entry[1]));\n            }\n        });\n        console.log(this.components);\n    }\n    createComponent(config) {\n        var newComponent = new Component_1.default(config);\n        this.components.push(newComponent);\n        return newComponent;\n    }\n    start(scene) {\n        console.log('GameObject.start()');\n        this.components.forEach(component => component.start(scene));\n    }\n    update(timeDelta) {\n        this.components.forEach(component => component.update(timeDelta));\n    }\n    // https://github.com/Microsoft/TypeScript/issues/5236\n    getComponent(type) {\n        return this.components.find(component => component instanceof type);\n    }\n}\nexports.default = GameObject;\n\n\n//# sourceURL=webpack:///./src/GameObject.ts?");
+
+/***/ }),
+
+/***/ "./src/GameScene.ts":
+/*!**************************!*\
+  !*** ./src/GameScene.ts ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst three_1 = __webpack_require__(/*! three */ \"./node_modules/three/build/three.module.js\");\nconst GameObject_1 = __importDefault(__webpack_require__(/*! ./GameObject */ \"./src/GameObject.ts\"));\nconst CameraComponent_1 = __importDefault(__webpack_require__(/*! ./CameraComponent */ \"./src/CameraComponent.ts\"));\nclass GameScene {\n    constructor(config) {\n        this.threeScene = new three_1.Scene();\n        this.gameObjects = [];\n        console.log('GameScene.constructor()');\n        config.objects.forEach(objectConfig => this.createGameObject(objectConfig));\n    }\n    createGameObject(config) {\n        var newGameObject = new GameObject_1.default(config);\n        newGameObject.start(this.threeScene);\n        this.gameObjects.push(newGameObject);\n        return newGameObject;\n    }\n    update(timeDelta) {\n        this.gameObjects.forEach((gameObject) => {\n            gameObject.update(timeDelta);\n            var cameraComponent = gameObject.getComponent(CameraComponent_1.default);\n            if (cameraComponent) {\n                this.activeCamera = cameraComponent.threeCamera;\n            }\n        });\n    }\n    render(renderer) {\n        if (this.activeCamera) {\n            renderer.render(this.threeScene, this.activeCamera);\n        }\n    }\n}\nexports.default = GameScene;\n\n\n//# sourceURL=webpack:///./src/GameScene.ts?");
+
+/***/ }),
+
+/***/ "./src/MeshComponent.ts":
+/*!******************************!*\
+  !*** ./src/MeshComponent.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst three_1 = __webpack_require__(/*! three */ \"./node_modules/three/build/three.module.js\");\nconst Component_1 = __importDefault(__webpack_require__(/*! ./Component */ \"./src/Component.ts\"));\nclass MeshComponent extends Component_1.default {\n    constructor(config) {\n        super(config);\n        this.geometry = new three_1.BoxGeometry(1, 1, 1);\n        this.material = new three_1.MeshBasicMaterial({ color: 0x00ff00 });\n        this.mesh = new three_1.Mesh(this.geometry, this.material);\n    }\n    start(scene) {\n        console.log('MeshComponent.start()');\n        if (this.mesh) {\n            scene.add(this.mesh);\n        }\n    }\n}\nexports.default = MeshComponent;\n\n\n//# sourceURL=webpack:///./src/MeshComponent.ts?");
+
+/***/ }),
+
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
@@ -91,7 +163,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar three_1 = __webpack_require__(/*! three */ \"./node_modules/three/build/three.module.js\");\nvar scene = new three_1.Scene();\nvar camera = new three_1.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\nvar renderer = new three_1.WebGLRenderer();\nrenderer.setSize(window.innerWidth, window.innerHeight);\ndocument.body.appendChild(renderer.domElement);\nvar geometry = new three_1.BoxGeometry(1, 1, 1);\nvar material = new three_1.MeshBasicMaterial({ color: 0x00ff00 });\nvar cube = new three_1.Mesh(geometry, material);\nscene.add(cube);\ncamera.position.z = 5;\nfunction animate() {\n    requestAnimationFrame(animate);\n    cube.rotation.x += 0.1;\n    cube.rotation.y += 0.1;\n    renderer.render(scene, camera);\n}\nanimate();\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst electron_1 = __webpack_require__(/*! electron */ \"electron\");\nconst Game_1 = __importDefault(__webpack_require__(/*! ./Game */ \"./src/Game.ts\"));\nvar game;\nelectron_1.ipcRenderer.once('configuration', (event, configuration) => {\n    console.log(configuration);\n    game = new Game_1.default(configuration);\n    game.start();\n});\n/*\nimport { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';\n\nconst scene = new Scene();\nvar camera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );\n\nvar renderer = new WebGLRenderer();\nrenderer.setSize( window.innerWidth, window.innerHeight );\ndocument.body.appendChild( renderer.domElement );\n\nvar geometry = new BoxGeometry( 1, 1, 1 );\nvar material = new MeshBasicMaterial( { color: 0x00ff00 } );\nvar cube = new Mesh( geometry, material );\nscene.add( cube );\n\ncamera.position.z = 5;\n\nfunction animate() {\n    requestAnimationFrame( animate );\n  cube.rotation.x += 0.1;\n  cube.rotation.y += 0.1;\n    renderer.render( scene, camera );\n}\nanimate();\n*/\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+
+/***/ }),
+
+/***/ "electron":
+/*!***************************!*\
+  !*** external "electron" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"electron\");\n\n//# sourceURL=webpack:///external_%22electron%22?");
 
 /***/ })
 

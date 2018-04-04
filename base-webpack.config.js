@@ -1,7 +1,7 @@
-const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.ts',
+  target: 'electron-renderer',
   mode: 'development',
   module: {
     rules: [
@@ -15,9 +15,5 @@ module.exports = {
   resolve: {
     modules: [ 'node_modules', 'src', 'example-project' ],
     extensions: [ ".ts", ".js" ]
-  },
-  output: {
-    filename: 'three-engine.js',
-    path: path.resolve(__dirname, 'dist')
   }
-};
+}

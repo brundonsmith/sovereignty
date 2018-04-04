@@ -1,0 +1,5 @@
+{
+  "scenesPath": "./scenes",
+  "prefabsPath": "./prefabs",
+  "componentsPath": "./components"
+}

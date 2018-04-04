@@ -1,3 +1,15 @@
+import { ipcRenderer } from 'electron';
+
+import Game from './Game';
+
+var game;
+ipcRenderer.once('configuration', (event, configuration) => {
+	console.log(configuration);
+	game = new Game(configuration);
+	game.start();
+});
+
+/*
 import { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 
 const scene = new Scene();
@@ -21,3 +33,4 @@ function animate() {
 	renderer.render( scene, camera );
 }
 animate();
+*/

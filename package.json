@@ -4,18 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build:standalone": "webpack --config=standalone-webpack.config.js --env.entry=example-project/index.js",
+    "build:dynamic": "webpack --config=dynamic-webpack.config.js",
+    "electron": "npm run build:dynamic && electron main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brandon Smith",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^9.6.2",
     "@types/three": "^0.91.3",
     "npm": "^5.8.0",
     "physijs": "0.0.4",
+    "recursive-readdir": "^2.2.2",
     "three": "^0.91.0"
   },
   "devDependencies": {
+    "electron": "^1.8.4",
     "eslint": "^4.19.1",
     "ts-loader": "^4.1.0",
     "typescript": "^2.8.1",
