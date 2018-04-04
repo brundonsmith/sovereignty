@@ -1,0 +1,26 @@
+{
+  "name": "three-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brandon Smith",
+  "license": "ISC",
+  "dependencies": {
+    "@types/three": "^0.91.3",
+    "npm": "^5.8.0",
+    "physijs": "0.0.4",
+    "three": "^0.91.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "ts-loader": "^4.1.0",
+    "typescript": "^2.8.1",
+    "typescript-eslint-parser": "^14.0.0",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  }
+}
