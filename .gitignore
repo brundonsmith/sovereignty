@@ -1,1 +1,8 @@
 node_modules
+**/.DS_Store
+
+src/library/index.js
+src/library/index.js.map
+
+src/runner/*game.js
+src/runner/*game.js.map

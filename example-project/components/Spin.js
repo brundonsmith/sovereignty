@@ -1,9 +1,13 @@
+const Component = require('../../src/library').Component;
 
-var engine = require('../../three-engine.js');
+class Spin extends Component {
 
-export default class Spin extends engine.Component {
-
-  update() {
-    //this.gameObject.getComponent(TransformComponent).rotation.
+  update(timeDelta) {
+    console.log('Spin.update()')
+    this.gameObject.getComponent('TransformComponent').rotation.x += 0.1;
+    this.gameObject.getComponent('TransformComponent').rotation.y += 0.1;
   }
+
 }
+
+module.exports = Spin;

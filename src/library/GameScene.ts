@@ -13,7 +13,6 @@ export default class GameScene {
   private activeCamera: Camera | undefined;
 
   constructor(config: {[key: string]: any}) {
-    console.log('GameScene.constructor()')
     config.objects.forEach(objectConfig => this.createGameObject(objectConfig))
   }
 
@@ -27,7 +26,7 @@ export default class GameScene {
   public update(timeDelta: number): void {
     this.gameObjects.forEach((gameObject: GameObject) => {
       gameObject.update(timeDelta);
-      var cameraComponent: CameraComponent | undefined = <CameraComponent> gameObject.getComponent(CameraComponent);
+      var cameraComponent = <CameraComponent> gameObject.getComponent(CameraComponent);
       if(cameraComponent) {
         this.activeCamera = cameraComponent.threeCamera;
       }
@@ -36,6 +35,7 @@ export default class GameScene {
 
   public render(renderer: Renderer): void {
     if(this.activeCamera) {
+      console.log('THREE render')
       renderer.render(this.threeScene, this.activeCamera);
     }
   }

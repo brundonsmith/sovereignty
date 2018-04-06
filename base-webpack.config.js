@@ -3,6 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   target: 'electron-renderer',
   mode: 'development',
+  devtool: 'source-map',
   module: {
     rules: [
       {

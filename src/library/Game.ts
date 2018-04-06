@@ -3,6 +3,8 @@ import { Renderer, WebGLRenderer } from 'three';
 import GameScene from './GameScene';
 import GameObject from './GameObject';
 
+import Component from './Component';
+import TransformComponent from './TransformComponent';
 import CameraComponent from './CameraComponent';
 import MeshComponent from './MeshComponent';
 
@@ -12,17 +14,20 @@ export default class Game {
   private scenes: Array<GameScene> = [];
 
   public static prefabs: Array<GameObject> = [];
-  public static componentTypes: Array<any> = [ CameraComponent, MeshComponent ];
+  public static componentTypes: Array<any> = [ TransformComponent, CameraComponent, MeshComponent ];
 
   private renderer: Renderer = new WebGLRenderer();
 
   private lastUpdate: number = Date.now();
 
   constructor(config: {[key: string]: any}) {
-    config.sceneConfigs.forEach(c => this.createScene(c));
-    config.prefabConfigs.forEach(c => Game.prefabs.push(new GameObject(c)));
-    config.componentTypes.forEach(c => Game.componentTypes.push(c));
 
+    // initialize from config
+    Game.componentTypes = Game.componentTypes.concat(config.components);
+    config.prefabs.forEach(c => Game.prefabs.push(new GameObject(c)));
+    config.scenes.forEach(c => this.createScene(c));
+
+    // set up renderer
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild(this.renderer.domElement);
   }
