@@ -3,10 +3,7 @@ import { Renderer, WebGLRenderer } from 'three';
 import GameScene from './GameScene';
 import GameObject from './GameObject';
 
-import Component from './Component';
-import TransformComponent from './TransformComponent';
-import CameraComponent from './CameraComponent';
-import MeshComponent from './MeshComponent';
+import { Component, TransformComponent, CameraComponent, MeshComponent } from './components';
 
 export default class Game {
 

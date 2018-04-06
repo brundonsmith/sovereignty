@@ -6,7 +6,6 @@
   "scripts": {
     "build:library": "webpack --config=library-webpack.config.js",
     "build:standalone": "webpack --config=standalone-webpack.config.js --env.project=example-project",
-    "build:dynamic": "webpack -d --config=dynamic-webpack.config.js",
     "electron": "npm run build:library && npm run build:standalone && electron src/runner/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

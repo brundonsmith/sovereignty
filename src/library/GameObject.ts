@@ -1,7 +1,7 @@
 import { Scene } from 'three';
 
 import Game from './Game';
-import Component from './Component';
+import { Component, TransformComponent } from './components';
 
 export default class GameObject {
 
@@ -17,6 +17,10 @@ export default class GameObject {
         this.components.push(new componentConstructor(entry[1], this));
       }
     })
+
+    if(!this.components.some(component => component instanceof TransformComponent)) {
+      this.components.push(new TransformComponent({}, this));
+    }
   }
 
   public start(scene: Scene): void {

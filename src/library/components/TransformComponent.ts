@@ -1,6 +1,6 @@
 import { Vector3, Euler, Object3D } from 'three';
 
-import GameObject from './GameObject';
+import GameObject from '../GameObject';
 import Component from './Component';
 
 export default class TransformComponent extends Component {
@@ -15,19 +15,19 @@ export default class TransformComponent extends Component {
     if(config.position) {
       this.position = new Vector3(config.position.x || 0, config.position.y || 0, config.position.z || 0);
     } else {
-      this.position = new Vector3();
+      this.position = new Vector3(0, 0, 0);
     }
 
     if(config.rotation) {
       this.rotation = new Euler(config.rotation.x || 0, config.rotation.y || 0, config.rotation.z || 0, 'XYZ');
     } else {
-      this.rotation = new Euler();
+      this.rotation = new Euler(0, 0, 0);
     }
 
     if(config.scale) {
       this.scale = new Vector3(config.scale.x || 1, config.scale.y || 1, config.scale.z || 1);
     } else {
-      this.scale = new Vector3();
+      this.scale = new Vector3(1, 1, 1);
     }
 
     // TODO: Parenting

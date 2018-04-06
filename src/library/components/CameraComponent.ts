@@ -1,6 +1,6 @@
 import { Camera, PerspectiveCamera } from 'three';
 
-import GameObject from './GameObject';
+import GameObject from '../GameObject';
 import Component from './Component';
 import TransformComponent from './TransformComponent';
 

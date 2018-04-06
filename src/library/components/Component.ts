@@ -1,7 +1,7 @@
 
 import { Scene } from 'three';
 
-import GameObject from './GameObject';
+import GameObject from '../GameObject';
 
 export default class Component {
 

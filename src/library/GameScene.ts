@@ -2,8 +2,8 @@
 import { Scene, Renderer, Camera } from 'three';
 
 import GameObject from './GameObject';
-import Component from './Component';
-import CameraComponent from './CameraComponent';
+import { Component, CameraComponent } from './components';
+
 
 export default class GameScene {
 
