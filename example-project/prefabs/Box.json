@@ -1,5 +1,5 @@
 {
-  "name": "Ball",
+  "name": "Box",
   "components": {
     "SphereCollider": {
       "offset": {
@@ -8,7 +8,8 @@
         "z": 0
       },
       "radius": 1
-    }
-  },
-  "_children": [ ]
+    },
+    "Mesh": { },
+    "Spin": { }
+  }
 }

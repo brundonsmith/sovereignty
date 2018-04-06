@@ -35,7 +35,6 @@ export default class GameScene {
 
   public render(renderer: Renderer): void {
     if(this.activeCamera) {
-      console.log('THREE render')
       renderer.render(this.threeScene, this.activeCamera);
     }
   }

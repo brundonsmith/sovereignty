@@ -12,11 +12,8 @@
       }
     },
     {
-      "name": "Box",
-      "components": {
-        "Mesh": { },
-        "Spin": { }
-      }
+      "name": "MyBox",
+      "extendsPrefab": "Box"
     }
   ]
 }

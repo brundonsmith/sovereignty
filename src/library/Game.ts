@@ -21,12 +21,14 @@ export default class Game {
 
     // initialize from config
     Game.componentTypes = Game.componentTypes.concat(config.components);
-    config.prefabs.forEach(c => Game.prefabs.push(new GameObject(c)));
+    config.prefabs.forEach(c => Game.prefabs.push(c));
     config.scenes.forEach(c => this.createScene(c));
 
     // set up renderer
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild(this.renderer.domElement);
+
+    console.log(this);
   }
 
   public createScene(config: {[key: string]: any}): GameScene {

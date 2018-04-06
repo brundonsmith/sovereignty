@@ -1,5 +1,7 @@
 import { Scene } from 'three';
 
+import { deepMerge } from './utils';
+
 import Game from './Game';
 import { Component, TransformComponent } from './components';
 
@@ -9,12 +11,21 @@ export default class GameObject {
   private components: Array<Component> = [];
 
   constructor(config: {[key: string]: any}) {
+    if(config.extendsPrefab) {
+      var prefab = Game.prefabs.find(prefab => prefab.name === config.extendsPrefab);
+      config = deepMerge(prefab, config);
+    }
+
+    console.log(config)
+
     this.name = config.name || 'Object';
     Object.entries(config.components).forEach(entry => {
       var componentConstructor = Game.componentTypes.find(type => type.name === entry[0] || type.name === entry[0] + 'Component')
 
       if(componentConstructor) {
         this.components.push(new componentConstructor(entry[1], this));
+      } else {
+        console.warn(`Unknown component type "${entry[0]}"`)
       }
     })
 
