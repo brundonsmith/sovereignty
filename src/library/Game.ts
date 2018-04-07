@@ -3,7 +3,7 @@ import { Renderer, WebGLRenderer } from 'three';
 import GameScene from './GameScene';
 import GameObject from './GameObject';
 
-import { Component, TransformComponent, CameraComponent, MeshComponent,
+import { Component, TransformComponent, CameraComponent, LightComponent, MeshComponent,
   PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, RigidbodyComponent } from './components';
@@ -15,7 +15,7 @@ export default class Game {
 
   public static prefabs: Array<GameObject> = [];
   public static componentTypes: Array<any> = [ Component, TransformComponent,
-    CameraComponent, MeshComponent, PrimitiveMeshComponent,
+    CameraComponent, LightComponent, MeshComponent, PrimitiveMeshComponent,
     HeightmapMeshComponent, ColliderComponent, PlaneColliderComponent,
     HeightmapColliderComponent, SphereColliderComponent, BoxColliderComponent,
     RigidbodyComponent ];

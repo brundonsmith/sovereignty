@@ -14,7 +14,20 @@
       }
     },
     {
-      "name": "Box",
+      "name": "Light1",
+      "components": {
+        "Transform": {
+          "position": {
+            "x": 4,
+            "y": 5,
+            "z": -2
+          }
+        },
+        "Light": { }
+      }
+    },
+    {
+      "name": "MyBox",
       "components": {
         "Transform": {
           "position": {

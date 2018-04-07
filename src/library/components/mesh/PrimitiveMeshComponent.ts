@@ -1,4 +1,4 @@
-import { Geometry, BoxGeometry, SphereGeometry, CylinderGeometry, Material, MeshBasicMaterial, Mesh, Scene } from 'three';
+import { Geometry, BoxGeometry, SphereGeometry, CylinderGeometry, Material, MeshStandardMaterial, Mesh, Scene } from 'three';
 import { World } from 'cannon';
 
 import GameObject from '../../GameObject';
@@ -41,7 +41,7 @@ export default class PrimitiveMeshComponent extends MeshComponent {
       break;
     }
 
-    this.material = new MeshBasicMaterial({ color: config.color ||  0x00ff00 });
+    this.material = new MeshStandardMaterial({ color: config.color ||  0x00ff00 });
     this.mesh = new Mesh(this.geometry, this.material);
   }
 

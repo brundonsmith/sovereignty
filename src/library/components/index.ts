@@ -1,6 +1,7 @@
 import Component from './Component';
 import TransformComponent from './TransformComponent';
 import CameraComponent from './CameraComponent';
+import LightComponent from './LightComponent';
 import MeshComponent from './mesh/MeshComponent';
 import PrimitiveMeshComponent from './mesh/PrimitiveMeshComponent';
 import HeightmapMeshComponent from './mesh/HeightmapMeshComponent';
@@ -13,7 +14,8 @@ import BoxColliderComponent from './colliders/BoxColliderComponent';
 
 import RigidbodyComponent from './RigidbodyComponent';
 
-export { Component, TransformComponent, CameraComponent, MeshComponent,
+export { Component, TransformComponent, CameraComponent, LightComponent,
+  MeshComponent,
   PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, RigidbodyComponent };

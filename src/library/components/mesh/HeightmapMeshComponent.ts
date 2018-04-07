@@ -1,4 +1,4 @@
-import { Geometry, PlaneGeometry, Material, MeshBasicMaterial, Mesh, Scene } from 'three';
+import { Geometry, PlaneGeometry, Material, MeshStandardMaterial, Mesh, Scene } from 'three';
 import { World } from 'cannon';
 
 import GameObject from '../../GameObject';
@@ -19,7 +19,7 @@ export default class HeightmapMeshComponent extends MeshComponent {
       config.dataWidth,
       config.dataHeight
     );
-    this.material = new MeshBasicMaterial({ color: config.color ||  0x00ff00 });
+    this.material = new MeshStandardMaterial({ color: config.color ||  0x00ff00 });
     this.mesh = new Mesh(this.geometry, this.material);
 
     for(let i = 0; i < 100; i++) {
