@@ -21,13 +21,12 @@ export default class HeightmapMeshComponent extends MeshComponent {
     );
     this.material = new MeshStandardMaterial({ color: config.color ||  0x00ff00 });
     this.mesh = new Mesh(this.geometry, this.material);
+    this.mesh.castShadow = true;
+    this.mesh.receiveShadow = true;
 
-    for(let i = 0; i < 100; i++) {
-      config.data.push(Math.random());
-    }
-
-    for(let i = 0; i < config.data.length; i++) {
-      this.geometry.vertices[i].z = config.data[i];
+    for(let i = 0; i < config.dataWidth * config.dataHeight; i++) {
+      this.geometry.vertices[i].z =
+        config.data[i % config.dataWidth][Math.floor(i / config.dataWidth)];
     }
   }
 

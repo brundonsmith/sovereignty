@@ -9,17 +9,21 @@ export default class HeightmapColliderComponent extends ColliderComponent {
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 
-    var data = [];
-    for(let x = 0; x < 10; x++) {
-      for(let y = 0; y < 10; y++) {
-        data.push(0);
-      }
-    }
+    config.data = config.data || [];
 
-    this.cannonShape = new Heightfield(data, {
-      elementSize: 1,
-      minValue: Number.NEGATIVE_INFINITY,
-      maxValue: 0
+    var min = Number.POSITIVE_INFINITY;
+    var max = Number.NEGATIVE_INFINITY;
+    config.data.forEach(col => col.forEach(point => {
+      min = Math.min(min, point)
+      max = Math.max(max, point)
+    }))
+
+    console.log({ min, max })
+
+    this.cannonShape = new Heightfield(config.data, {
+      minValue: min,
+      maxValue: max,
+      elementSize: config.elementSize
     });
   }
 

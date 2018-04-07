@@ -20,7 +20,7 @@ export default class Game {
     HeightmapColliderComponent, SphereColliderComponent, BoxColliderComponent,
     RigidbodyComponent ];
 
-  private renderer: Renderer = new WebGLRenderer();
+  private renderer: WebGLRenderer = new WebGLRenderer();
 
   private lastUpdate: number = Date.now();
 
@@ -36,7 +36,7 @@ export default class Game {
 
     // set up renderer
     this.renderer.setSize( window.innerWidth, window.innerHeight );
-    document.body.appendChild(this.renderer.domElement);
+    this.renderer.shadowMap.enabled = true;
   }
 
   public createScene(config: {[key: string]: any}): GameScene {
@@ -45,7 +45,13 @@ export default class Game {
     return newScene;
   }
 
-  public start(): void {
+  public start(containerElement: HTMLElement | undefined): void {
+    if(containerElement) {
+      containerElement.appendChild(this.renderer.domElement);
+    } else {
+      document.body.appendChild(this.renderer.domElement);
+    }
+
     var updateLoop = () => {
     	requestAnimationFrame(updateLoop);
       this.update();

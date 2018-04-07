@@ -43,6 +43,8 @@ export default class PrimitiveMeshComponent extends MeshComponent {
 
     this.material = new MeshStandardMaterial({ color: config.color ||  0x00ff00 });
     this.mesh = new Mesh(this.geometry, this.material);
+    this.mesh.castShadow = true;
+    this.mesh.receiveShadow = true;
   }
 
 }
