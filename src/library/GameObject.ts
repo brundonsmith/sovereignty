@@ -5,7 +5,8 @@ import { World } from 'cannon';
 import { deepMerge } from './utils';
 
 import Game from './Game';
-import { Component, TransformComponent } from './components';
+import Component from './components/Component';
+import TransformComponent from './components/TransformComponent';
 
 export default class GameObject {
 

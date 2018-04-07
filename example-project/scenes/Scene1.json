@@ -10,7 +10,8 @@
             "z": 15
           }
         },
-        "Camera": { }
+        "Camera": { },
+        "KeyboardMove": { }
       }
     },
     {

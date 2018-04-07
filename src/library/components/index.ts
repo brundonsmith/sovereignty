@@ -13,9 +13,10 @@ import SphereColliderComponent from './colliders/SphereColliderComponent';
 import BoxColliderComponent from './colliders/BoxColliderComponent';
 
 import RigidbodyComponent from './RigidbodyComponent';
+import KeyboardMoveComponent from './KeyboardMoveComponent';
 
-export { Component, TransformComponent, CameraComponent, LightComponent,
+export default [ Component, TransformComponent, CameraComponent, LightComponent,
   MeshComponent,
   PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
-  SphereColliderComponent, BoxColliderComponent, RigidbodyComponent };
+  SphereColliderComponent, BoxColliderComponent, RigidbodyComponent, KeyboardMoveComponent ];

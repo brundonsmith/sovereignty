@@ -9,6 +9,18 @@ export default class TransformComponent extends Component {
   public rotation: Euler;
   public scale: Vector3;
 
+  public get forward(): Vector3 {
+    return new Vector3(0, 0, 1).applyEuler(this.rotation);
+  }
+
+  public get up(): Vector3 {
+    return new Vector3(0, 1, 0).applyEuler(this.rotation);
+  }
+
+  public get right(): Vector3 {
+    return new Vector3(1, 0, 0).applyEuler(this.rotation);
+  }
+
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 

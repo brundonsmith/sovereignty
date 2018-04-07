@@ -50,16 +50,20 @@ Here's the base structure:
 True documentation for these structures is forthcoming. For now, you can look under `example-project/` to see examples of most of what's been implemented.
 
 ## Roadmap
-#### Planned features
+#### In progress/planned
+- Input support
+- Audio support
+- GameObject parenting (transform)
 - Prefab inheritance
+- Unified Vector and Quaternion (threejs and cannonjs have their own implementations of each...)
 - Documentation, especially for configuration-object data structures
 - Making standalone builds
-- Full exported TypeScript types
+- Full exported TypeScript types for exported classes
 
 #### Moonshot features
 - Full editor UI, likely written in React
 - Mobile builds using Cordova or something similar
 
 #### Unity features not to expect
-- Game console support - Sovereignty.js relies on JavaScript and WebGL, and it's unlikely game consoles will ever support those for games
-- Realtime Global Illumination - This was a feat even for Unity. That said, if Three.js ever adds support for it it would be easy to add support to the engine.
+- Game console support - sovereignty.js relies on JavaScript and WebGL, and it's unlikely game consoles will ever support those for games
+- Realtime Global Illumination - This was a feat even for Unity. That said, if three.js ever adds support for it it would be easy to add support to the engine.

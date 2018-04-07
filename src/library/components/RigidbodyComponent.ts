@@ -10,7 +10,7 @@ import SphereColliderComponent from './colliders/SphereColliderComponent';
 
 export default class RigidbodyComponent extends Component {
 
-  private cannonBody: Body;
+  public cannonBody: Body;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);

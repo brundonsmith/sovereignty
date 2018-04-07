@@ -3,7 +3,8 @@ import { Scene, Renderer, Camera } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
 
 import GameObject from './GameObject';
-import { Component, CameraComponent } from './components';
+import Component from './components/Component';
+import CameraComponent from './components/CameraComponent';
 
 
 export default class GameScene {

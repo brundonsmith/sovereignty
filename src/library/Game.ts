@@ -2,11 +2,16 @@ import { Renderer, WebGLRenderer } from 'three';
 
 import GameScene from './GameScene';
 import GameObject from './GameObject';
+import Input from './Input';
 
+/*
 import { Component, TransformComponent, CameraComponent, LightComponent, MeshComponent,
   PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, RigidbodyComponent } from './components';
+*/
+import components from './components';
+var componentsArray = Object.values(components);
 
 export default class Game {
 
@@ -14,11 +19,7 @@ export default class Game {
   private scenes: Array<GameScene> = [];
 
   public static prefabs: Array<GameObject> = [];
-  public static componentTypes: Array<any> = [ Component, TransformComponent,
-    CameraComponent, LightComponent, MeshComponent, PrimitiveMeshComponent,
-    HeightmapMeshComponent, ColliderComponent, PlaneColliderComponent,
-    HeightmapColliderComponent, SphereColliderComponent, BoxColliderComponent,
-    RigidbodyComponent ];
+  public static componentTypes: Array<any> = componentsArray;
 
   private renderer: WebGLRenderer = new WebGLRenderer();
 
@@ -62,6 +63,7 @@ export default class Game {
 
   private update(): void {
     this.scenes[this.activeScene].update(Date.now() - this.lastUpdate);
+    Input.update();
   }
 
   private render(): void {
