@@ -25,7 +25,9 @@
             "z": 0.3
           }
         },
-        "Mesh": { },
+        "PrimitiveMesh": {
+          "shape": "box"
+        },
         "BoxCollider": { },
         "Rigidbody": {
           "mass": 5
@@ -37,6 +39,7 @@
       "components": {
         "Transform": {
           "rotation": {
+            "x": -1.5708
           }
         },
         "HeightmapMesh": {

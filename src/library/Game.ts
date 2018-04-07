@@ -4,6 +4,7 @@ import GameScene from './GameScene';
 import GameObject from './GameObject';
 
 import { Component, TransformComponent, CameraComponent, MeshComponent,
+  PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, RigidbodyComponent } from './components';
 
@@ -14,7 +15,8 @@ export default class Game {
 
   public static prefabs: Array<GameObject> = [];
   public static componentTypes: Array<any> = [ Component, TransformComponent,
-    CameraComponent, MeshComponent, ColliderComponent, PlaneColliderComponent,
+    CameraComponent, MeshComponent, PrimitiveMeshComponent,
+    HeightmapMeshComponent, ColliderComponent, PlaneColliderComponent,
     HeightmapColliderComponent, SphereColliderComponent, BoxColliderComponent,
     RigidbodyComponent ];
 
@@ -43,7 +45,7 @@ export default class Game {
     return newScene;
   }
 
-  public initialize(): void {
+  public start(): void {
     var updateLoop = () => {
     	requestAnimationFrame(updateLoop);
       this.update();
