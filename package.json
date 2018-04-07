@@ -1,8 +1,8 @@
 {
-  "name": "three-engine",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "sovereignty",
+  "version": "0.1.0",
+  "description": "A Unity-inspired-yet-hackable game engine written in JavaScript.",
+  "main": "src/runner/main.js",
   "scripts": {
     "build:library": "webpack --config=library-webpack.config.js",
     "build:standalone": "webpack --config=standalone-webpack.config.js --env.project=example-project",

@@ -47,6 +47,8 @@ Here's the base structure:
 - **prefabs**: A collection of `GameObject`s that you want to share between scenes, use multiple times, or just store as separate files for organization purposes. Objects inside scenes can extend a prefab, and even override specific aspects of them to create variations.
 - **components**: These encompass all of your custom programming (scripting) logic. They are the only things exported from a project that are not static data. Each custom component is a class that extends `Component` and can interact with its object's other components and/or other objects in the scene, via "hooks" (methods), to create custom behavior.
 
+True documentation for these structures is forthcoming. For now, you can look under `example-project/` to see examples of most of what's been implemented.
+
 ## Roadmap
 #### Planned features
 - Prefab inheritance
