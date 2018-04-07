@@ -38,12 +38,11 @@ export default class RigidbodyComponent extends Component {
     this.cannonBody.addShape(collider.cannonShape);
 
     this.cannonBody.addEventListener('collide', (e) => {
-      console.log('COLLISION')
       this.gameObject.components.forEach(component => component.onCollision(e))
     });
   }
 
-  public start(scene: Scene, world: World): void {
+  public initialize(scene: Scene, world: World): void {
     world.addBody(this.cannonBody);
   }
 

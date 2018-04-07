@@ -43,7 +43,7 @@ export default class Game {
     return newScene;
   }
 
-  public start(): void {
+  public initialize(): void {
     var updateLoop = () => {
     	requestAnimationFrame(updateLoop);
       this.update();

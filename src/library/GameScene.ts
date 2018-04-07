@@ -27,7 +27,7 @@ export default class GameScene {
 
   public createGameObject(config: {[key: string]: any}): GameObject {
     var newGameObject = new GameObject(config);
-    newGameObject.start(this.threeScene, this.cannonWorld);
+    newGameObject.initialize(this.threeScene, this.cannonWorld);
     this.gameObjects.push(newGameObject);
     return newGameObject;
   }

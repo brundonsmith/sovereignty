@@ -12,7 +12,7 @@ export default class Component {
     Object.assign(this, config);
   }
 
-  public start(scene: Scene, world: World): void { }
+  public initialize(scene: Scene, world: World): void { }
   public update(timeDelta: number): void { }
 
   public onCollision(e: IBodyEvent) { }

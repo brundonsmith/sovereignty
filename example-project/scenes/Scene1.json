@@ -37,16 +37,13 @@
       "components": {
         "Transform": {
           "rotation": {
-            "x": -1.5708
-          },
-          "scale": {
-            "x": 10,
-            "y": 10,
-            "z": 0.01
           }
         },
-        "Mesh": {
-          "color": "0xff0000"
+        "HeightmapMesh": {
+          "width": 10,
+          "height": 10,
+          "dataWidth": 10,
+          "dataHeight": 10
         },
         "PlaneCollider": { },
         "Rigidbody": {

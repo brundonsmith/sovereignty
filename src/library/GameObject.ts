@@ -34,8 +34,8 @@ export default class GameObject {
     }
   }
 
-  public start(scene: Scene, world: World): void {
-    this.components.forEach(component => component.start(scene, world));
+  public initialize(scene: Scene, world: World): void {
+    this.components.forEach(component => component.initialize(scene, world));
   }
 
   public update(timeDelta: number): void {
