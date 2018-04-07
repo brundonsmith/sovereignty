@@ -1,13 +1,12 @@
 {
   "name": "Box",
   "components": {
+    "Transform": { },
     "SphereCollider": {
-      "offset": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
       "radius": 1
+    },
+    "Rigidbody": {
+      "mass": 5
     },
     "Mesh": { },
     "Spin": { }

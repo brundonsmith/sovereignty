@@ -1,19 +1,58 @@
 {
+  "name": "Scene 1",
   "objects": [
     {
       "name": "MainCamera",
       "components": {
         "Transform": {
           "position": {
-            "z": 5
+            "y": 5,
+            "z": 15
           }
         },
         "Camera": { }
       }
     },
     {
-      "name": "MyBox",
-      "extendsPrefab": "Box"
+      "name": "Box",
+      "components": {
+        "Transform": {
+          "position": {
+            "y": 10
+          },
+          "rotation": {
+            "x": 0.5,
+            "z": 0.3
+          }
+        },
+        "Mesh": { },
+        "BoxCollider": { },
+        "Rigidbody": {
+          "mass": 5
+        }
+      }
+    },
+    {
+      "name": "Floor",
+      "components": {
+        "Transform": {
+          "rotation": {
+            "x": -1.5708
+          },
+          "scale": {
+            "x": 10,
+            "y": 10,
+            "z": 0.01
+          }
+        },
+        "Mesh": {
+          "color": "0xff0000"
+        },
+        "PlaneCollider": { },
+        "Rigidbody": {
+          "mass": 0
+        }
+      }
     }
   ]
 }

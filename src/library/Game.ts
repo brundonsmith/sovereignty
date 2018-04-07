@@ -3,7 +3,9 @@ import { Renderer, WebGLRenderer } from 'three';
 import GameScene from './GameScene';
 import GameObject from './GameObject';
 
-import { Component, TransformComponent, CameraComponent, MeshComponent } from './components';
+import { Component, TransformComponent, CameraComponent, MeshComponent,
+  ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
+  SphereColliderComponent, BoxColliderComponent, RigidbodyComponent } from './components';
 
 export default class Game {
 
@@ -11,13 +13,19 @@ export default class Game {
   private scenes: Array<GameScene> = [];
 
   public static prefabs: Array<GameObject> = [];
-  public static componentTypes: Array<any> = [ TransformComponent, CameraComponent, MeshComponent ];
+  public static componentTypes: Array<any> = [ Component, TransformComponent,
+    CameraComponent, MeshComponent, ColliderComponent, PlaneColliderComponent,
+    HeightmapColliderComponent, SphereColliderComponent, BoxColliderComponent,
+    RigidbodyComponent ];
 
   private renderer: Renderer = new WebGLRenderer();
 
   private lastUpdate: number = Date.now();
 
   constructor(config: {[key: string]: any}) {
+    console.log(this);
+
+    document.title = config.game.title || '';
 
     // initialize from config
     Game.componentTypes = Game.componentTypes.concat(config.components);
@@ -27,8 +35,6 @@ export default class Game {
     // set up renderer
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild(this.renderer.domElement);
-
-    console.log(this);
   }
 
   public createScene(config: {[key: string]: any}): GameScene {

@@ -1,4 +1,6 @@
 import { Scene } from 'three';
+//@ts-ignore
+import { World } from 'cannon';
 
 import { deepMerge } from './utils';
 
@@ -8,15 +10,13 @@ import { Component, TransformComponent } from './components';
 export default class GameObject {
 
   public name: string;
-  private components: Array<Component> = [];
+  public components: Array<Component> = [];
 
   constructor(config: {[key: string]: any}) {
     if(config.extendsPrefab) {
       var prefab = Game.prefabs.find(prefab => prefab.name === config.extendsPrefab);
       config = deepMerge(prefab, config);
     }
-
-    console.log(config)
 
     this.name = config.name || 'Object';
     Object.entries(config.components).forEach(entry => {
@@ -34,8 +34,8 @@ export default class GameObject {
     }
   }
 
-  public start(scene: Scene): void {
-    this.components.forEach(component => component.start(scene));
+  public start(scene: Scene, world: World): void {
+    this.components.forEach(component => component.start(scene, world));
   }
 
   public update(timeDelta: number): void {

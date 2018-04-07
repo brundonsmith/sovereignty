@@ -1,5 +1,3 @@
 {
-  "scenesPath": "./scenes",
-  "prefabsPath": "./prefabs",
-  "componentsPath": "./components"
+  "title": "My Game"
 }
