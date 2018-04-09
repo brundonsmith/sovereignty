@@ -1,6 +1,7 @@
-import { Light, PointLight, PerspectiveCamera, Scene } from 'three';
+import { Light, DirectionalLight, PointLight, SpotLight, Scene } from 'three';
 import { World } from 'cannon';
 
+import { exists } from '../utils';
 import GameObject from '../GameObject';
 import Component from './Component';
 import TransformComponent from './TransformComponent';
@@ -12,12 +13,36 @@ export default class LightComponent extends Component {
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 
-    this.threeLight = new PointLight(
-      0xffffff,
-      config.intensity,
-      config.distance,
-      config.decay
-    );
+    if(!exists(config.color)) {
+      config.color = 0xffffff;
+    }
+
+    switch(config.type.toLowerCase() || 'point') {
+      case 'directional':
+      this.threeLight = new DirectionalLight(
+        parseInt(config.color),
+        config.intensity
+      );
+      break;
+      case 'point':
+      this.threeLight = new PointLight(
+        parseInt(config.color),
+        config.intensity,
+        config.distance,
+        config.decay
+      );
+      break;
+      case 'spot':
+      this.threeLight = new SpotLight(
+        parseInt(config.color),
+        config.intensity,
+        config.distance,
+        config.angle,
+        config.penumbra,
+        config.decay
+      );
+      break;
+    }
   }
 
   public initialize(scene: Scene, world: World): void {
@@ -25,8 +50,7 @@ export default class LightComponent extends Component {
   }
 
   public update(timeDelta: number): void {
-    var transform = <TransformComponent> this.gameObject.getComponent(TransformComponent);
-    transform.applyTo(this.threeLight);
+    this.transform.applyTo(this.threeLight);
   }
 
 }

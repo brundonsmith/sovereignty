@@ -16,8 +16,7 @@ export default class MeshComponent extends Component {
   }
 
   public update(timeDelta: number): void {
-    var transform = <TransformComponent> this.gameObject.getComponent(TransformComponent);
-    transform.applyTo(this.mesh);
+    this.transform.applyTo(this.mesh);
   }
 
 }

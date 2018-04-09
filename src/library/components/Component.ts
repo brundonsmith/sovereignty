@@ -2,10 +2,25 @@ import { Scene } from 'three';
 import { World, IBodyEvent } from 'cannon';
 
 import GameObject from '../GameObject';
+import TransformComponent from './TransformComponent';
+import RigidbodyComponent from './RigidbodyComponent';
+import ColliderComponent from './colliders/ColliderComponent';
 
 export default class Component {
 
   public gameObject: GameObject;
+
+  get transform(): TransformComponent {
+    return this.gameObject.transform;
+  }
+
+  get rigidbody(): RigidbodyComponent {
+    return this.gameObject.rigidbody;
+  }
+
+  get collider(): ColliderComponent {
+    return this.gameObject.collider;
+  }
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     this.gameObject = gameObject;

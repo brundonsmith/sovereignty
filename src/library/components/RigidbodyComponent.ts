@@ -15,12 +15,8 @@ export default class RigidbodyComponent extends Component {
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 
-    var transform = <TransformComponent> this.gameObject.getComponent(TransformComponent);
-    var collider = <ColliderComponent> this.gameObject.getComponent(ColliderComponent);
-
-    if(!collider) {
-      console.error(`Rigidbody on object "${this.gameObject.name}" requires a collider`)
-    }
+    var transform = this.transform;
+    var collider = this.collider;
 
     var quaternion: Quaternion = new Quaternion();
     quaternion.setFromEuler(
@@ -47,11 +43,11 @@ export default class RigidbodyComponent extends Component {
   }
 
   public update(timeDelta: number): void {
-    var transform = <TransformComponent> this.gameObject.getComponent(TransformComponent);
+    var transform = this.transform;
+    
     transform.position.x = this.cannonBody.position.x;
     transform.position.y = this.cannonBody.position.y;
     transform.position.z = this.cannonBody.position.z;
-
 
     var euler = new Vec3();
     this.cannonBody.quaternion.toEuler(euler, 'YZX');

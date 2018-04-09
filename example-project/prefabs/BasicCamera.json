@@ -1,0 +1,13 @@
+{
+  "name": "BasicCamera",
+  "components": {
+    "Transform": {
+      "position": {
+        "y": 5,
+        "z": -15
+      }
+    },
+    "Camera": { },
+    "KeyboardMove": { }
+  }
+}

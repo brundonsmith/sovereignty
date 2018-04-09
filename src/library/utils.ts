@@ -18,3 +18,7 @@ export function deepMerge(obj1, obj2) {
     }
   }
 }
+
+export function exists(val) {
+  return typeof val !== 'undefined' && val !== null;
+}

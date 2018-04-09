@@ -1,14 +1,21 @@
 {
   "name": "Box",
   "components": {
-    "Transform": { },
-    "SphereCollider": {
-      "radius": 1
+    "Transform": {
+      "position": {
+        "y": 10
+      },
+      "rotation": {
+        "x": 0.5,
+        "z": 0.3
+      }
     },
+    "PrimitiveMesh": {
+      "shape": "box"
+    },
+    "BoxCollider": { },
     "Rigidbody": {
       "mass": 5
-    },
-    "Mesh": { },
-    "Spin": { }
+    }
   }
 }

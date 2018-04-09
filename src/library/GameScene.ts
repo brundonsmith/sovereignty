@@ -38,9 +38,8 @@ export default class GameScene {
 
     this.gameObjects.forEach((gameObject: GameObject) => {
       gameObject.update(timeDelta);
-      var cameraComponent = <CameraComponent> gameObject.getComponent(CameraComponent);
-      if(cameraComponent) {
-        this.activeCamera = cameraComponent.threeCamera;
+      if(gameObject.hasComponent(CameraComponent)) {
+        this.activeCamera = (<CameraComponent> gameObject.getComponent(CameraComponent)).threeCamera;
       }
     });
   }

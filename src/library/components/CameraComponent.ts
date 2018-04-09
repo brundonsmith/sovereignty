@@ -14,8 +14,8 @@ export default class CameraComponent extends Component {
   }
 
   public update(timeDelta: number): void {
-    var transform = <TransformComponent> this.gameObject.getComponent(TransformComponent);
-    transform.applyTo(this.threeCamera);
+    this.transform.applyTo(this.threeCamera);
+    this.threeCamera.rotation.y += 3.14159;
   }
 
 }

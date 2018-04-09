@@ -51,13 +51,13 @@ True documentation for these structures is forthcoming. For now, you can look un
 
 ## Roadmap
 #### In progress/planned
-- Input support
-- Audio support
+- Gamepad support
 - GameObject parenting (transform)
-- Prefab inheritance
 - Unified Vector and Quaternion (threejs and cannonjs have their own implementations of each...)
-- Documentation, especially for configuration-object data structures
 - Making standalone builds
+- Audio support
+- Prefab inheritance
+- Documentation, especially for configuration-object data structures
 - Full exported TypeScript types for exported classes
 
 #### Moonshot features

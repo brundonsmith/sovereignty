@@ -1,4 +1,4 @@
-import { Geometry, BoxGeometry, SphereGeometry, CylinderGeometry, Material, MeshStandardMaterial, Mesh, Scene } from 'three';
+import { Geometry, BoxGeometry, SphereGeometry, CylinderGeometry, PlaneGeometry, Material, MeshStandardMaterial, Mesh, Scene } from 'three';
 import { World } from 'cannon';
 
 import GameObject from '../../GameObject';
@@ -11,7 +11,7 @@ export default class PrimitiveMeshComponent extends MeshComponent {
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 
-    switch(config.shape || 'box') {
+    switch(config.shape.toLowerCase() || 'box') {
       case 'box':
         if(config.dimensions) {
           this.geometry = new BoxGeometry(
@@ -37,6 +37,12 @@ export default class PrimitiveMeshComponent extends MeshComponent {
           config.height,
           config.radialSegments,
           config.heightSegments
+        );
+      break;
+      case 'plane':
+        this.geometry = new PlaneGeometry(
+          config.width,
+          config.height
         );
       break;
     }
