@@ -9,8 +9,8 @@ import Input from '../Input';
 
 export default class KeyboardMoveComponent extends Component {
 
-  public moveSpeed: number = 0.2;
-  public turnSpeed: number = 0.01;
+  public moveSpeed: number = 5;
+  public turnSpeed: number = 1;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);

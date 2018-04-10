@@ -1,3 +1,4 @@
+import { Mesh, SphereGeometry } from 'three';
 //@ts-ignore
 import { Sphere } from 'cannon';
 
@@ -10,6 +11,15 @@ export default class SphereColliderComponent extends ColliderComponent {
     super(config, gameObject);
 
     this.cannonShape = new Sphere(config.radius || 1);
+
+    if(config.showWireframe) {
+      var geometry = new SphereGeometry(
+        config.radius || 1,
+        16,
+        16
+      );
+      this.wireframe = new Mesh(geometry, ColliderComponent.wireframeMaterial);
+    }
   }
 
 }

@@ -1,3 +1,4 @@
+import { Mesh, PlaneGeometry } from 'three';
 //@ts-ignore
 import { Plane } from 'cannon';
 
@@ -10,6 +11,16 @@ export default class PlaneColliderComponent extends ColliderComponent {
     super(config, gameObject);
 
     this.cannonShape = new Plane();
+
+    if(config.showWireframe) {
+      var geometry = new PlaneGeometry(100, 100, 100, 100);
+
+      for(let i = 0; i < 100 * 100; i++) {
+        geometry.vertices[i].z = 0;
+      }
+
+      this.wireframe = new Mesh(geometry, ColliderComponent.wireframeMaterial);
+    }
   }
 
 }

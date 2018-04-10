@@ -8,6 +8,7 @@ module.exports = env => {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
+          BUILD_DIR: JSON.stringify(path.resolve(__dirname, 'src/runner')),
           PROJECT_ENTRY: JSON.stringify(path.resolve(__dirname, env.project))
         }
       })

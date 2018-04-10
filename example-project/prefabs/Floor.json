@@ -6,14 +6,11 @@
         "x": -1.5708
       }
     },
-    "PlaneCollider": { },
+    "PlaneCollider": {
+      "showWireframe": true
+    },
     "Rigidbody": {
       "mass": 0
-    },
-    "PrimitiveMesh": {
-      "shape": "plane",
-      "width": 10,
-      "height": 10
     }
   }
 }
