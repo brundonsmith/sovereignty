@@ -1,4 +1,5 @@
 {
   "title": "My Game",
-  "initialScene": "Sidescrolling"
+  "initialScene": "Sidescrolling",
+  "assetsDir": "assets"
 }
