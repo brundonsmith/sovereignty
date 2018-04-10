@@ -1,3 +1,4 @@
 {
-  "title": "My Game"
+  "title": "My Game",
+  "initialScene": "Sidescrolling"
 }

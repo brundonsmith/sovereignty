@@ -1,5 +1,5 @@
 import { Light, PointLight, PerspectiveCamera, Scene } from 'three';
-import { World, Vec3 } from 'cannon';
+import { World } from 'cannon';
 
 import GameObject from '../GameObject';
 import Component from './Component';
@@ -23,8 +23,7 @@ export default class KeyboardMoveComponent extends Component {
 
     if(Input.keyDown('ArrowUp')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        let forwardVec3 = new Vec3(this.transform.forward.x, this.transform.forward.y, this.transform.forward.z);
-        this.rigidbody.cannonBody.applyImpulse(forwardVec3.scale(moveDelta));
+        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
       } else {
         this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
       }
@@ -32,8 +31,7 @@ export default class KeyboardMoveComponent extends Component {
 
     if(Input.keyDown('ArrowDown')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        let forwardVec3 = new Vec3(this.transform.forward.x, this.transform.forward.y, this.transform.forward.z);
-        this.rigidbody.cannonBody.applyImpulse(forwardVec3.scale(-1 * moveDelta));
+        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(-1 * moveDelta));
       } else {
         this.transform.position.add(this.transform.forward.multiplyScalar(-1 * moveDelta));
       }

@@ -11,17 +11,13 @@ export default class PrimitiveMeshComponent extends MeshComponent {
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 
-    switch(config.shape.toLowerCase() || 'box') {
+    switch((config.shape || 'box').toLowerCase()) {
       case 'box':
-        if(config.dimensions) {
-          this.geometry = new BoxGeometry(
-            config.dimensions.x,
-            config.dimensions.y,
-            config.dimensions.z
-          );
-        } else {
-          this.geometry = new BoxGeometry(1, 1, 1);
-        }
+        this.geometry = new BoxGeometry(
+          config.width,
+          config.height,
+          config.depth
+        );
       break;
       case 'sphere':
         this.geometry = new SphereGeometry(

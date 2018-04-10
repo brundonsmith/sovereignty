@@ -1,15 +1,10 @@
 import { Renderer, WebGLRenderer } from 'three';
 
+import { exists } from './utils';
 import GameScene from './GameScene';
 import GameObject from './GameObject';
 import Input from './Input';
 
-/*
-import { Component, TransformComponent, CameraComponent, LightComponent, MeshComponent,
-  PrimitiveMeshComponent, HeightmapMeshComponent,
-  ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
-  SphereColliderComponent, BoxColliderComponent, RigidbodyComponent } from './components';
-*/
 import components from './components';
 var componentsArray = Object.values(components);
 
@@ -34,6 +29,15 @@ export default class Game {
     Game.componentTypes = Game.componentTypes.concat(config.components);
     config.prefabs.forEach(c => Game.prefabs.push(c));
     config.scenes.forEach(c => this.createScene(c));
+
+    if(exists(config.game.initialScene)) {
+      if(typeof config.game.initialScene === 'number') {
+        this.activeScene = config.game.initialScene;
+      } else if(typeof config.game.initialScene === 'string') {
+        this.activeScene = this.scenes.findIndex(scene => scene.name === config.game.initialScene)
+        this.activeScene = Math.max(this.activeScene, 0);
+      }
+    }
 
     // set up renderer
     this.renderer.setSize( window.innerWidth, window.innerHeight );
@@ -64,6 +68,7 @@ export default class Game {
   private update(): void {
     this.scenes[this.activeScene].update(Date.now() - this.lastUpdate);
     Input.update();
+    this.lastUpdate = Date.now();
   }
 
   private render(): void {

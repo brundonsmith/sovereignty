@@ -1,4 +1,4 @@
-import { Camera, PerspectiveCamera } from 'three';
+import { Camera, PerspectiveCamera, OrthographicCamera } from 'three';
 
 import GameObject from '../GameObject';
 import Component from './Component';
@@ -10,12 +10,32 @@ export default class CameraComponent extends Component {
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
-    this.threeCamera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+    switch(config.type || 'perspective') {
+      case 'perspective':
+        this.threeCamera = new PerspectiveCamera(
+          config.fov || 75,
+          config.aspect || window.innerWidth / window.innerHeight,
+          config.near || 0.1,
+          config.far || 1000
+        );
+      break;
+      case 'orthographic':
+        this.threeCamera = new OrthographicCamera(
+          config.left || window.innerWidth / -2,
+          config.right || window.innerWidth / 2,
+          config.top || window.innerHeight / -2,
+          config.bottom || window.innerHeight / 2,
+          config.near || 0.1,
+          config.far || 1000
+        );
+      break;
+    }
   }
 
   public update(timeDelta: number): void {
     this.transform.applyTo(this.threeCamera);
-    this.threeCamera.rotation.y += 3.14159;
+    this.threeCamera.rotation.y += Math.PI;
   }
 
 }

@@ -15,6 +15,7 @@
     "@types/node": "^9.6.2",
     "@types/three": "^0.91.3",
     "cannon": "^0.6.2",
+    "ncp": "^2.0.0",
     "physijs": "0.0.4",
     "recursive-readdir": "^2.2.2",
     "three": "^0.91.0"

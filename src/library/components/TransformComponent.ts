@@ -31,7 +31,7 @@ export default class TransformComponent extends Component {
     }
 
     if(config.rotation) {
-      this.rotation = new Euler(config.rotation.x || 0, config.rotation.y || 0, config.rotation.z || 0, 'XYZ');
+      this.rotation = new Euler(config.rotation.x || 0, config.rotation.y || 0, config.rotation.z || 0, 'YZX');
     } else {
       this.rotation = new Euler(0, 0, 0);
     }

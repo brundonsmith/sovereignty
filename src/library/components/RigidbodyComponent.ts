@@ -1,7 +1,8 @@
-import { Scene } from 'three';
+import { Scene, Vector3, Euler } from 'three';
 //@ts-ignore
 import { Body, World, Quaternion, Vec3 } from 'cannon';
 
+import { toCannonVector, toThreeVector, toThreeQuaternion } from '../utils';
 import GameObject from '../GameObject';
 import Component from './Component';
 import TransformComponent from './TransformComponent';
@@ -10,7 +11,7 @@ import SphereColliderComponent from './colliders/SphereColliderComponent';
 
 export default class RigidbodyComponent extends Component {
 
-  public cannonBody: Body;
+  private cannonBody: Body;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
@@ -44,16 +45,40 @@ export default class RigidbodyComponent extends Component {
 
   public update(timeDelta: number): void {
     var transform = this.transform;
-    
+
     transform.position.x = this.cannonBody.position.x;
     transform.position.y = this.cannonBody.position.y;
     transform.position.z = this.cannonBody.position.z;
 
-    var euler = new Vec3();
-    this.cannonBody.quaternion.toEuler(euler, 'YZX');
-    transform.rotation.x = euler.x;
-    transform.rotation.y = euler.y;
-    transform.rotation.z = euler.z;
+    transform.rotation.setFromQuaternion(toThreeQuaternion(this.cannonBody.quaternion), 'YZX', true);
   }
 
+  // Mirroring body methods
+  public applyForce(force: Vector3, worldPoint?: Vector3): void {
+    this.cannonBody.applyForce(toCannonVector(force), toCannonVector(worldPoint))
+  }
+  public applyImpulse(impulse: Vector3, worldPoint?: Vector3): void {
+    this.cannonBody.applyImpulse(toCannonVector(impulse), toCannonVector(worldPoint))
+  }
+  public applyLocalForce(force: Vector3, worldPoint?: Vector3): void {
+    this.cannonBody.applyLocalForce(toCannonVector(force), toCannonVector(worldPoint))
+  }
+  public applyLocalImpulse(impulse: Vector3, worldPoint?: Vector3): void {
+    this.cannonBody.applyLocalImpulse(toCannonVector(impulse), toCannonVector(worldPoint))
+  }
+  public getVelocityAtWorldPoint(worldPoint: Vector3): Vector3 {
+    return toThreeVector(this.cannonBody.getVelocityAtWorldPoint(toCannonVector(worldPoint)))
+  }
+  public pointToLocalFrame(worldPoint: Vector3): Vector3 {
+    return toThreeVector(this.cannonBody.pointToLocalFrame(toCannonVector(worldPoint)))
+  }
+  public pointToWorldFrame(localPoint: Vector3): Vector3 {
+    return toThreeVector(this.cannonBody.pointToWorldFrame(toCannonVector(localPoint)))
+  }
+  public sleep() {
+    this.cannonBody.sleep();
+  }
+  public wakeUp() {
+    this.cannonBody.wakeUp();
+  }
 }

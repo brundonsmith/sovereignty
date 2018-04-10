@@ -48,8 +48,6 @@ class Input {
         }
       }
     })
-
-    console.log(this.keyState)
   }
 
   public keyDown(key: string): boolean {

@@ -1,0 +1,19 @@
+{
+  "name": "Floor",
+  "components": {
+    "Transform": {
+      "rotation": {
+        "x": -1.5708
+      }
+    },
+    "PlaneCollider": { },
+    "Rigidbody": {
+      "mass": 0
+    },
+    "PrimitiveMesh": {
+      "shape": "plane",
+      "width": 10,
+      "height": 10
+    }
+  }
+}

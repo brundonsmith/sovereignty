@@ -1,5 +1,5 @@
 
-# sovereignty.js
+# Sovereignty
 A Unity-inspired-yet-hackable game engine written in JavaScript. Uses [three.js](https://github.com/mrdoob/three.js/) for graphics and [cannon.js](https://github.com/schteppe/cannon.js) for physics.
 
 *This project is in the very early stages and isn't recommended yet for more than experimentation.*
@@ -28,7 +28,7 @@ This is the core of the engine (`src/library/`). **You can use only this, if you
 The "runner" (`src/runner/`) exists to make it easier to build standalone desktop apps. Given your project entry point (the place where your project data is exported), it creates an Electron window, loads, and bootstraps your project inside of it. Eventually there may be a separate runner for mobile devices.
 
 #### 3. The Project
-This is the part you write. All that sovereignty.js cares about is that it's a JavaScript (or JSON) object which contains the things the engine is looking for. Obviously for a real project you'll want to split things up into multiple files and do a build with something like webpack, but you aren't required to.
+This is the part you write. All that Sovereignty cares about is that it's a JavaScript (or JSON) object which contains the things the engine is looking for. Obviously for a real project you'll want to split things up into multiple files and do a build with something like webpack, but you aren't required to.
 
 Here's the base structure:
 ```javascript
@@ -56,6 +56,8 @@ True documentation for these structures is forthcoming. For now, you can look un
 - Unified Vector and Quaternion (threejs and cannonjs have their own implementations of each...)
 - Making standalone builds
 - Audio support
+- Networking features
+- Automatic wireframes for visualizing colliders
 - Prefab inheritance
 - Documentation, especially for configuration-object data structures
 - Full exported TypeScript types for exported classes
@@ -65,5 +67,5 @@ True documentation for these structures is forthcoming. For now, you can look un
 - Mobile builds using Cordova or something similar
 
 #### Unity features not to expect
-- Game console support - sovereignty.js relies on JavaScript and WebGL, and it's unlikely game consoles will ever support those for games
+- Game console support - Sovereignty relies on JavaScript and WebGL, and it's unlikely game consoles will ever support those for games
 - Realtime Global Illumination - This was a feat even for Unity. That said, if three.js ever adds support for it it would be easy to add support to the engine.

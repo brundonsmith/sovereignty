@@ -1,0 +1,40 @@
+{
+  "name": "Falling Box",
+  "objects": [
+    {
+      "extends": "BasicCamera",
+      "name": "MainCamera",
+      "components": {
+        "Transform": {
+          "position": {
+            "y": 5,
+            "z": -15
+          }
+        }
+      }
+    },
+    {
+      "name": "MyBox",
+      "extends": "Box"
+    },
+    {
+      "name": "Light1",
+      "components": {
+        "Transform": {
+          "position": {
+            "x": 4,
+            "y": 5,
+            "z": -2
+          }
+        },
+        "Light": {
+          "type": "spot"
+        }
+      }
+    },
+    {
+      "name": "Ground",
+      "extends": "Floor"
+    }
+  ]
+}

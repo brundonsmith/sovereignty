@@ -1,6 +1,14 @@
 const webpack = require('webpack');
 const path = require('path');
 var baseConfig = require('./base-webpack.config.js');
+var ncp = require('ncp').ncp;
+
+ncp(path.resolve(__dirname, 'example-project/assets'), path.resolve(__dirname, 'src/runner/assets'), function (err) {
+  if (err) {
+   return console.error(err);
+  }
+  console.log('done!');
+});
 
 module.exports = env => {
   return {...baseConfig, ...{

@@ -10,10 +10,9 @@
         "z": 0.3
       }
     },
-    "PrimitiveMesh": {
-      "shape": "box"
+    "BoxCollider": {
+      "showWireframe": true
     },
-    "BoxCollider": { },
     "Rigidbody": {
       "mass": 5
     }
