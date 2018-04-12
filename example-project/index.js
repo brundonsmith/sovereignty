@@ -1,5 +1,5 @@
 module.exports = {
-  game: require('./game.json'),
+  game: require('./Game.json'),
   prefabs: [
     require('./prefabs/Box.json'),
     require('./prefabs/BasicCamera.json'),

@@ -21,7 +21,7 @@ export default class KeyboardMoveComponent extends Component {
     var moveDelta = this.moveSpeed * timeDelta / 1000;
     var turnDelta = this.turnSpeed * timeDelta / 1000;
 
-    if(Input.keyDown('ArrowUp')) {
+    if(Input.keyDown('w')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
         this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
       } else {
@@ -29,7 +29,7 @@ export default class KeyboardMoveComponent extends Component {
       }
     }
 
-    if(Input.keyDown('ArrowDown')) {
+    if(Input.keyDown('s')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
         this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(-1 * moveDelta));
       } else {
@@ -37,6 +37,10 @@ export default class KeyboardMoveComponent extends Component {
       }
     }
 
+    this.transform.rotation.y -= Input.mouseDeltaX() * turnDelta;
+    this.transform.rotation.x += Input.mouseDeltaY() * turnDelta;
+
+    /*
     if(Input.keyDown('ArrowRight')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
         //TODO this.rigidbody.cannonBody.applyImpulse(forwardVec3.scale(-1 * delta));
@@ -52,6 +56,7 @@ export default class KeyboardMoveComponent extends Component {
         this.transform.rotation.y += turnDelta;
       }
     }
+    */
   }
 
 
