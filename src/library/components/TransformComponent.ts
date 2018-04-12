@@ -1,5 +1,7 @@
-import { Vector3, Euler, Object3D } from 'three';
+import { Vector3, Euler, Object3D, Group, Scene } from 'three';
+import { World } from 'cannon';
 
+import { exists } from '../utils';
 import GameObject from '../GameObject';
 import Component from './Component';
 
@@ -8,6 +10,8 @@ export default class TransformComponent extends Component {
   public position: Vector3;
   public rotation: Euler;
   public scale: Vector3;
+
+  public threeGroup: Group = new Group();
 
   public get forward(): Vector3 {
     return new Vector3(0, 0, 1).applyEuler(this.rotation);
@@ -41,11 +45,19 @@ export default class TransformComponent extends Component {
     } else {
       this.scale = new Vector3(1, 1, 1);
     }
-
-    // TODO: Parenting
   }
 
-  public applyTo(threeObject: Object3D) {
+  public initialize(scene: Scene, world: World) {
+    if(!exists(this.threeGroup.parent)) {
+      scene.add(this.threeGroup);
+    }
+  }
+
+  public update(timeDelta: number) {
+    this.applyTo(this.threeGroup);
+  }
+
+  private applyTo(threeObject: Object3D) {
     threeObject.position.x = this.position.x;
     threeObject.position.y = this.position.y;
     threeObject.position.z = this.position.z;

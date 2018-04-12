@@ -10,7 +10,7 @@ export default class SpriteComponent extends Component {
 
   public spriteMap: Texture;
   public material: Material;
-  public sprite: Sprite;
+  public threeSprite: Sprite;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
@@ -24,15 +24,11 @@ export default class SpriteComponent extends Component {
       map: this.spriteMap,
       color: parseInt(config.tint)
     });
-    this.sprite = new Sprite(this.material);
+    this.threeSprite = new Sprite(this.material);
   }
 
   public initialize(scene: Scene, world: World): void {
-    scene.add(this.sprite);
-  }
-
-  public update(timeDelta: number): void {
-    this.transform.applyTo(this.sprite);
+    this.transform.threeGroup.add(this.threeSprite);
   }
 
 }

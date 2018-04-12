@@ -16,7 +16,7 @@ export default class GameScene {
 
   private gameObjects: Array<GameObject> = [];
 
-  private activeCamera: Camera | undefined;
+  public activeCamera: Camera | undefined;
 
   constructor(config: {[key: string]: any}) {
     this.name = config.name;

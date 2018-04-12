@@ -14,6 +14,7 @@ export default class GameObject {
 
   public name: string;
   public components: Array<Component> = [];
+  public children: Array<GameObject> = [];
 
   get transform(): TransformComponent {
     return <TransformComponent> this.getComponent(TransformComponent);
@@ -33,7 +34,10 @@ export default class GameObject {
       config = deepMerge(prefab, config);
     }
 
+    // name
     this.name = config.name || 'Object';
+
+    // components
     Object.entries(config.components || {}).forEach(entry => {
       var componentConstructor = Game.componentTypes.find(type => type.name === entry[0] || type.name === entry[0] + 'Component')
 
@@ -43,18 +47,26 @@ export default class GameObject {
         console.warn(`Unknown component type "${entry[0]}"`)
       }
     })
-
     if(!this.components.some(component => component instanceof TransformComponent)) {
       this.components.push(new TransformComponent({}, this));
     }
+
+    // children
+    (config.children || []).forEach(childConfig => {
+      var newGameObject = new GameObject(childConfig);
+      this.transform.threeGroup.add(newGameObject.transform.threeGroup);
+      this.children.push(newGameObject);
+    })
   }
 
   public initialize(scene: Scene, world: World): void {
     this.components.forEach(component => component.initialize(scene, world));
+    this.children.forEach(child => child.initialize(scene, world));
   }
 
   public update(timeDelta: number): void {
     this.components.forEach(component => component.update(timeDelta));
+    this.children.forEach(child => child.update(timeDelta));
   }
 
   public hasComponent(type: (typeof Component) | string): boolean {

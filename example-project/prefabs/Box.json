@@ -16,5 +16,20 @@
     "Rigidbody": {
       "mass": 5
     }
-  }
+  },
+  "children": [
+    {
+      "name": "Orb",
+      "components": {
+        "Transform": {
+          "position": {
+            "y": 1
+          }
+        },
+        "PrimitiveMesh": {
+          "shape": "sphere"
+        }
+      }
+    }
+  ]
 }

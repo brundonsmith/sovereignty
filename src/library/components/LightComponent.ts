@@ -46,11 +46,7 @@ export default class LightComponent extends Component {
   }
 
   public initialize(scene: Scene, world: World): void {
-    scene.add(this.threeLight);
-  }
-
-  public update(timeDelta: number): void {
-    this.transform.applyTo(this.threeLight);
+    this.transform.threeGroup.add(this.threeLight);
   }
 
 }

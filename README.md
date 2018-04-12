@@ -51,16 +51,18 @@ True documentation for these structures is forthcoming. For now, you can look un
 
 ## Roadmap
 #### In progress/planned
-- Gamepad support
-- GameObject parenting (transform)
-- Unified Vector and Quaternion (threejs and cannonjs have their own implementations of each...)
-- Making standalone builds
+- Object lookup
 - Audio support
-- Networking features
+- Particle effects
+- Materials/Shaders
+- Gamepad support
+- Unified Vector and Quaternion (threejs and cannonjs have their own implementations of each...)
 - Automatic wireframes for visualizing colliders
 - Prefab inheritance
+- Making standalone builds
 - Documentation, especially for configuration-object data structures
 - Full exported TypeScript types for exported classes
+- Networking features
 
 #### Moonshot features
 - Full editor UI, likely written in React

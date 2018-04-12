@@ -15,13 +15,8 @@ export default class ColliderComponent extends Component {
 
   public initialize(scene: Scene, world: World): void {
     if(this.wireframe) {
-      scene.add(this.wireframe);
+      this.transform.threeGroup.add(this.wireframe);
     }
   }
 
-  public update(timeDelta: number): void {
-    if(this.wireframe) {
-      this.transform.applyTo(this.wireframe);
-    }
-  }
 }

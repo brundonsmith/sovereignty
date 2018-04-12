@@ -12,11 +12,7 @@ export default class MeshComponent extends Component {
   public mesh: Mesh;
 
   public initialize(scene: Scene, world: World): void {
-    scene.add(this.mesh);
-  }
-
-  public update(timeDelta: number): void {
-    this.transform.applyTo(this.mesh);
+    this.transform.threeGroup.add(this.mesh);
   }
 
 }

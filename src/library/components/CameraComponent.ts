@@ -1,4 +1,5 @@
-import { Camera, PerspectiveCamera, OrthographicCamera } from 'three';
+import { Camera, PerspectiveCamera, OrthographicCamera, Scene } from 'three';
+import { World } from 'cannon';
 
 import GameObject from '../GameObject';
 import Component from './Component';
@@ -33,9 +34,9 @@ export default class CameraComponent extends Component {
     }
   }
 
-  public update(timeDelta: number): void {
-    this.transform.applyTo(this.threeCamera);
+  public initialize(scene: Scene, world: World): void {
     this.threeCamera.rotation.y += Math.PI;
+    this.transform.threeGroup.add(this.threeCamera);
   }
 
 }
