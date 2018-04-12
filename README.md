@@ -51,7 +51,6 @@ True documentation for these structures is forthcoming. For now, you can look un
 
 ## Roadmap
 #### In progress/planned
-- Object lookup
 - Audio support
 - Particle effects
 - Materials/Shaders
