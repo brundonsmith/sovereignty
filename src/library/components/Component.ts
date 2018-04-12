@@ -1,6 +1,7 @@
 import { Scene } from 'three';
 import { World, IBodyEvent } from 'cannon';
 
+import GameScene from '../GameScene';
 import GameObject from '../GameObject';
 import TransformComponent from './TransformComponent';
 import RigidbodyComponent from './RigidbodyComponent';
@@ -27,7 +28,7 @@ export default class Component {
     Object.assign(this, config);
   }
 
-  public initialize(scene: Scene, world: World): void { }
+  public initialize(scene: GameScene): void { }
   public update(timeDelta: number): void { }
 
   public onCollision(e: IBodyEvent) { }

@@ -5,6 +5,7 @@ import { World } from 'cannon';
 import { deepMerge } from './utils';
 
 import Game from './Game';
+import GameScene from './GameScene';
 import Component from './components/Component';
 import TransformComponent from './components/TransformComponent';
 import RigidbodyComponent from './components/RigidbodyComponent';
@@ -12,9 +13,12 @@ import ColliderComponent from './components/colliders/ColliderComponent';
 
 export default class GameObject {
 
+  public scene: GameScene;
+
   public name: string;
   public components: Array<Component> = [];
   public children: Array<GameObject> = [];
+
 
   get transform(): TransformComponent {
     return <TransformComponent> this.getComponent(TransformComponent);
@@ -59,9 +63,11 @@ export default class GameObject {
     })
   }
 
-  public initialize(scene: Scene, world: World): void {
-    this.components.forEach(component => component.initialize(scene, world));
-    this.children.forEach(child => child.initialize(scene, world));
+  public initialize(scene: GameScene): void {
+    this.scene = scene;
+    this.components.forEach(component => component.initialize(scene));
+    this.children.forEach(child => child.initialize(scene));
+    scene.allGameObjects.push(this);
   }
 
   public update(timeDelta: number): void {

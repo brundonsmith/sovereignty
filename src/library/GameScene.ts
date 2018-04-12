@@ -11,10 +11,11 @@ export default class GameScene {
 
   public name: string;
 
-  private threeScene: Scene = new Scene();
-  private cannonWorld: World = new World();
+  public threeScene: Scene = new Scene();
+  public cannonWorld: World = new World();
 
   private gameObjects: Array<GameObject> = [];
+  public allGameObjects: Array<GameObject> = [];
 
   public activeCamera: Camera | undefined;
 
@@ -28,9 +29,17 @@ export default class GameScene {
 
   public createGameObject(config: {[key: string]: any}): GameObject {
     var newGameObject = new GameObject(config);
-    newGameObject.initialize(this.threeScene, this.cannonWorld);
+    newGameObject.initialize(this);
     this.gameObjects.push(newGameObject);
     return newGameObject;
+  }
+
+  public findObject(funcOrName: string | ((item: GameObject) => boolean)): GameObject | undefined {
+    if(typeof funcOrName === 'string') {
+      return this.allGameObjects.find(obj => obj.name === funcOrName);
+    } else {
+      return this.allGameObjects.find(funcOrName);
+    }
   }
 
   public update(timeDelta: number): void {

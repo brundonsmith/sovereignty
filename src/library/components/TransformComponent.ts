@@ -2,6 +2,7 @@ import { Vector3, Euler, Object3D, Group, Scene } from 'three';
 import { World } from 'cannon';
 
 import { exists } from '../utils';
+import GameScene from '../GameScene';
 import GameObject from '../GameObject';
 import Component from './Component';
 
@@ -23,6 +24,10 @@ export default class TransformComponent extends Component {
 
   public get right(): Vector3 {
     return new Vector3(1, 0, 0).applyEuler(this.rotation);
+  }
+
+  public get isRoot(): boolean {
+    return !exists(this.threeGroup.parent);
   }
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
@@ -47,9 +52,9 @@ export default class TransformComponent extends Component {
     }
   }
 
-  public initialize(scene: Scene, world: World) {
-    if(!exists(this.threeGroup.parent)) {
-      scene.add(this.threeGroup);
+  public initialize(scene: GameScene) {
+    if(this.isRoot) {
+      scene.threeScene.add(this.threeGroup);
     }
   }
 

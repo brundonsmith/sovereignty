@@ -2,6 +2,7 @@ import { Material, SpriteMaterial, Mesh, Scene, Sprite, Texture, TextureLoader }
 import { World } from 'cannon';
 
 import { exists } from '../utils';
+import GameScene from '../GameScene';
 import GameObject from '../GameObject';
 import Component from './Component';
 import TransformComponent from './TransformComponent';
@@ -27,7 +28,7 @@ export default class SpriteComponent extends Component {
     this.threeSprite = new Sprite(this.material);
   }
 
-  public initialize(scene: Scene, world: World): void {
+  public initialize(scene: GameScene): void {
     this.transform.threeGroup.add(this.threeSprite);
   }
 

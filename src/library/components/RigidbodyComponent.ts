@@ -3,6 +3,7 @@ import { Scene, Vector3, Euler } from 'three';
 import { Body, World, Quaternion, Vec3 } from 'cannon';
 
 import { toCannonVector, toThreeVector, toThreeQuaternion } from '../utils';
+import GameScene from '../GameScene';
 import GameObject from '../GameObject';
 import Component from './Component';
 import TransformComponent from './TransformComponent';
@@ -39,8 +40,8 @@ export default class RigidbodyComponent extends Component {
     });
   }
 
-  public initialize(scene: Scene, world: World): void {
-    world.addBody(this.cannonBody);
+  public initialize(scene: GameScene): void {
+    scene.cannonWorld.addBody(this.cannonBody);
   }
 
   public update(timeDelta: number): void {
