@@ -1,5 +1,4 @@
 {
-  "name": "Box",
   "components": {
     "Transform": {
       "position": {

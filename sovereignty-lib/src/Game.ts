@@ -13,7 +13,7 @@ export default class Game {
   private activeScene: number = 0;
   private scenes: Array<GameScene> = [];
 
-  public static prefabs: Array<GameObject> = [];
+  public static prefabs: Array<any> = [];
   public static componentTypes: Array<any> = componentsArray;
 
   private renderer: WebGLRenderer = new WebGLRenderer();
@@ -26,9 +26,16 @@ export default class Game {
     document.title = config.game.title || '';
 
     // initialize from config
-    Game.componentTypes = Game.componentTypes.concat(config.components);
-    config.prefabs.forEach(c => Game.prefabs.push(c));
-    config.scenes.forEach(c => this.createScene(c));
+    Game.componentTypes = Game.componentTypes.concat(Object.values(config.components));
+    Object.entries(config.prefabs).forEach(entry =>
+      Game.prefabs.push({
+        ...entry[1],
+        ...{name: entry[0]}
+      }));
+    Object.entries(config.scenes).forEach(entry => this.createScene({
+      ...entry[1],
+      ...{name: entry[0]}
+    }));
 
     if(exists(config.game.initialScene)) {
       if(typeof config.game.initialScene === 'number') {

@@ -1,5 +1,4 @@
 {
-  "name": "Falling Box",
   "objects": [
     {
       "extends": "BasicCamera",

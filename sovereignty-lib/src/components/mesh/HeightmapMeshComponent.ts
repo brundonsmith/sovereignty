@@ -4,7 +4,7 @@ import { World } from 'cannon';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
 import TransformComponent from 'components/TransformComponent';
-import MeshComponent from 'components/MeshComponent';
+import MeshComponent from 'components/mesh/MeshComponent';
 
 export default class HeightmapMeshComponent extends MeshComponent {
 

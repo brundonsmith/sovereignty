@@ -3,7 +3,7 @@ import { Mesh, PlaneGeometry, Scene, Vector3 } from 'three';
 import { World, Heightfield } from 'cannon';
 
 import GameObject from 'GameObject';
-import ColliderComponent from 'components/ColliderComponent';
+import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class HeightmapColliderComponent extends ColliderComponent {
 

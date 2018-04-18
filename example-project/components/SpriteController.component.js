@@ -1,5 +1,3 @@
-const Component = require('../../src/library').Component;
-const Input = require('../../src/library').Input;
 
 class SpriteController extends Component {
 
@@ -13,5 +11,3 @@ class SpriteController extends Component {
   }
 
 }
-
-module.exports = SpriteController;

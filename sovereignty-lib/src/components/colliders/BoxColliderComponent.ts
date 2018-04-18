@@ -3,7 +3,7 @@ import { BoxGeometry, Mesh } from 'three';
 import { Box, Vec3 } from 'cannon';
 
 import GameObject from 'GameObject';
-import ColliderComponent from 'components/ColliderComponent';
+import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class BoxColliderComponent extends ColliderComponent {
 

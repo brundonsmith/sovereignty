@@ -3,7 +3,7 @@ import { Mesh, PlaneGeometry } from 'three';
 import { Plane } from 'cannon';
 
 import GameObject from 'GameObject';
-import ColliderComponent from 'components/ColliderComponent';
+import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class PlaneColliderComponent extends ColliderComponent {
 

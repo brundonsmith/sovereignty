@@ -3,7 +3,7 @@ import { Mesh, SphereGeometry } from 'three';
 import { Sphere } from 'cannon';
 
 import GameObject from 'GameObject';
-import ColliderComponent from 'components/ColliderComponent';
+import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class SphereColliderComponent extends ColliderComponent {
 

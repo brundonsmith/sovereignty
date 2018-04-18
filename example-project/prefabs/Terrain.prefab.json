@@ -1,5 +1,4 @@
 {
-  "name": "Terrain",
   "components": {
     "Transform": { },
     "HeightmapCollider": {

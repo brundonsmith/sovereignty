@@ -1,4 +1,3 @@
-const Component = require('../../src/library').Component;
 
 class Spin extends Component {
 
@@ -8,5 +7,3 @@ class Spin extends Component {
   }
 
 }
-
-module.exports = Spin;

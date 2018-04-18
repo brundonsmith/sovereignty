@@ -1,5 +1,4 @@
 {
-  "name": "Bob",
   "components": {
     "Sprite": {
       "texture": "assets/textures/sprite1.png"
