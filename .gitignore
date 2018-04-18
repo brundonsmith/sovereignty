@@ -1,9 +1,9 @@
 node_modules
 **/.DS_Store
 
-src/library/index.js
-src/library/index.js.map
+sovereignty-lib/index.js
+sovereignty-lib/index.js.map
 
-src/runner/*game.js
-src/runner/*game.js.map
-src/runner/assets
+sovereignty-builder/*game.js
+sovereignty-builder/*game.js.map
+sovereignty-builder/assets

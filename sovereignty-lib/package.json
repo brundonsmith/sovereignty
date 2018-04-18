@@ -1,0 +1,26 @@
+{
+  "name": "sovereignty-lib",
+  "version": "0.1.0",
+  "description": "The core class library of sovereignty.js",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brandon Smith",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^9.6.2",
+    "@types/three": "^0.91.3",
+    "cannon": "^0.6.2",
+    "three": "^0.91.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "ts-loader": "^4.1.0",
+    "typescript": "^2.8.1",
+    "typescript-eslint-parser": "^14.0.0",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.14"
+  }
+}
