@@ -6,6 +6,7 @@ example-project/build
 sovereignty-lib/index.js
 sovereignty-lib/index.js.map
 
-sovereignty-runner/*game.js
-sovereignty-runner/*game.js.map
-sovereignty-runner/assets
+sovereignty-builder/*linux*
+sovereignty-builder/*win32*
+sovereignty-builder/*darwin*
+sovereignty-builder/*mas*

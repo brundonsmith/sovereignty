@@ -8,10 +8,7 @@ app.on('ready', () => {
   // Create the browser window.
   win = new BrowserWindow({
     width: 1200,
-    height: 800,
-    webPreferences: {
-      devTools: true
-    }
+    height: 800
   })
 
   // and load the index.html of the app.
