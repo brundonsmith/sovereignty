@@ -9,17 +9,13 @@
           }
         },
         "Camera": {
-          "type": "perspective"
+          "type": "orthographic"
         }
       }
     },
     {
-      "name": "Ground",
-      "extends": "Floor"
-    },
-    {
       "name": "Bob",
-      "extends": "Bob"
+      "extends": "TestSprite"
     }
   ]
 }

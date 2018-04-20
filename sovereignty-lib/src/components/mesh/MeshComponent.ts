@@ -19,7 +19,6 @@ export default class MeshComponent extends Component {
     super(config, gameObject);
 
     if(exists(config.material)) {
-      console.log(Game.materials)
       if(typeof config.material === 'string') {
         config.material = Game.materials.find(m => m.name === config.material);
       }

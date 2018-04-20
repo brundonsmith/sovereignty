@@ -21,11 +21,15 @@ export default class CameraComponent extends Component {
         );
       break;
       case 'orthographic':
+        var ratio = window.innerWidth / window.innerHeight;
+        var height = 5;
+        var width = ratio * height;
+
         this.threeCamera = new OrthographicCamera(
-          config.left || window.innerWidth / -2,
-          config.right || window.innerWidth / 2,
-          config.top || window.innerHeight / -2,
-          config.bottom || window.innerHeight / 2,
+          config.left || -1 * width / 2,
+          config.right || width / 2,
+          config.top || height / 2,
+          config.bottom || -1 * height / 2,
           config.near || 0.1,
           config.far || 1000
         );
