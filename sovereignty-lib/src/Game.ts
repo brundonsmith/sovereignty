@@ -12,8 +12,8 @@ export default class Game {
 
   private activeScene: number = 0;
   private scenes: Array<GameScene> = [];
-
   public static prefabs: Array<any> = [];
+  public static materials: Array<any> = [];
   public static componentTypes: Array<any> = componentsArray;
 
   private renderer: WebGLRenderer = new WebGLRenderer();
@@ -21,12 +21,18 @@ export default class Game {
   private lastUpdate: number = Date.now();
 
   constructor(config: {[key: string]: any}) {
+    console.log(config);
     console.log(this);
 
     document.title = config.game.title || '';
 
     // initialize from config
     Game.componentTypes = Game.componentTypes.concat(Object.values(config.components));
+    Object.entries(config.materials).forEach(entry =>
+      Game.materials.push({
+        ...entry[1],
+        ...{name: entry[0]}
+      }));
     Object.entries(config.prefabs).forEach(entry =>
       Game.prefabs.push({
         ...entry[1],

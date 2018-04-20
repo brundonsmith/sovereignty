@@ -11,6 +11,11 @@ function build(projectDir, outputDir, targets = []) {
 
   recursive(projectDir, (err, files) => {
 
+    var duplicateFile = files.find((file, index) => files.findIndex(otherFile => path.basename(otherFile) === path.basename(file)) !== index);
+    if(duplicateFile) {
+      console.warn(`There's more than one file named ${duplicateFile}. Sovereignty uses the file name to identify a resource when it's referenced from somewhere else, so you can't have duplicates, even in different directories.`)
+    }
+
     var fileInfo = files.map(fullPath => {
 
       let name = path.basename(fullPath);
@@ -39,6 +44,12 @@ function build(projectDir, outputDir, targets = []) {
                     }));
     var prefabs = fileInfo
                     .filter(file => file.extension.toLowerCase().includes('.prefab'))
+                    .map(file => ({
+                      name: file.name,
+                      json: fs.readFileSync(file.fullPath)
+                    }));
+    var materials = fileInfo
+                    .filter(file => file.extension.toLowerCase().includes('.material'))
                     .map(file => ({
                       name: file.name,
                       json: fs.readFileSync(file.fullPath)
@@ -73,6 +84,9 @@ function build(projectDir, outputDir, targets = []) {
           },
           prefabs: {
         ${prefabs.map(prefab => `"${prefab.name}": ${prefab.json}`).join(',\n')},
+          },
+          materials: {
+        ${materials.map(material => `"${material.name}": ${material.json}`).join(',\n')},
           },
           components: {
         ${components.map(component => `"${component.name}": ${component.name}`).join(',\n')},
