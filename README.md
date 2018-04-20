@@ -19,46 +19,41 @@ That said, it also has some great ideas:
 This project aims to, as much as possible, solve the issues while maintaining or expanding upon the desirable features.
 
 ## General structure
-The engine consists of two main pieces - the library and the runner - which are combined with a third piece - your project - to create a standalone game. The runner is optional.
+The engine consists of two main pieces - the library and the builder - which are combined with a third piece - your project - to create a standalone game. The builder is optional; its purpose is to allow people to assemble projects with nothing but data and code, without having an intimate understanding of the JavaScript ecosystem's build tools like webpack.
 
 #### 1. The Library
-This is the core of the engine (`src/library/`). **You can use only this, if you are building for a web page or if you have a custom target platform/configuration.** It exposes two classes: `Game` and `Component`. Your custom components will extend `Component`. To start the game, you will create a new instance of `Game` and pass it your project data (more details in the "The Project" section below), and then call `game.start()`, optionally specifying an HTML element in which to mount your game.
+This is the core of the engine (`sovereignty-lib/`). **You can use only this, if you are building for a web page or if you have a custom target platform/configuration.** It exposes three classes: `Game`, `Input`, and `Component`. Your custom components will extend `Component`. To start the game, you will create a new instance of `Game` and pass it your project data (more details in the "The Project" section below), and then call `game.start()`, optionally specifying an HTML element in which to mount your game. `Input` is a helper system for writing more loop-friendly input handling code.
 
-#### 2. The Runner (optional)
-The "runner" (`src/runner/`) exists to make it easier to build standalone desktop apps. Given your project entry point (the place where your project data is exported), it creates an Electron window, loads, and bootstraps your project inside of it. Eventually there may be a separate runner for mobile devices.
+Note that, for maximum flexibility, the built version of the library (`sovereignty-lib/index.js`) will globally declare its public classes on the `window` object, in addition to exporting them module-style. This means you can import it as part of a build, or just drop it in a script tag on your HTML page. The builder handles all this, if you're using it.
+
+#### 2. The Builder (optional)
+The "builder" (`sovereignty-builder/`) exists to make it easier to build your project, including standalone desktop apps and eventually mobile apps, without knowledge of JavaScript's famously-complicated build tools. Given your project directory, it produces a `build/` directory within it containing various kinds of builds.
+
+The builder can be run from the command line or as a JavaScript function from node.js code. The command line interface takes the following arguments:
+
+- `--projectDir=./foo/bar/` This is the only required argument. It specifies the directory that contains all your project files.
+- `--outputDir=./foo-build/` This optionally lets you specify a destination for build output. Defaults to `<projectDir>/build/`.
+- `--linux --win32 --windows --darwin --mas --osx --mac --macos --all` A web-ready build is created by default. Each of these options can specify an additional build target; you can mix and match them. `--all` will create builds for every known target.
 
 #### 3. The Project
-This is the part you write. All that Sovereignty cares about is that it's a JavaScript (or JSON) object which contains the things the engine is looking for. Obviously for a real project you'll want to split things up into multiple files and do a build with something like webpack, but you aren't required to.
+This is the part you create. Sovereignty will search this directory and all its subdirectories for the following files:
 
-Here's the base structure:
-```javascript
-{
-  game: { ... },
-  scenes: [ ... ],
-  prefabs: [ ... ],
-  components: [ ... ]
-}
-```
+- `Game.json`: A single configuration object which sets global properties like title, resolution, FPS, etc.
+- `*.scene.json`: The meat of your game, each scene is a distinct, infinite space (think of them as levels) which contains a collection of `GameObject`s.
+- `*.prefab.json`: Each of these represents a `GameObject` that you want to share between scenes, use multiple times, or just store as separate files for organization purposes. Objects inside scenes can extend a prefab, and even override specific aspects of them to create variations.
+- `*.js`: Every `.js` file is assumed to be a Component. These encompass all of your custom programming (scripting) logic. They are the only things in a project that are not static data. Each custom component is a class that extends `Component` and can interact with its object's other components and/or other objects in the scene, via "hooks" (methods), to create custom behavior.
 
-**That's the whole game.**
-
-- **game**: A single configuration object which sets global properties like title, resolution, FPS, etc.
-- **scenes**: The meat of your game, each scene is a distinct, infinite space (think of them as levels) which contains a collection of `GameObject`s.
-- **prefabs**: A collection of `GameObject`s that you want to share between scenes, use multiple times, or just store as separate files for organization purposes. Objects inside scenes can extend a prefab, and even override specific aspects of them to create variations.
-- **components**: These encompass all of your custom programming (scripting) logic. They are the only things exported from a project that are not static data. Each custom component is a class that extends `Component` and can interact with its object's other components and/or other objects in the scene, via "hooks" (methods), to create custom behavior.
-
-True documentation for these structures is forthcoming. For now, you can look under `example-project/` to see examples of most of what's been implemented.
+True documentation for these data structures is forthcoming. For now, you can look under `example-project/` to see examples of most of what's been implemented.
 
 ## Roadmap
 #### In progress/planned
 - Audio support
 - Particle effects
-- Materials/Shaders
 - Gamepad support
-- Unified Vector and Quaternion (threejs and cannonjs have their own implementations of each...)
-- Automatic wireframes for visualizing colliders
+- Fix for rotation weirdness
+- Unified Vector and Quaternion strategy (threejs and cannonjs have their own implementations of each...)
 - Prefab inheritance
-- Making standalone builds
+- Making standalone builds (they can currently be built but I can't get them to run yet without crashing)
 - Documentation, especially for configuration-object data structures
 - Full exported TypeScript types for exported classes
 - Networking features
