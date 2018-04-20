@@ -41,6 +41,7 @@ This is the part you create. Sovereignty will search this directory and all its 
 - `Game.json`: A single configuration object which sets global properties like title, resolution, FPS, etc.
 - `*.scene.json`: The meat of your game, each scene is a distinct, infinite space (think of them as levels) which contains a collection of `GameObject`s.
 - `*.prefab.json`: Each of these represents a `GameObject` that you want to share between scenes, use multiple times, or just store as separate files for organization purposes. Objects inside scenes can extend a prefab, and even override specific aspects of them to create variations.
+- `*.material.json`: Each represents a three.js material. Has two properties: `type` which is the type of material (i.e. for `THREE.MeshStandardMaterial` you'd have `"type": "MeshStandard"`), and `parameters` which is the parameter object passed to the material (see the [docs](https://threejs.org/docs/#api/materials/Material) for more details).
 - `*.js`: Every `.js` file is assumed to be a Component. These encompass all of your custom programming (scripting) logic. They are the only things in a project that are not static data. Each custom component is a class that extends `Component` and can interact with its object's other components and/or other objects in the scene, via "hooks" (methods), to create custom behavior.
 
 True documentation for these data structures is forthcoming. For now, you can look under `example-project/` to see examples of most of what's been implemented.
