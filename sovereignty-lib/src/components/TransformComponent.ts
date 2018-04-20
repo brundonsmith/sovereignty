@@ -42,7 +42,7 @@ export default class TransformComponent extends Component {
     if(config.rotation) {
       this.rotation = new Euler(config.rotation.x || 0, config.rotation.y || 0, config.rotation.z || 0, 'YZX');
     } else {
-      this.rotation = new Euler(0, 0, 0);
+      this.rotation = new Euler(0, 0, 0, 'YZX');
     }
 
     if(config.scale) {
@@ -65,7 +65,7 @@ export default class TransformComponent extends Component {
   private applyTo(threeObject: Object3D) {
     threeObject.position.x = this.position.x;
     threeObject.position.y = this.position.y;
-    threeObject.position.z = this.position.z;
+    threeObject.position.z = -1 * this.position.z;
 
     threeObject.rotation.x = this.rotation.x;
     threeObject.rotation.y = this.rotation.y;

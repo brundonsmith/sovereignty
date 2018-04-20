@@ -1,5 +1,5 @@
 
-import { Scene, Renderer, Camera } from 'three';
+import { Scene, Renderer, Camera, AxesHelper } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
 
 import GameObject from 'GameObject';
@@ -25,6 +25,8 @@ export default class GameScene {
     this.cannonWorld.gravity.set(0, -9.82, 0);
     this.cannonWorld.broadphase = new NaiveBroadphase();
     this.cannonWorld.solver.iterations = 15;
+
+    this.threeScene.add(new AxesHelper( 5 ))
   }
 
   public createGameObject(config: {[key: string]: any}): GameObject {

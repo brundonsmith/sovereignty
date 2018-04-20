@@ -38,7 +38,6 @@ export default class CameraComponent extends Component {
   }
 
   public initialize(scene: GameScene): void {
-    this.threeCamera.rotation.y += Math.PI;
     this.transform.threeGroup.add(this.threeCamera);
   }
 
