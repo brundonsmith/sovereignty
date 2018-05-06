@@ -15,9 +15,10 @@ import BoxColliderComponent from './colliders/BoxColliderComponent';
 import RigidbodyComponent from 'components/RigidbodyComponent';
 import KeyboardMoveComponent from 'components/KeyboardMoveComponent';
 import SpriteComponent from 'components/SpriteComponent';
+import ParticleSystemComponent from 'components/ParticleSystemComponent';
 
 export default [ Component, TransformComponent, CameraComponent, LightComponent,
   MeshComponent, PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, RigidbodyComponent,
-  KeyboardMoveComponent, SpriteComponent ];
+  KeyboardMoveComponent, SpriteComponent, ParticleSystemComponent ];
