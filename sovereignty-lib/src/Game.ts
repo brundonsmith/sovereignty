@@ -32,11 +32,22 @@ export default class Game {
         ...entry[1],
         ...{name: entry[0]}
       }));
-    Object.entries(config.prefabs).forEach(entry =>
-      Game.prefabs.push({
+    Object.entries(config.prefabs).forEach(entry => {
+      let prefab: any = {
         ...entry[1],
         ...{name: entry[0]}
-      }));
+      };
+
+      if(exists(prefab.extends)) {
+        if(exists(config.prefabs[prefab.extends])) {
+          Object.assign(prefab, config.prefabs[prefab.extends])
+        } else {
+          console.warn(`Prefab "${prefab.name}" tried to extend prefab "${prefab.extends}", which doesn't exist`)
+        }
+      }
+
+      Game.prefabs.push(prefab);
+    });
     Object.entries(config.scenes).forEach(entry => this.createScene({
       ...entry[1],
       ...{name: entry[0]}

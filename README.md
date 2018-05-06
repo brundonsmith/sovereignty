@@ -54,7 +54,6 @@ True documentation for these data structures is forthcoming. For now, you can lo
 - Gamepad support
 - Fix for rotation weirdness
 - Unified Vector and Quaternion strategy (threejs and cannonjs have their own implementations of each...)
-- Prefab inheritance
 - Making standalone builds (they can currently be built but I can't get them to run yet without crashing)
 - Documentation, especially for configuration-object data structures
 - Full exported TypeScript types for exported classes
