@@ -34,14 +34,6 @@
     {
       "name": "Ground",
       "extends": "Floor"
-    },
-    {
-      "name": "MyParticles",
-      "components": {
-        "ParticleSystem": {
-
-        }
-      }
     }
   ]
 }

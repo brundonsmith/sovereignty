@@ -6,7 +6,7 @@
         "Transform": {
           "position": {
             "y": 5,
-            "z": 100
+            "z": 50
           }
         },
         "Camera": {

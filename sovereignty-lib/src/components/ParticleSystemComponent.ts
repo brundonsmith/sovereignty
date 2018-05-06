@@ -39,7 +39,7 @@ export default class ParticleSystemComponent extends Component {
   // particles
   public particleOptions: ParticleOptions = new ParticleOptions();
 
-  private timePassed: number;
+  private timePassed: number = 0;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
@@ -61,6 +61,10 @@ export default class ParticleSystemComponent extends Component {
       this.spawnRate = config.verticalSpeed;
     }
 
+    if(exists(config.particleOptions) && typeof config.particleOptions.color === 'string') {
+      config.particleOptions.color = parseInt(config.particleOptions.color);
+    }
+
     Object.assign(this.particleOptions, config.particleOptions);
 
 
@@ -79,8 +83,6 @@ export default class ParticleSystemComponent extends Component {
       particleTexture,
       noiseTexture
     });
-
-    this.timePassed = 0;
   }
 
   public initialize(scene: GameScene): void {
@@ -88,13 +90,8 @@ export default class ParticleSystemComponent extends Component {
   }
 
   public update(timeDelta: number): void {
-    let particleSystemDelta = timeDelta * this.timeScale;
+    let particleSystemDelta = timeDelta / 1000 * this.timeScale;
     this.timePassed += particleSystemDelta;
-
-    // NOTE: For testing only
-    this.particleOptions.position.x = Math.sin( this.timePassed * this.horizontalSpeed ) * 20;
-		this.particleOptions.position.y = Math.sin( this.timePassed * this.verticalSpeed ) * 10;
-		this.particleOptions.position.z = Math.sin( this.timePassed * this.horizontalSpeed + this.verticalSpeed ) * 5;
 
 		for(let i = 0; i < this.spawnRate * particleSystemDelta; i++ ) {
 			this.threeParticleSystem.spawnParticle(this.particleOptions);
