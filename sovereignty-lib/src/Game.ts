@@ -8,7 +8,6 @@ import Input from './Input';
 import components from 'components';
 
 function handleCanvasClick(e) {
-  console.log('handleCanvasClick()');
   (<HTMLElement>e.target).requestPointerLock();
 }
 

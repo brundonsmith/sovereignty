@@ -15,7 +15,7 @@ export default class TransformComponent extends Component {
   public threeGroup: Group = new Group();
 
   public get forward(): Vector3 {
-    return new Vector3(0, 0, 1).applyEuler(this.rotation);
+    return new Vector3(0, 0, -1).applyEuler(this.rotation);
   }
 
   public get up(): Vector3 {
@@ -63,17 +63,9 @@ export default class TransformComponent extends Component {
   }
 
   private applyTo(threeObject: Object3D) {
-    threeObject.position.x = this.position.x;
-    threeObject.position.y = this.position.y;
-    threeObject.position.z = this.position.z;
-
-    threeObject.rotation.x = this.rotation.x;
-    threeObject.rotation.y = this.rotation.y;
-    threeObject.rotation.z = this.rotation.z;
-
-    threeObject.scale.x = this.scale.x;
-    threeObject.scale.y = this.scale.y;
-    threeObject.scale.z = this.scale.z;
+    threeObject.position.copy(this.position);
+    threeObject.rotation.copy(this.rotation);
+    threeObject.scale.copy(this.scale);
   }
 
 }

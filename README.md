@@ -52,7 +52,7 @@ True documentation for these data structures is forthcoming. For now, you can lo
 - `.obj` file import
 - Post-processing effects
 - Gamepad support
-- Fix for rotation weirdness
+- Skyboxes
 - Unified Vector and Quaternion strategy (threejs and cannonjs have their own implementations of each...)
 - Making standalone builds (they can currently be built but I can't get them to run yet without crashing)
 - Documentation, especially for configuration-object data structures

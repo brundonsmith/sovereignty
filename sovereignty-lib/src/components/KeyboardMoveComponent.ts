@@ -1,4 +1,4 @@
-import { Light, PointLight, PerspectiveCamera, Scene } from 'three';
+import { Light, PointLight, PerspectiveCamera, Scene, Math as ThreeMath } from 'three';
 import { World } from 'cannon';
 
 import GameObject from 'GameObject';
@@ -11,6 +11,7 @@ export default class KeyboardMoveComponent extends Component {
 
   public moveSpeed: number = 5;
   public turnSpeed: number = 1;
+  public lookLimit = Math.PI / 4;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
@@ -23,40 +24,40 @@ export default class KeyboardMoveComponent extends Component {
 
     if(Input.keyDown('w')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
+        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
+      } else {
+        this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
+      }
+    }
+    if(Input.keyDown('s')) {
+      if(this.gameObject.hasComponent(RigidbodyComponent)) {
         this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(-1 * moveDelta));
       } else {
         this.transform.position.add(this.transform.forward.multiplyScalar(-1 * moveDelta));
       }
     }
 
-    if(Input.keyDown('s')) {
+    if(Input.keyDown('a')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
+        this.rigidbody.applyImpulse(this.transform.right.multiplyScalar(-1 * moveDelta));
       } else {
-        this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
+        this.transform.position.add(this.transform.right.multiplyScalar(-1 * moveDelta));
+      }
+    }
+    if(Input.keyDown('d')) {
+      if(this.gameObject.hasComponent(RigidbodyComponent)) {
+        this.rigidbody.applyImpulse(this.transform.right.multiplyScalar(moveDelta));
+      } else {
+        this.transform.position.add(this.transform.right.multiplyScalar(moveDelta));
       }
     }
 
     this.transform.rotation.y -= Input.mouseDeltaX() * turnDelta;
-    this.transform.rotation.x -= Input.mouseDeltaY() * turnDelta;
-
-    /*
-    if(Input.keyDown('ArrowRight')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        //TODO this.rigidbody.cannonBody.applyImpulse(forwardVec3.scale(-1 * delta));
-      } else {
-        this.transform.rotation.y -= turnDelta;
-      }
-    }
-
-    if(Input.keyDown('ArrowLeft')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        //TODO this.rigidbody.cannonBody.applyImpulse(forwardVec3.scale(-1 * delta));
-      } else {
-        this.transform.rotation.y += turnDelta;
-      }
-    }
-    */
+    this.transform.rotation.x = ThreeMath.clamp(
+                                  this.transform.rotation.x - Input.mouseDeltaY() * turnDelta,
+                                  this.lookLimit * -1,
+                                  this.lookLimit
+                                );
   }
 
 
