@@ -13,7 +13,8 @@
     "@types/node": "^9.6.2",
     "@types/three": "^0.91.3",
     "cannon": "^0.6.2",
-    "three": "^0.91.0"
+    "three": "^0.91.0",
+    "three-gltf2-loader": "^1.2.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

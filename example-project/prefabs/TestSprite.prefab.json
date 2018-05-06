@@ -1,7 +1,7 @@
 {
   "components": {
     "Sprite": {
-      "texture": "assets/textures/sprite1.png"
+      "texture": "assets/sprites/sprite1.png"
     },
     "SpriteController": { }
   }

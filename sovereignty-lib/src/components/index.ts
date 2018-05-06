@@ -17,8 +17,7 @@ import KeyboardMoveComponent from 'components/KeyboardMoveComponent';
 import SpriteComponent from 'components/SpriteComponent';
 
 export default [ Component, TransformComponent, CameraComponent, LightComponent,
-  MeshComponent,
-  PrimitiveMeshComponent, HeightmapMeshComponent,
+  MeshComponent, PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, RigidbodyComponent,
   KeyboardMoveComponent, SpriteComponent ];

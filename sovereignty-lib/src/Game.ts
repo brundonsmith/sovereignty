@@ -6,7 +6,6 @@ import GameObject from 'GameObject';
 import Input from './Input';
 
 import components from 'components';
-var componentsArray = Object.values(components);
 
 export default class Game {
 
@@ -14,7 +13,7 @@ export default class Game {
   private scenes: Array<GameScene> = [];
   public static prefabs: Array<any> = [];
   public static materials: Array<any> = [];
-  public static componentTypes: Array<any> = componentsArray;
+  public static componentTypes: Array<any> = components;
 
   private renderer: WebGLRenderer = new WebGLRenderer();
 

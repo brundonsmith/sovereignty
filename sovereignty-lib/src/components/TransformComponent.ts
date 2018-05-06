@@ -67,7 +67,7 @@ export default class TransformComponent extends Component {
     threeObject.position.y = this.position.y;
     threeObject.position.z = -1 * this.position.z;
 
-    threeObject.rotation.x = this.rotation.x;
+    threeObject.rotation.x = -1 * this.rotation.x;
     threeObject.rotation.y = this.rotation.y;
     threeObject.rotation.z = this.rotation.z;
 
