@@ -49,7 +49,6 @@ True documentation for these data structures is forthcoming. For now, you can lo
 ## Roadmap
 #### In progress/planned
 - Audio support
-- Particle effects
 - `.obj` file import
 - Gamepad support
 - Fix for rotation weirdness
