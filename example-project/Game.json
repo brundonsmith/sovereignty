@@ -1,5 +1,6 @@
 {
   "title": "My Game",
-  "initialScene": "Particles",
-  "assetsDir": "assets"
+  "initialScene": "FallingBox",
+  "assetsDir": "assets",
+  "captureCursor": true
 }

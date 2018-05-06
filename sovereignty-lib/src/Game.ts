@@ -7,6 +7,11 @@ import Input from './Input';
 
 import components from 'components';
 
+function handleCanvasClick(e) {
+  console.log('handleCanvasClick()');
+  (<HTMLElement>e.target).requestPointerLock();
+}
+
 export default class Game {
 
   private activeScene: number = 0;
@@ -18,6 +23,20 @@ export default class Game {
   private renderer: WebGLRenderer = new WebGLRenderer();
 
   private lastUpdate: number = Date.now();
+
+  public get captureCursor(): boolean {
+    return this._captureCursor;
+  }
+  public set captureCursor(val: boolean) {
+    this._captureCursor = val;
+    if(val === true) {
+      this.renderer.domElement.addEventListener('click', handleCanvasClick);
+    } else {
+      this.renderer.domElement.removeEventListener('click', handleCanvasClick);
+      document.exitPointerLock();
+    }
+  }
+  private _captureCursor: boolean = false;
 
   constructor(config: {[key: string]: any}) {
     console.log(config);
@@ -65,6 +84,8 @@ export default class Game {
     // set up renderer
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;
+
+    this.captureCursor = config.game.captureCursor;
   }
 
   public createScene(config: {[key: string]: any}): GameScene {

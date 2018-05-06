@@ -14,8 +14,8 @@ class Input {
   private mouseStateX: number = window.innerWidth / 2;
   private mouseStateY: number = window.innerHeight / 2;
 
-  private prevMouseStateX: number = window.innerWidth / 2;
-  private prevMouseStateY: number = window.innerHeight / 2;
+  private mouseMovementX: number = window.innerWidth / 2;
+  private mouseMovementY: number = window.innerHeight / 2;
 
   private keyState: {[key: string]: Symbol} = {};
   private justPressed: Array<string> = [];
@@ -25,6 +25,8 @@ class Input {
     window.addEventListener('mousemove', (e) => {
       this.mouseStateX = e.clientX;
       this.mouseStateY = e.clientY;
+      this.mouseMovementX = e.movementX;
+      this.mouseMovementY = e.movementY;
     })
     window.addEventListener('keydown', (e) => {
       if(!this.keyDown(e.key)) {
@@ -60,8 +62,8 @@ class Input {
       }
     })
 
-    this.prevMouseStateX = this.mouseStateX;
-    this.prevMouseStateY = this.mouseStateY;
+    this.mouseMovementX = 0;
+    this.mouseMovementY = 0;
   }
 
   public keyDown(key: string): boolean {
@@ -85,7 +87,7 @@ class Input {
   }
 
   public mouseDeltaX(): number {
-    return this.mouseStateX - this.prevMouseStateX;
+    return this.mouseMovementX;
   }
 
   public mouseY(): number {
@@ -93,7 +95,7 @@ class Input {
   }
 
   public mouseDeltaY(): number {
-    return this.mouseStateY - this.prevMouseStateY;
+    return this.mouseMovementY;
   }
 
 }

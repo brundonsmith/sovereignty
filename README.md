@@ -50,6 +50,7 @@ True documentation for these data structures is forthcoming. For now, you can lo
 #### In progress/planned
 - Audio support
 - `.obj` file import
+- Post-processing effects
 - Gamepad support
 - Fix for rotation weirdness
 - Unified Vector and Quaternion strategy (threejs and cannonjs have their own implementations of each...)

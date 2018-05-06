@@ -27,7 +27,9 @@
         },
         "PrimitiveMesh": {
           "shape": "sphere",
-          "material": "Material1"
+          "material": "Material1",
+          "widthSegments": 32,
+          "heightSegments": 32
         }
       }
     }

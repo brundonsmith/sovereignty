@@ -23,22 +23,22 @@ export default class KeyboardMoveComponent extends Component {
 
     if(Input.keyDown('w')) {
       if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
-      } else {
-        this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
-      }
-    }
-
-    if(Input.keyDown('s')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
         this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(-1 * moveDelta));
       } else {
         this.transform.position.add(this.transform.forward.multiplyScalar(-1 * moveDelta));
       }
     }
 
+    if(Input.keyDown('s')) {
+      if(this.gameObject.hasComponent(RigidbodyComponent)) {
+        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
+      } else {
+        this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
+      }
+    }
+
     this.transform.rotation.y -= Input.mouseDeltaX() * turnDelta;
-    this.transform.rotation.x += Input.mouseDeltaY() * turnDelta;
+    this.transform.rotation.x -= Input.mouseDeltaY() * turnDelta;
 
     /*
     if(Input.keyDown('ArrowRight')) {
