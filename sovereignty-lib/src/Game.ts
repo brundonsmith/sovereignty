@@ -84,6 +84,7 @@ export default class Game {
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;
 
+
     this.captureCursor = config.game.captureCursor;
   }
 

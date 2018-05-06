@@ -1,7 +1,7 @@
 import { Material, Mesh, Scene, Vector3, TextureLoader, RepeatWrapping } from 'three';
 import { World } from 'cannon';
 
-import { GPUParticleSystem, GPUParticleContainer } from '../GPUParticleSystem';
+import { GPUParticleSystem, GPUParticleContainer } from '../three-plugins/GPUParticleSystem';
 
 import { exists } from '../utils';
 import GameScene from 'GameScene';

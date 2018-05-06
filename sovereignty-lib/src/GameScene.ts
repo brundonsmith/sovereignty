@@ -1,7 +1,10 @@
 
-import { Scene, Renderer, Camera, AxesHelper } from 'three';
+import { Scene, Renderer, Camera, AxesHelper, PerspectiveCamera, OrthographicCamera } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
 
+import Sky from './three-plugins/Sky';
+
+import { exists } from 'utils';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
 import CameraComponent from 'components/CameraComponent';
@@ -18,13 +21,39 @@ export default class GameScene {
   public allGameObjects: Array<GameObject> = [];
 
   public activeCamera: Camera | undefined;
+  public sky: any | undefined;
 
   constructor(config: {[key: string]: any}) {
     this.name = config.name;
-    config.objects.forEach(objectConfig => this.createGameObject(objectConfig))
+    config.objects.forEach(objectConfig => {
+      let newObject = this.createGameObject(objectConfig);
+      if(newObject.hasComponent(CameraComponent)) {
+        this.activeCamera = (<CameraComponent> newObject.getComponent(CameraComponent)).threeCamera;
+      }
+    })
     this.cannonWorld.gravity.set(0, -9.82, 0);
     this.cannonWorld.broadphase = new NaiveBroadphase();
     this.cannonWorld.solver.iterations = 15;
+
+    if(exists(config.sky)) {
+      if(typeof config.sky === 'string') {
+        // TODO: Load texture
+      } else if(typeof config.sky === 'object') {
+        let cameraFar;
+        if(exists(this.activeCamera)) {
+          if(this.activeCamera instanceof PerspectiveCamera) {
+            cameraFar = (<PerspectiveCamera>this.activeCamera).far;
+          } else if(this.activeCamera instanceof OrthographicCamera) {
+            cameraFar = (<OrthographicCamera>this.activeCamera).far;
+          }
+        }
+        config.sky.distance = config.sky.distance || cameraFar - 1 || 1000;
+        console.log(config.sky.distance)
+        this.sky = new Sky(config.sky);
+        this.threeScene.add(this.sky);
+      	this.sky.scale.setScalar(config.sky.distance);
+      }
+    }
 
     this.threeScene.add(new AxesHelper( 5 ))
   }
