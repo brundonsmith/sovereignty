@@ -86,14 +86,21 @@ export default class ParticleSystemComponent extends Component {
   }
 
   public initialize(scene: GameScene): void {
-    this.transform.threeGroup.add(this.threeParticleSystem);
+    // NOTE: Unlike other components, the transform is applied to the particle
+    // position instead of putting the whole system directly in the transform
+    // group
+    scene.threeScene.add(this.threeParticleSystem);
   }
 
   public update(timeDelta: number): void {
+    this.particleOptions.position.x = this.transform.position.x;
+    this.particleOptions.position.y = this.transform.position.y;
+    this.particleOptions.position.z = this.transform.position.z;
+
     let particleSystemDelta = timeDelta / 1000 * this.timeScale;
     this.timePassed += particleSystemDelta;
 
-		for(let i = 0; i < this.spawnRate * particleSystemDelta; i++ ) {
+		for(let i = 0; i < this.spawnRate * timeDelta; i++ ) {
 			this.threeParticleSystem.spawnParticle(this.particleOptions);
 		}
     this.threeParticleSystem.update(this.timePassed);

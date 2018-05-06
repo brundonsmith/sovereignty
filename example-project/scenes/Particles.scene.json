@@ -5,8 +5,8 @@
       "components": {
         "Transform": {
           "position": {
-            "y": 5,
-            "z": 50
+            "y": 0,
+            "z": 100
           }
         },
         "Camera": {
@@ -35,7 +35,8 @@
     				"size": 5,
     				"sizeRandomness": 1
     			}
-        }
+        },
+        "ParticleZoomer": { }
       }
     }
   ]
