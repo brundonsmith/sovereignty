@@ -2,7 +2,7 @@ import { Scene, Vector3, Euler } from 'three';
 //@ts-ignore
 import { Body, World, Quaternion, Vec3, Material } from 'cannon';
 
-import { toCannonVector, toThreeVector, toThreeQuaternion } from '../utils';
+import { exists, toCannonVector, toThreeVector, toThreeQuaternion } from '../utils';
 import GameScene from 'GameScene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
@@ -34,7 +34,7 @@ export default class RigidbodyComponent extends Component {
       quaternion: quaternion,
       fixedRotation: config.fixedRotation,
       material: new Material({
-        friction: 0//config.friction
+        friction: exists(config.friction) ? config.friction : 0.3
       })
     })
     collider.cannonShapes.forEach((shape, index) =>
