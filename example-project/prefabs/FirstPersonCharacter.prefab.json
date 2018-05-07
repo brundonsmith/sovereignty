@@ -7,7 +7,9 @@
       "fixedRotation": true,
       "friction": 0
     },
-    "FirstPersonController": { }
+    "FirstPersonController": {
+      "launchCooldown": 0.1
+    }
   },
   "children": [
     {
@@ -28,7 +30,7 @@
             },
             "Launcher": {
               "projectile": "BallProjectile",
-              "launchVelocity": 20000
+              "launchVelocity": 30
             }
           },
           "children": [

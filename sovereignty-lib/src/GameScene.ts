@@ -1,7 +1,7 @@
 
 import { Scene, Renderer, Camera, AxesHelper, PerspectiveCamera,
   OrthographicCamera, MeshBasicMaterial, BoxGeometry, TextureLoader, BackSide,
-  Mesh } from 'three';
+  Mesh, AmbientLight } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
 
 import Sky from './three-plugins/Sky';
@@ -48,6 +48,7 @@ export default class GameScene {
       this.createSkybox(config.sky);
     }
 
+    this.threeScene.add(new AmbientLight(parseInt(config.ambientColor || 0x404040)));
     this.threeScene.add(new AxesHelper( 5 ))
   }
 

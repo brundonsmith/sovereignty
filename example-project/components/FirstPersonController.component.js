@@ -4,15 +4,19 @@ class FirstPersonController extends Component {
   constructor(config, gameObject) {
     super(config, gameObject);
 
-    this.moveSpeed = config.moveSpeed || 500;
+    this.moveSpeed = config.moveSpeed || 10;
     this.turnSpeed = config.turnSpeed || 1;
     this.lookLimit = config.lookLimit || Math.PI / 4;
-    this.jumpForce = config.jumpForce || 200;
+    this.jumpForce = config.jumpForce || 10;
+    this.launchCooldown = config.launchCooldown || 1;
+
+    // private
+    this.lastLaunch = 0;
   }
 
   update(timeDelta) {
-    var moveDelta = this.moveSpeed * timeDelta / 1000;
-    var turnDelta = this.turnSpeed * timeDelta / 1000;
+    let timeDeltaSeconds = timeDelta / 1000;
+    var turnDelta = this.turnSpeed * timeDeltaSeconds;
 
     if(Input.keyPressed(' ')) {
       this.rigidbody.applyImpulse(new THREE.Vector3(0, this.jumpForce, 0), new THREE.Vector3(0, 0, 0));
@@ -32,7 +36,7 @@ class FirstPersonController extends Component {
       movement.add(this.transform.left);
     }
     movement.normalize();
-    movement.multiplyScalar(moveDelta);
+    movement.multiplyScalar(this.moveSpeed);
 
     this.rigidbody.cannonBody.velocity.x = movement.x;
     this.rigidbody.cannonBody.velocity.z = movement.z;
@@ -50,9 +54,10 @@ class FirstPersonController extends Component {
                                   );
 
 
-    if(Input.mouseButtonDown(0) && Math.random() < 0.2) {
+    if(Input.mouseButtonDown(0) && Date.now() - this.lastLaunch > this.launchCooldown * 1000) {
       let launcher = camera.children.find(child => child.name === 'Launcher');
       launcher.getComponent(Launcher).fire();
+      this.lastLaunch = Date.now();
     }
   }
 
