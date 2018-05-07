@@ -56,3 +56,5 @@ export function toThreeQuaternion(quaternion: CANNON.Quaternion): THREE.Quaterni
     return quaternion;
   }
 }
+
+(<any>window).toCannonVector = toCannonVector;

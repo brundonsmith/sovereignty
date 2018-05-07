@@ -1,6 +1,6 @@
 import { Scene, Vector3, Euler } from 'three';
 //@ts-ignore
-import { Body, World, Quaternion, Vec3 } from 'cannon';
+import { Body, World, Quaternion, Vec3, Material } from 'cannon';
 
 import { toCannonVector, toThreeVector, toThreeQuaternion } from '../utils';
 import GameScene from 'GameScene';
@@ -29,11 +29,17 @@ export default class RigidbodyComponent extends Component {
     )
 
     this.cannonBody = new Body({
-      mass: config.mass,
+      mass: config.kinematic ? 0 : (config.mass || 1),
       position: new Vec3(transform.position.x, transform.position.y, transform.position.z),
       quaternion: quaternion,
+      fixedRotation: config.fixedRotation,
+      material: new Material({
+        friction: 0//config.friction
+      })
     })
-    this.cannonBody.addShape(collider.cannonShape);
+    collider.cannonShapes.forEach((shape, index) =>
+      this.cannonBody.addShape(shape, toCannonVector(collider.cannonShapeOffsets[index]))
+    );
 
     this.cannonBody.addEventListener('collide', (e) => {
       this.gameObject.components.forEach(component => component.onCollision(e))

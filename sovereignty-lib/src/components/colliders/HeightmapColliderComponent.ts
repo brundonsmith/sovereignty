@@ -23,11 +23,11 @@ export default class HeightmapColliderComponent extends ColliderComponent {
       max = Math.max(max, point)
     }))
 
-    this.cannonShape = new Heightfield(config.data, {
+    this.cannonShapes.push(new Heightfield(config.data, {
       minValue: min,
       maxValue: max,
       elementSize: config.elementSize
-    });
+    }));
 
     if(config.showWireframe) {
       var geometry = new PlaneGeometry(

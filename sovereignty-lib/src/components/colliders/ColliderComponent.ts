@@ -1,4 +1,4 @@
-import { Scene, Mesh, MeshBasicMaterial } from 'three';
+import { Scene, Vector3, Object3D, MeshBasicMaterial } from 'three';
 //@ts-ignore
 import { Shape, World } from 'cannon';
 
@@ -7,11 +7,12 @@ import Component from 'components/Component';
 
 export default class ColliderComponent extends Component {
 
-  public cannonShape: Shape;
-  protected wireframe: Mesh | undefined;
+  public cannonShapes: Array<Shape> = [];
+  public cannonShapeOffsets: Array<Vector3> = [];
+  protected wireframe: Object3D | undefined;
 
   protected static get wireframeMaterial() {
-    return  new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+    return new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
   }
 
   public initialize(scene: GameScene): void {

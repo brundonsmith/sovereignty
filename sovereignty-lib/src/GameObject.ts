@@ -4,6 +4,7 @@ import { World } from 'cannon';
 
 import { deepMerge } from './utils';
 
+import { exists } from './utils';
 import Game from 'Game';
 import GameScene from 'GameScene';
 import Component from 'components/Component';
@@ -98,6 +99,18 @@ export default class GameObject {
       }
     }
 
+    return component;
+  }
+
+  public findComponentInChildren(type: (typeof Component)): Component | null {
+    let component: Component | null = null;
+
+    component = this.components.find(function(comp) {
+      return comp instanceof type;
+    });
+    if(!exists(component)) {
+      component = this.children.map(obj => obj.findComponentInChildren(type)).find(comp => exists(comp));
+    }
     return component;
   }
 }

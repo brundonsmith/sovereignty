@@ -7,7 +7,7 @@ import TransformComponent from 'components/TransformComponent';
 import RigidbodyComponent from 'components/RigidbodyComponent';
 import Input from 'Input';
 
-export default class KeyboardMoveComponent extends Component {
+export default class KeyboardMouseComponent extends Component {
 
   public moveSpeed: number = 5;
   public turnSpeed: number = 1;

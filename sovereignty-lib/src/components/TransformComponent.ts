@@ -1,4 +1,4 @@
-import { Vector3, Euler, Object3D, Group, Scene } from 'three';
+import { Vector3, Euler, Object3D, Group, Scene, Quaternion } from 'three';
 import { World } from 'cannon';
 
 import { exists } from '../utils';
@@ -15,15 +15,59 @@ export default class TransformComponent extends Component {
   public threeGroup: Group = new Group();
 
   public get forward(): Vector3 {
-    return new Vector3(0, 0, -1).applyEuler(this.rotation);
+    let worldQuat = new Quaternion();
+    this.threeGroup.getWorldQuaternion(worldQuat);
+    return new Vector3(0, 0, -1).applyQuaternion(worldQuat);
+  }
+
+  public get backward(): Vector3 {
+    let worldQuat = new Quaternion();
+    this.threeGroup.getWorldQuaternion(worldQuat);
+    return new Vector3(0, 0, 1).applyQuaternion(worldQuat);
   }
 
   public get up(): Vector3 {
-    return new Vector3(0, 1, 0).applyEuler(this.rotation);
+    let worldQuat = new Quaternion();
+    this.threeGroup.getWorldQuaternion(worldQuat);
+    return new Vector3(0, 1, 0).applyQuaternion(worldQuat);
+  }
+
+  public get down(): Vector3 {
+    let worldQuat = new Quaternion();
+    this.threeGroup.getWorldQuaternion(worldQuat);
+    return new Vector3(0, -1, 0).applyQuaternion(worldQuat);
   }
 
   public get right(): Vector3 {
-    return new Vector3(1, 0, 0).applyEuler(this.rotation);
+    let worldQuat = new Quaternion();
+    this.threeGroup.getWorldQuaternion(worldQuat);
+    return new Vector3(1, 0, 0).applyQuaternion(worldQuat);
+  }
+
+  public get left(): Vector3 {
+    let worldQuat = new Quaternion();
+    this.threeGroup.getWorldQuaternion(worldQuat);
+    return new Vector3(-1, 0, 0).applyQuaternion(worldQuat);
+  }
+
+  public get worldPosition(): Vector3 {
+    let worldPosition = new Vector3();
+    this.threeGroup.getWorldPosition(worldPosition);
+    return worldPosition;
+  }
+
+  public get worldRotation(): Euler {
+    let worldQuat = new Quaternion();
+    this.threeGroup.getWorldQuaternion(worldQuat);
+    let euler = new Euler();
+    euler.setFromQuaternion(worldQuat);
+    return euler;
+  }
+
+  public get worldScale(): Vector3 {
+    let worldScale = new Vector3();
+    this.threeGroup.getWorldScale(worldScale);
+    return worldScale;
   }
 
   public get isRoot(): boolean {

@@ -11,14 +11,15 @@ import PlaneColliderComponent from './colliders/PlaneColliderComponent';
 import HeightmapColliderComponent from './colliders/HeightmapColliderComponent';
 import SphereColliderComponent from './colliders/SphereColliderComponent';
 import BoxColliderComponent from './colliders/BoxColliderComponent';
+import CapsuleColliderComponent from './colliders/CapsuleColliderComponent';
 
 import RigidbodyComponent from 'components/RigidbodyComponent';
-import KeyboardMoveComponent from 'components/KeyboardMoveComponent';
+import KeyboardMouseComponent from 'components/KeyboardMouseComponent';
 import SpriteComponent from 'components/SpriteComponent';
 import ParticleSystemComponent from 'components/ParticleSystemComponent';
 
 export default [ Component, TransformComponent, CameraComponent, LightComponent,
   MeshComponent, PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
-  SphereColliderComponent, BoxColliderComponent, RigidbodyComponent,
-  KeyboardMoveComponent, SpriteComponent, ParticleSystemComponent ];
+  SphereColliderComponent, BoxColliderComponent, CapsuleColliderComponent,
+  RigidbodyComponent, KeyboardMouseComponent, SpriteComponent, ParticleSystemComponent ];

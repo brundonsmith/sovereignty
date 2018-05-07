@@ -12,11 +12,11 @@ export default class BoxColliderComponent extends ColliderComponent {
 
     config.dimensions = config.dimensions || {};
 
-    this.cannonShape = new Box(new Vec3(
+    this.cannonShapes.push(new Box(new Vec3(
       config.dimensions.x || 1,
       config.dimensions.y || 1,
       config.dimensions.z || 1
-    ));
+    )));
 
     if(config.showWireframe) {
       var geometry = new BoxGeometry(

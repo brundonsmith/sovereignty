@@ -9,7 +9,7 @@
       "showWireframe": true
     },
     "Rigidbody": {
-      "mass": 0
+      "kinematic": true
     }
   }
 }

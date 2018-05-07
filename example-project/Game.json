@@ -1,6 +1,6 @@
 {
   "title": "My Game",
-  "initialScene": "FallingBox",
+  "initialScene": "FPS",
   "assetsDir": "assets",
   "captureCursor": true
 }

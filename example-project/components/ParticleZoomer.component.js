@@ -1,7 +1,9 @@
 
 class ParticleZoomer extends Component {
 
-  initialize() {
+  constructor(config, gameObject) {
+    super(config, gameObject);
+
     this.timePassed = 0;
   }
 

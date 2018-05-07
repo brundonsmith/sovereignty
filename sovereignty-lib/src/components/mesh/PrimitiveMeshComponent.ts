@@ -29,8 +29,8 @@ export default class PrimitiveMeshComponent extends MeshComponent {
       break;
       case 'cylinder':
         this.geometry = new CylinderGeometry(
-          config.radiusTop,
-          config.radiusBottom,
+          config.radiusTop || config.radius,
+          config.radiusBottom || config.radius,
           config.height,
           config.radialSegments,
           config.heightSegments
@@ -42,6 +42,8 @@ export default class PrimitiveMeshComponent extends MeshComponent {
           config.height
         );
       break;
+      default:
+        console.error(`"${config.shape}" is not a known primitive mesh shape`)
     }
 
     this.mesh = new Mesh(this.geometry, this.material);

@@ -1,0 +1,56 @@
+{
+  "components": {
+    "Transform": { },
+    "CapsuleCollider": { },
+    "Rigidbody": {
+      "mass": 20,
+      "fixedRotation": true,
+      "friction": 0
+    },
+    "FirstPersonController": { }
+  },
+  "children": [
+    {
+      "name": "Camera",
+      "components": {
+        "Camera": { }
+      },
+      "children": [
+        {
+          "name": "Launcher",
+          "components": {
+            "Transform": {
+              "position": {
+                "x": 0.4,
+                "y": -0.3,
+                "z": -0.5
+              }
+            },
+            "Launcher": {
+              "projectile": "BallProjectile",
+              "launchVelocity": 20000
+            }
+          },
+          "children": [
+            {
+              "name": "LauncherModel",
+              "components": {
+                "Transform": {
+                  "rotation": {
+                    "x": 1.57
+                  }
+                },
+                "PrimitiveMeshComponent": {
+                  "shape": "cylinder",
+                  "radius": 0.1,
+                  "height": 1,
+                  "radialSegments": 32
+                },
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

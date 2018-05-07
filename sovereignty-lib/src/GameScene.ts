@@ -29,10 +29,17 @@ export default class GameScene {
     this.name = config.name;
     config.objects.forEach(objectConfig => {
       let newObject = this.createGameObject(objectConfig);
-      if(newObject.hasComponent(CameraComponent)) {
-        this.activeCamera = (<CameraComponent> newObject.getComponent(CameraComponent)).threeCamera;
+
+      let camera = newObject.findComponentInChildren(CameraComponent);
+      if(exists(camera)) {
+        this.activeCamera = (<CameraComponent> camera).threeCamera;
       }
     })
+
+    if(!exists(this.activeCamera)) {
+      console.warn(`Couldn't find an object in the scene with a CameraComponent. A camera is required to make anything visible onscreen.`)
+    }
+
     this.cannonWorld.gravity.set(0, -9.82, 0);
     this.cannonWorld.broadphase = new NaiveBroadphase();
     this.cannonWorld.solver.iterations = 15;
@@ -95,12 +102,9 @@ export default class GameScene {
   public update(timeDelta: number): void {
     this.cannonWorld.step(1 / 600, timeDelta / 1000, 10);
 
-    this.gameObjects.forEach((gameObject: GameObject) => {
-      gameObject.update(timeDelta);
-      if(gameObject.hasComponent(CameraComponent)) {
-        this.activeCamera = (<CameraComponent> gameObject.getComponent(CameraComponent)).threeCamera;
-      }
-    });
+    this.gameObjects.forEach((gameObject: GameObject) =>
+      gameObject.update(timeDelta)
+    );
   }
 
   public render(renderer: Renderer): void {

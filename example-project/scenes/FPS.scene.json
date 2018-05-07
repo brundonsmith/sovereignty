@@ -10,16 +10,14 @@
   },
   "objects": [
     {
-      "extends": "BasicCamera",
-      "name": "MainCamera",
+      "extends": "FirstPersonCharacter",
+      "name": "Player",
       "components": {
         "Transform": {
           "position": {
-            "y": 5,
-            "z": 15
+            "y": 5
           }
         },
-        "KeyboardMouse": {}
       }
     },
     {
