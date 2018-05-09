@@ -1,0 +1,64 @@
+{
+  "sky": {
+    "turbidity": 10,
+		"rayleigh": 2,
+		"mieCoefficient": 0.005,
+		"mieDirectionalG": 0.8,
+		"luminance": 1,
+		"inclination": 0.25,
+		"azimuth": 0.25
+  },
+  "physics": {
+  },
+  "objects": [
+    {
+      "extends": "BasicCamera",
+      "name": "MainCamera",
+      "components": {
+        "Transform": {
+          "position": {
+            "x": -8.6,
+            "y": 8.8,
+            "z": -10.1
+          },
+          "rotation": {
+            "x": -0.75,
+            "y": -134.51149999999944,
+            "z": 0
+          }
+        },
+        "KeyboardMouse": {}
+      }
+    },
+    {
+      "name": "Light1",
+      "extends": "Sun"
+    },
+    {
+      "name": "Ground",
+      "extends": "Terrain"
+    },
+    {
+      "name": "Ball",
+      "components": {
+        "Transform": {
+          "position": {
+            "y": 10
+          }
+        },
+        "SphereCollider": {
+          "heightSegments": 32,
+          "widthSegments": 32
+        },
+        "Rigidbody": {
+
+        },
+        "PrimitiveMesh": {
+          "shape": "sphere",
+          "heightSegments": 32,
+          "widthSegments": 32
+        }
+      }
+    }
+  ]
+}

@@ -27,6 +27,8 @@ export default class GameScene {
 
   constructor(config: {[key: string]: any}) {
     this.name = config.name;
+
+    // objects
     config.objects.forEach(objectConfig => {
       let newObject = this.createGameObject(objectConfig);
 
@@ -40,14 +42,22 @@ export default class GameScene {
       console.warn(`Couldn't find an object in the scene with a CameraComponent. A camera is required to make anything visible onscreen.`)
     }
 
-    this.cannonWorld.gravity.set(0, -9.82, 0);
-    this.cannonWorld.broadphase = new NaiveBroadphase();
-    this.cannonWorld.solver.iterations = 15;
-
+    // sky
     if(exists(config.sky)) {
       this.createSkybox(config.sky);
     }
 
+    // cannon world
+    config.physics = config.physics || {};
+    if(exists(config.physics.gravity)) {
+      this.cannonWorld.gravity.set(0, config.physics.gravity, 0);
+    } else {
+      this.cannonWorld.gravity.set(0, -9.82, 0);
+    }
+    this.cannonWorld.broadphase = new NaiveBroadphase();
+    this.cannonWorld.solver.iterations = 15;
+
+    // helpers
     this.threeScene.add(new AmbientLight(parseInt(config.ambientColor || 0x404040)));
     this.threeScene.add(new AxesHelper( 5 ))
   }

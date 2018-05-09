@@ -1,4 +1,4 @@
-import { Mesh, PlaneGeometry, Scene, Vector3 } from 'three';
+import { Mesh, PlaneGeometry, Scene, Vector3, Group } from 'three';
 //@ts-ignore
 import { World, Heightfield } from 'cannon';
 
@@ -30,21 +30,25 @@ export default class HeightmapColliderComponent extends ColliderComponent {
     }));
 
     if(config.showWireframe) {
-      var geometry = new PlaneGeometry(
+      let geometry = new PlaneGeometry(
         dataWidth * config.elementSize,
         dataHeight * config.elementSize,
-        dataWidth,
-        dataHeight
+        dataWidth - 1,
+        dataHeight - 1
       );
-      geometry.vertices = config.data
-        .reduce((flat, col, indexX) => flat.concat(col.map((height, indexY) =>
-          new Vector3(
-            indexX * config.elementSize - (dataWidth * config.elementSize / 2),
-            height,
-            indexY * config.elementSize - (dataHeight * config.elementSize / 2)
-          ))),
-        [])
-      this.wireframe = new Mesh(geometry, ColliderComponent.wireframeMaterial);
+
+      let mesh = new Mesh(geometry, ColliderComponent.wireframeMaterial);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      for(let i = 0; i < dataWidth * dataHeight; i++) {
+        geometry.vertices[i].z = config.data[Math.floor(i / dataHeight)][i % dataWidth];
+      }
+
+      mesh.rotateX(-1 * Math.PI / 2);
+
+      this.wireframe = new Group();
+      this.wireframe.add(mesh);
     }
   }
 

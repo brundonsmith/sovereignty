@@ -1,10 +1,16 @@
 const electron = require('electron')
 const path = require('path')
 const url = require('url')
+const fs = require('fs')
 
 const build = require('../sovereignty-builder');
 
 var win;
+
+function buildProject(e, arg) {
+  build(arg).then((outputDir) => e.sender.send('project-built', outputDir))
+}
+
 electron.app.on('ready', () => {
 
   // Create the browser window.
@@ -21,6 +27,10 @@ electron.app.on('ready', () => {
   }))
 
   electron.ipcMain.on('build-project', (e, arg) => {
-    build(arg).then((outputDir) => e.sender.send('project-built', outputDir))
+    buildProject(e, arg);
+/*
+    fs.watch(arg, { recursive: true }, () => {
+      buildProject(e, arg)
+    })*/
   })
 })
