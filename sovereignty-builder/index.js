@@ -31,7 +31,7 @@ function build(projectDir, outputDir, targets = []) {
 
       var filePathsInfo = filePaths.map(getFilePathInfo);
 
-      var duplicateFile = filePathsInfo.find((file, index) => filePaths.findIndex(otherFile => otherFile.fileName === file.fileName) !== index);
+      var duplicateFile = filePathsInfo.find((file, index) => filePathsInfo.findIndex(otherFile => otherFile.fileName === file.fileName) !== index);
       if(duplicateFile && (
           duplicateFile.fileName.toLowerCase().includes('game.json') ||
           duplicateFile.extension.toLowerCase().includes('.scene') ||
@@ -39,7 +39,10 @@ function build(projectDir, outputDir, targets = []) {
           duplicateFile.extension.toLowerCase().includes('.material') ||
           duplicateFile.extension.toLowerCase().includes('.component.js')
           )) {
-        console.warn(`There's more than one file named ${duplicateFile.fileName}. Sovereignty uses the file name to identify a resource when it's referenced from somewhere else, so you can't have duplicates, even in different directories.`)
+        let otherDuplicateFile = filePathsInfo.find((file, index) => file.fileName === duplicateFile.fileName && file.fullPath !== duplicateFile.fullPath);
+        console.warn(`There's more than one file named "${duplicateFile.fileName}". Sovereignty uses the file name to identify a resource when it's referenced from somewhere else, so you can't have duplicates, even in different directories.\n` +
+                     duplicateFile.fullPath + '\n' +
+                     otherDuplicateFile.fullPath)
       }
 
       function fileContents(filePathInfo) {
