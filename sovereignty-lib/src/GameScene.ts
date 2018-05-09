@@ -111,7 +111,7 @@ export default class GameScene {
   }
 
   public update(timeDelta: number): void {
-    this.cannonWorld.step(1 / 600, timeDelta / 1000, 10);
+    this.cannonWorld.step(1 / 60);
 
     this.gameObjects.forEach((gameObject: GameObject) =>
       gameObject.update(timeDelta)

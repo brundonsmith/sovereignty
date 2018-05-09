@@ -1,4 +1,4 @@
-import { Renderer, WebGLRenderer } from 'three';
+import { Renderer, WebGLRenderer, Clock } from 'three';
 
 import { exists } from 'utils';
 import GameScene from 'GameScene';
@@ -19,9 +19,8 @@ export default class Game {
   public static materials: Array<any> = [];
   public static componentTypes: Array<any> = components;
 
+  private clock: Clock = new Clock();
   private renderer: WebGLRenderer = new WebGLRenderer();
-
-  private lastUpdate: number = Date.now();
 
   public get captureCursor(): boolean {
     return this._captureCursor;
@@ -110,9 +109,8 @@ export default class Game {
   }
 
   private update(): void {
-    this.scenes[this.activeScene].update(Date.now() - this.lastUpdate);
+    this.scenes[this.activeScene].update(this.clock.getDelta() * 1000);
     Input.update();
-    this.lastUpdate = Date.now();
   }
 
   private render(): void {

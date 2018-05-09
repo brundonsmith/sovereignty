@@ -1,6 +1,7 @@
 {
   "components": {
-    "Transform": { },
+    "Transform": {
+    },
     "HeightmapCollider": {
       "showWireframe": true,
       "elementSize": 1,

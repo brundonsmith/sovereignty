@@ -37,9 +37,15 @@ export default class RigidbodyComponent extends Component {
         friction: exists(config.friction) ? config.friction : 0.3
       })
     })
-    collider.cannonShapes.forEach((shape, index) =>
-      this.cannonBody.addShape(shape, toCannonVector(collider.cannonShapeOffsets[index]))
-    );
+    collider.cannonShapes.forEach((shape, index) => {
+      if(exists(collider.cannonShapeEulers[index])) {
+        let quat = new Quaternion();
+        quat.setFromEuler(collider.cannonShapeEulers[index].x, collider.cannonShapeEulers[index].y, collider.cannonShapeEulers[index].z);
+        this.cannonBody.addShape(shape, toCannonVector(collider.cannonShapeOffsets[index]), quat);
+      } else {
+        this.cannonBody.addShape(shape, toCannonVector(collider.cannonShapeOffsets[index]))
+      }
+    });
 
     this.cannonBody.addEventListener('collide', (e) => {
       this.gameObject.components.forEach(component => component.onCollision(e))
