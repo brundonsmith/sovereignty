@@ -15,8 +15,8 @@ export default class SphereColliderComponent extends ColliderComponent {
     if(config.showWireframe) {
       var geometry = new SphereGeometry(
         config.radius || 1,
-        16,
-        16
+        config.widthSegments || 16,
+        config.heightSegments || 16
       );
       this.wireframe = new Mesh(geometry, ColliderComponent.wireframeMaterial);
     }

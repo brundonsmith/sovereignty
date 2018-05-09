@@ -1,0 +1,13 @@
+{
+  "components": {
+    "Transform": {
+      "rotation": {
+        "x": -0.785,
+      }
+    },
+    "Light": {
+      "type": "directional",
+      "intensity": 10
+    }
+  }
+}
