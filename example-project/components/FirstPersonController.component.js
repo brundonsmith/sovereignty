@@ -7,7 +7,7 @@ class FirstPersonController extends Component {
     this.moveSpeed = config.moveSpeed || 10;
     this.turnSpeed = config.turnSpeed || 1;
     this.lookLimit = config.lookLimit || Math.PI / 4;
-    this.jumpForce = config.jumpForce || 10;
+    this.jumpForce = config.jumpForce || 100;
     this.launchCooldown = config.launchCooldown || 1;
 
     // private
@@ -18,7 +18,7 @@ class FirstPersonController extends Component {
     let timeDeltaSeconds = timeDelta / 1000;
     var turnDelta = this.turnSpeed * timeDeltaSeconds;
 
-    if(Input.keyPressed(' ')) {
+    if(Input.keyPressed('Space')) {
       this.rigidbody.applyImpulse(new THREE.Vector3(0, this.jumpForce, 0), new THREE.Vector3(0, 0, 0));
     }
 
