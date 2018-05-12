@@ -1,6 +1,6 @@
 import { Camera, PerspectiveCamera, OrthographicCamera } from 'three';
 
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
 
@@ -37,7 +37,7 @@ export default class CameraComponent extends Component {
     }
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     this.transform.threeGroup.add(this.threeCamera);
   }
 

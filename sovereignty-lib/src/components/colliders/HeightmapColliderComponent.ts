@@ -1,4 +1,4 @@
-import { Mesh, PlaneGeometry, Scene, Vector3, Group } from 'three';
+import { Mesh, PlaneGeometry, Vector3, Group } from 'three';
 //@ts-ignore
 import { World, Heightfield } from 'cannon';
 

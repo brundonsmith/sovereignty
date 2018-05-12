@@ -1,9 +1,8 @@
-import { Light, PointLight, PerspectiveCamera, Scene, Math as ThreeMath } from 'three';
-import { World } from 'cannon';
+import { Math as ThreeMath } from 'three';
+import { } from 'cannon';
 
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
 import RigidbodyComponent from 'components/RigidbodyComponent';
 import Input from 'Input';
 

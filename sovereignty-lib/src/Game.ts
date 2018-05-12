@@ -1,8 +1,7 @@
-import { Renderer, WebGLRenderer, Clock } from 'three';
+import { WebGLRenderer, Clock } from 'three';
 
 import { exists } from 'utils';
-import GameScene from 'GameScene';
-import GameObject from 'GameObject';
+import Scene from 'Scene';
 import Input from './Input';
 
 import components from 'components';
@@ -14,7 +13,7 @@ function handleCanvasClick(e) {
 export default class Game {
 
   private activeScene: number = 0;
-  private scenes: Array<GameScene> = [];
+  private scenes: Array<Scene> = [];
   public static prefabs: Array<any> = [];
   public static materials: Array<any> = [];
   public static componentTypes: Array<any> = components;
@@ -87,8 +86,8 @@ export default class Game {
     this.captureCursor = config.game.captureCursor;
   }
 
-  public createScene(config: {[key: string]: any}): GameScene {
-    var newScene = new GameScene(config);
+  public createScene(config: {[key: string]: any}): Scene {
+    var newScene = new Scene(config);
     this.scenes.push(newScene);
     return newScene;
   }

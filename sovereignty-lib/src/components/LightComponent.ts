@@ -1,11 +1,10 @@
-import { Light, DirectionalLight, PointLight, SpotLight, Scene } from 'three';
-import { World } from 'cannon';
+import { Light, DirectionalLight, PointLight, SpotLight } from 'three';
+import { } from 'cannon';
 
 import { exists } from '../utils';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
 
 export default class LightComponent extends Component {
 
@@ -46,7 +45,7 @@ export default class LightComponent extends Component {
     }
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     this.transform.threeGroup.add(this.threeLight);
   }
 

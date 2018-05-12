@@ -1,15 +1,14 @@
-import { Geometry, BoxGeometry, Material, MeshBasicMaterial, Mesh, Scene } from 'three';
-import { World } from 'cannon';
+import { Geometry, Material, MeshStandardMaterial, Mesh } from 'three';
+import { } from 'cannon';
 import * as THREE from 'three';
 import GLTF2Loader from 'three-gltf2-loader'
 GLTF2Loader(THREE);
 
 import { exists } from 'utils';
 import Game from 'Game';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
 
 export default class MeshComponent extends Component {
 
@@ -29,7 +28,7 @@ export default class MeshComponent extends Component {
 
       this.material = new THREE[(config.material.type || 'MeshStandard') + 'Material'](config.material.parameters);
     } else {
-      this.material = new THREE.MeshStandardMaterial();
+      this.material = new MeshStandardMaterial();
     }
 
     if(exists(config.mesh)) {
@@ -41,7 +40,7 @@ export default class MeshComponent extends Component {
     }
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     this.transform.threeGroup.add(this.mesh);
   }
 

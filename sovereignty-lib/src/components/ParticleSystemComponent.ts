@@ -1,13 +1,12 @@
-import { Material, Mesh, Scene, Vector3, TextureLoader, RepeatWrapping } from 'three';
-import { World } from 'cannon';
+import { Vector3, TextureLoader, RepeatWrapping } from 'three';
+import { } from 'cannon';
 
-import { GPUParticleSystem, GPUParticleContainer } from '../three-plugins/GPUParticleSystem';
+import { GPUParticleSystem } from '../three-plugins/GPUParticleSystem';
 
 import { exists } from '../utils';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
 
 class ParticleOptions {
   public position: Vector3 = new Vector3();
@@ -85,7 +84,7 @@ export default class ParticleSystemComponent extends Component {
     });
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     // NOTE: Unlike other components, the transform is applied to the particle
     // position instead of putting the whole system directly in the transform
     // group

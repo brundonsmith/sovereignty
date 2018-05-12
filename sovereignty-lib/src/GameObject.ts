@@ -1,12 +1,11 @@
-import { Scene } from 'three';
-//@ts-ignore
-import { World } from 'cannon';
+import { } from 'three';
+import { } from 'cannon';
 
 import { deepMerge } from './utils';
 
 import { exists } from './utils';
 import Game from 'Game';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import Component from 'components/Component';
 import TransformComponent from 'components/TransformComponent';
 import RigidbodyComponent from 'components/RigidbodyComponent';
@@ -14,7 +13,7 @@ import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class GameObject {
 
-  public scene: GameScene;
+  public scene: Scene;
 
   public name: string;
   public components: Array<Component> = [];
@@ -64,7 +63,7 @@ export default class GameObject {
     })
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     this.scene = scene;
     this.components.forEach(component => component.initialize(scene));
     this.children.forEach(child => child.initialize(scene));

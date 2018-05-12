@@ -1,8 +1,8 @@
-import { Vector3, Euler, Object3D, Group, Scene, Quaternion } from 'three';
-import { World } from 'cannon';
+import { Vector3, Euler, Object3D, Group, Quaternion } from 'three';
+import { } from 'cannon';
 
 import { exists } from '../utils';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
 
@@ -96,7 +96,7 @@ export default class TransformComponent extends Component {
     }
   }
 
-  public initialize(scene: GameScene) {
+  public initialize(scene: Scene) {
     if(this.isRoot) {
       scene.threeScene.add(this.threeGroup);
     }

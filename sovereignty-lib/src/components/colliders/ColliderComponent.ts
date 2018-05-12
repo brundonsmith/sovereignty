@@ -1,8 +1,8 @@
-import { Scene, Vector3, Object3D, MeshBasicMaterial } from 'three';
+import { Vector3, Object3D, MeshBasicMaterial } from 'three';
 //@ts-ignore
 import { Shape, World, Quaternion } from 'cannon';
 
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import Component from 'components/Component';
 
 export default class ColliderComponent extends Component {
@@ -16,7 +16,7 @@ export default class ColliderComponent extends Component {
     return new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     if(this.wireframe) {
       this.transform.threeGroup.add(this.wireframe);
     }

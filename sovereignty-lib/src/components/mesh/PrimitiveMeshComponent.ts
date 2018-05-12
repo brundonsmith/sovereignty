@@ -1,10 +1,8 @@
-import { Geometry, BoxGeometry, SphereGeometry, CylinderGeometry, PlaneGeometry, Material, Mesh, Scene } from 'three';
-import { World } from 'cannon';
+import { BoxGeometry, SphereGeometry, CylinderGeometry, PlaneGeometry, Mesh } from 'three';
+import { } from 'cannon';
 
 import { exists } from 'utils';
 import GameObject from 'GameObject';
-import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
 import MeshComponent from 'components/mesh/MeshComponent';
 
 export default class PrimitiveMeshComponent extends MeshComponent {

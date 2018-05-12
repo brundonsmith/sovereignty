@@ -1,14 +1,11 @@
-import { Scene, Vector3, Euler } from 'three';
+import { Vector3 } from 'three';
 //@ts-ignore
 import { Body, World, Quaternion, Vec3, Material } from 'cannon';
 
 import { exists, toCannonVector, toThreeVector, toThreeQuaternion } from '../utils';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
-import ColliderComponent from './colliders/ColliderComponent';
-import SphereColliderComponent from './colliders/SphereColliderComponent';
 
 export default class RigidbodyComponent extends Component {
 
@@ -52,7 +49,7 @@ export default class RigidbodyComponent extends Component {
     });
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     scene.cannonWorld.addBody(this.cannonBody);
   }
 

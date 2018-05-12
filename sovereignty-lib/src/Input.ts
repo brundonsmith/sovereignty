@@ -1,8 +1,6 @@
-import { Renderer, WebGLRenderer } from 'three';
+import { } from 'three';
 
 import { exists } from './utils';
-import GameScene from 'GameScene';
-import GameObject from 'GameObject';
 
 const DOWN = Symbol('down');
 const UP = Symbol('up');
@@ -18,9 +16,6 @@ function mouseButtonKey(button: number) {
 }
 function gamepadButtonKey(button: number, gamepad: number) {
   return `Gamepad${gamepad}Button${button}`;
-}
-function gamepadAxisKey(axis: number, gamepad: number) {
-  return `Gamepad${gamepad}Axis${axis}`;
 }
 
 const xboxButtons = {
@@ -69,10 +64,10 @@ class Input {
       this.nextMouseMovementY = e.movementY;
     })
     window.addEventListener('mousedown', (e) => {
-      this.nextKeyButtonState['Mouse'+e.button] = PRESSED
+      this.nextKeyButtonState[mouseButtonKey(e.button)] = PRESSED
     })
     window.addEventListener('mouseup', (e) => {
-      this.nextKeyButtonState['Mouse'+e.button] = RELEASED
+      this.nextKeyButtonState[mouseButtonKey(e.button)] = RELEASED
     })
     window.addEventListener('keydown', (e) => {
       if(!e.repeat) {
@@ -250,6 +245,15 @@ class Input {
   }
   public mouseDeltaY(): number {
     return this.mouseMovementY;
+  }
+  public mouseWheelMovedUp() {
+    return this.mouseWheelState === MOVED_UP;
+  }
+  public mouseWheelMovedDown() {
+    return this.mouseWheelState === MOVED_DOWN;
+  }
+  public mouseWheelMoved() {
+    return this.mouseWheelState !== UNMOVED;
   }
 
 }

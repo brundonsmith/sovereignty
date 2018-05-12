@@ -1,5 +1,5 @@
 
-import { Scene, Renderer, Camera, AxesHelper, PerspectiveCamera,
+import { Scene as ThreeScene, Renderer, Camera, AxesHelper, PerspectiveCamera,
   OrthographicCamera, MeshBasicMaterial, BoxGeometry, TextureLoader, BackSide,
   Mesh, AmbientLight } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
@@ -8,15 +8,13 @@ import Sky from './three-plugins/Sky';
 
 import { exists } from 'utils';
 import GameObject from 'GameObject';
-import Component from 'components/Component';
 import CameraComponent from 'components/CameraComponent';
 
-
-export default class GameScene {
+export default class Scene {
 
   public name: string;
 
-  public threeScene: Scene = new Scene();
+  public threeScene: ThreeScene = new ThreeScene();
   public cannonWorld: World = new World();
 
   private gameObjects: Array<GameObject> = [];
