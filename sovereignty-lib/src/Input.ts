@@ -23,6 +23,28 @@ function gamepadAxisKey(axis: number, gamepad: number) {
   return `Gamepad${gamepad}Axis${axis}`;
 }
 
+const xboxButtons = {
+  'a': 0,
+  'b': 1,
+  'x': 2,
+  'y': 3,
+  'lb': 4,
+  'rb': 5,
+  'lt': 6,
+  'rt': 7,
+  'select': 8,
+  'view': 8,
+  'back': 8,
+  'start': 9,
+  'menu': 9,
+  'l3': 10,
+  'r3': 11,
+  'up': 12,
+  'down': 13,
+  'left': 14,
+  'right': 15
+}
+
 class Input {
 
   private keyButtonState: {[key: string]: Symbol} = {};
@@ -86,7 +108,6 @@ class Input {
 
     this.tick();
   }
-
   private tick(): void {
 
     // progress transient key/button states
@@ -114,10 +135,23 @@ class Input {
     })
   }
 
-  public getGamepads(): Array<Gamepad> {
-    return Array.from(navigator.getGamepads());
+  private retrieveGamepad(gamepad: number | undefined): Gamepad {
+    if(exists(gamepad)) {
+      if(!exists(navigator.getGamepads()[gamepad])) {
+        throw `Gamepad ${gamepad} isn't connected`
+      } else {
+        return navigator.getGamepads()[gamepad];
+      }
+    } else {
+      if(!Array.from(navigator.getGamepads()).some(pad => exists(pad))) {
+        throw `There are no gamepads connected`
+      } else {
+        return Array.from(navigator.getGamepads()).find(pad => exists(pad));
+      }
+    }
   }
 
+  // public getters
   public keyDown(key: string): boolean {
     return this.keyButtonState[key] === DOWN || this.keyButtonState[key] === PRESSED;
   }
@@ -144,6 +178,9 @@ class Input {
     return this.keyButtonState['Mouse'+button] === RELEASED;
   }
 
+  public getGamepads(): Array<Gamepad> {
+    return Array.from(navigator.getGamepads());
+  }
   public gamepadButtonDown(button: number, gamepad: number | undefined): boolean {
     let gamepadObject = this.retrieveGamepad(gamepad);
     return gamepadObject.buttons[button].pressed;
@@ -165,19 +202,40 @@ class Input {
     return gamepadObject.axes[axis];
   }
 
-  private retrieveGamepad(gamepad: number | undefined): Gamepad {
-    if(exists(gamepad)) {
-      if(!exists(navigator.getGamepads()[gamepad])) {
-        throw `Gamepad ${gamepad} isn't connected`
-      } else {
-        return navigator.getGamepads()[gamepad];
-      }
-    } else {
-      if(!Array.from(navigator.getGamepads()).some(pad => exists(pad))) {
-        throw `There are no gamepads connected`
-      } else {
-        return Array.from(navigator.getGamepads()).find(pad => exists(pad));
-      }
+  public xboxButtonDown(button: string, gamepad: number | undefined): boolean {
+    if(!exists(xboxButtons[button.toLowerCase()])) {
+      throw `"${button}" is not a known Xbox controller button`
+    }
+    return this.gamepadButtonDown(xboxButtons[button.toLowerCase()], gamepad);
+  }
+  public xboxButtonUp(button: string, gamepad: number | undefined): boolean {
+    if(!exists(xboxButtons[button.toLowerCase()])) {
+      throw `"${button}" is not a known Xbox controller button`
+    }
+    return this.gamepadButtonUp(xboxButtons[button.toLowerCase()], gamepad);
+  }
+  public xboxButtonPressed(button: string, gamepad: number | undefined): boolean {
+    if(!exists(xboxButtons[button.toLowerCase()])) {
+      throw `"${button}" is not a known Xbox controller button`
+    }
+    return this.gamepadButtonPressed(xboxButtons[button.toLowerCase()], gamepad);
+  }
+  public xboxButtonReleased(button: string, gamepad: number | undefined): boolean {
+    if(!exists(xboxButtons[button.toLowerCase()])) {
+      throw `"${button}" is not a known Xbox controller button`
+    }
+    return this.gamepadButtonReleased(xboxButtons[button.toLowerCase()], gamepad);
+  }
+  public xboxThumbstickLeft(gamepad: number | undefined): { x: number, y: number } {
+    return {
+      x: this.gamepadAxis(0, gamepad),
+      y: this.gamepadAxis(1, gamepad)
+    }
+  }
+  public xboxThumbstickRight(gamepad: number | undefined): { x: number, y: number } {
+    return {
+      x: this.gamepadAxis(2, gamepad),
+      y: this.gamepadAxis(3, gamepad)
     }
   }
 
