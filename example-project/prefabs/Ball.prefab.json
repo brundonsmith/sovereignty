@@ -1,0 +1,19 @@
+{
+  "components": {
+    "Transform": { },
+    "SphereCollider": {
+      "heightSegments": 32,
+      "widthSegments": 32,
+      "radius": 0.5
+    },
+    "Rigidbody": {
+      "mass": 20
+    },
+    "PrimitiveMesh": {
+      "shape": "sphere",
+      "heightSegments": 32,
+      "widthSegments": 32,
+      "radius": 0.5
+    }
+  }
+}

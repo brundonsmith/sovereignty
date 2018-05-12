@@ -1,6 +1,6 @@
 {
   "title": "My Game",
-  "initialScene": "Terrain",
+  "initialScene": "FPS",
   "assetsDir": "assets",
   "captureCursor": true
 }

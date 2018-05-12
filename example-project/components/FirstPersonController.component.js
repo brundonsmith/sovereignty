@@ -23,16 +23,16 @@ class FirstPersonController extends Component {
     }
 
     let movement = new THREE.Vector3(0, 0, 0);
-    if(Input.keyDown('w')) {
+    if(Input.keyDown('KeyW')) {
       movement.add(this.transform.forward);
     }
-    if(Input.keyDown('s')) {
+    if(Input.keyDown('KeyS')) {
       movement.add(this.transform.backward);
     }
-    if(Input.keyDown('d')) {
+    if(Input.keyDown('KeyD')) {
       movement.add(this.transform.right);
     }
-    if(Input.keyDown('a')) {
+    if(Input.keyDown('KeyA')) {
       movement.add(this.transform.left);
     }
     movement.normalize();
