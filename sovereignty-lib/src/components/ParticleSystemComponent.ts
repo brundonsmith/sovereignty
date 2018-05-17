@@ -26,6 +26,50 @@ class ParticleOptions {
 
 export default class ParticleSystemComponent extends Component {
 
+  public static get properties() {
+    return {
+      texture: [ "string", null ],
+      noiseTexture: [ "string", null ],
+      maxParticles: [ "number", null ],
+      spawnRate: [ "number", null ],
+      timeScale: [ "number", null ],
+      horizontalSpeed: [ "number", null ],
+      verticalSpeed: [ "number", null ],
+      particleOptions: [
+        {
+          position: [
+            {
+              x: [ "number", null ],
+              y: [ "number", null ],
+              z: [ "number", null ]
+            },
+            null
+          ],
+          velocity: [
+            {
+              x: [ "number", null ],
+              y: [ "number", null ],
+              z: [ "number", null ]
+            },
+            null
+          ],
+          color: [ "string", "number", null ],
+
+          positionRandomness: [ "number", null ],
+          velocityRandomness: [ "number", null ],
+          colorRandomness: [ "number", null ],
+
+          turbulence: [ "number", null ],
+          lifetime: [ "number", null ],
+          size: [ "number", null ],
+          sizeRandomness: [ "number", null ],
+          smoothPosition: [ "boolean", null ],
+        },
+        null
+      ],
+    }
+  }
+
   public threeParticleSystem: GPUParticleSystem;
 
   // spawner
@@ -51,13 +95,13 @@ export default class ParticleSystemComponent extends Component {
       this.spawnRate = config.spawnRate;
     }
     if(exists(config.timeScale)) {
-      this.spawnRate = config.timeScale;
+      this.timeScale = config.timeScale;
     }
     if(exists(config.horizontalSpeed)) {
-      this.spawnRate = config.horizontalSpeed;
+      this.horizontalSpeed = config.horizontalSpeed;
     }
     if(exists(config.verticalSpeed)) {
-      this.spawnRate = config.verticalSpeed;
+      this.verticalSpeed = config.verticalSpeed;
     }
 
     if(exists(config.particleOptions) && typeof config.particleOptions.color === 'string') {

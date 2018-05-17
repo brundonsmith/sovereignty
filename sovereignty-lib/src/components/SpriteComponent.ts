@@ -8,6 +8,13 @@ import Component from 'components/Component';
 
 export default class SpriteComponent extends Component {
 
+  public static get properties() {
+    return {
+      tint: [ "string", "number", null ],
+      texture: "string"
+    }
+  }
+
   public spriteMap: Texture;
   public material: Material;
   public threeSprite: Sprite;

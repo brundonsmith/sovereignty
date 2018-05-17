@@ -7,6 +7,15 @@ import MeshComponent from 'components/mesh/MeshComponent';
 
 export default class HeightmapMeshComponent extends MeshComponent {
 
+  public static get properties() {
+    return Object.assign({
+      data: [ [ "number" ] ],
+      width: [ "number", null ],
+      height: [ "number", null ],
+      color: [ "string", "number", null ]
+    }, MeshComponent.properties)
+  }
+
   private meshContainer: Object3D = new Group();
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
@@ -18,8 +27,8 @@ export default class HeightmapMeshComponent extends MeshComponent {
     let dataWidth = config.data.reduce((max, row) => Math.max(row.length, max), 0)
 
     this.geometry = new PlaneGeometry(
-      config.width,
-      config.height,
+      config.width || 10,
+      config.height || 10,
       dataWidth - 1,
       dataHeight - 1
     );

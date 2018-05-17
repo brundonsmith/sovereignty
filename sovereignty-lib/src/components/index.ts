@@ -17,9 +17,11 @@ import RigidbodyComponent from 'components/RigidbodyComponent';
 import KeyboardMouseComponent from 'components/KeyboardMouseComponent';
 import SpriteComponent from 'components/SpriteComponent';
 import ParticleSystemComponent from 'components/ParticleSystemComponent';
+import ModelComponent from 'components/ModelComponent';
 
 export default [ Component, TransformComponent, CameraComponent, LightComponent,
   MeshComponent, PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, CapsuleColliderComponent,
-  RigidbodyComponent, KeyboardMouseComponent, SpriteComponent, ParticleSystemComponent ];
+  RigidbodyComponent, KeyboardMouseComponent, SpriteComponent, ParticleSystemComponent,
+  ModelComponent ];

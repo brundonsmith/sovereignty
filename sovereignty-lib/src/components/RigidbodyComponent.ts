@@ -9,6 +9,15 @@ import Component from 'components/Component';
 
 export default class RigidbodyComponent extends Component {
 
+  public static get properties() {
+    return {
+      kinematic: [ "boolean", null ],
+      mass: [ "number", null ],
+      fixedRotation: [ "boolean", null ],
+      friction: [ "number", null ],
+    }
+  }
+
   private cannonBody: Body;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {

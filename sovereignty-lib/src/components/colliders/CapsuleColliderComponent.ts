@@ -7,6 +7,13 @@ import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class CapsuleColliderComponent extends ColliderComponent {
 
+  public static get properties() {
+    return Object.assign({
+      height: [ "number", null ],
+      radius: [ "number", null ]
+    }, ColliderComponent.properties)
+  }
+
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 

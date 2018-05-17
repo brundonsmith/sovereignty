@@ -8,6 +8,13 @@ import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class HeightmapColliderComponent extends ColliderComponent {
 
+  public static get properties() {
+    return Object.assign({
+      data: [ [ "number" ] ],
+      elementSize: [ "number", null ]
+    }, ColliderComponent.properties)
+  }
+
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 

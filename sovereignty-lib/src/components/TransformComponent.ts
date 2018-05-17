@@ -8,6 +8,35 @@ import Component from 'components/Component';
 
 export default class TransformComponent extends Component {
 
+  public static get properties() {
+    return {
+      position: [
+        {
+          x: [ "number", null ],
+          y: [ "number", null ],
+          z: [ "number", null ]
+        },
+        null
+      ],
+      rotation: [
+        {
+          x: [ "number", null ],
+          y: [ "number", null ],
+          z: [ "number", null ]
+        },
+        null
+      ],
+      scale: [
+        {
+          x: [ "number", null ],
+          y: [ "number", null ],
+          z: [ "number", null ]
+        },
+        null
+      ]
+    }
+  }
+
   public position: Vector3;
   public rotation: Euler;
   public scale: Vector3;
@@ -19,43 +48,36 @@ export default class TransformComponent extends Component {
     this.threeGroup.getWorldQuaternion(worldQuat);
     return new Vector3(0, 0, -1).applyQuaternion(worldQuat);
   }
-
   public get backward(): Vector3 {
     let worldQuat = new Quaternion();
     this.threeGroup.getWorldQuaternion(worldQuat);
     return new Vector3(0, 0, 1).applyQuaternion(worldQuat);
   }
-
   public get up(): Vector3 {
     let worldQuat = new Quaternion();
     this.threeGroup.getWorldQuaternion(worldQuat);
     return new Vector3(0, 1, 0).applyQuaternion(worldQuat);
   }
-
   public get down(): Vector3 {
     let worldQuat = new Quaternion();
     this.threeGroup.getWorldQuaternion(worldQuat);
     return new Vector3(0, -1, 0).applyQuaternion(worldQuat);
   }
-
   public get right(): Vector3 {
     let worldQuat = new Quaternion();
     this.threeGroup.getWorldQuaternion(worldQuat);
     return new Vector3(1, 0, 0).applyQuaternion(worldQuat);
   }
-
   public get left(): Vector3 {
     let worldQuat = new Quaternion();
     this.threeGroup.getWorldQuaternion(worldQuat);
     return new Vector3(-1, 0, 0).applyQuaternion(worldQuat);
   }
-
   public get worldPosition(): Vector3 {
     let worldPosition = new Vector3();
     this.threeGroup.getWorldPosition(worldPosition);
     return worldPosition;
   }
-
   public get worldRotation(): Euler {
     let worldQuat = new Quaternion();
     this.threeGroup.getWorldQuaternion(worldQuat);
@@ -63,13 +85,11 @@ export default class TransformComponent extends Component {
     euler.setFromQuaternion(worldQuat);
     return euler;
   }
-
   public get worldScale(): Vector3 {
     let worldScale = new Vector3();
     this.threeGroup.getWorldScale(worldScale);
     return worldScale;
   }
-
   public get isRoot(): boolean {
     return !exists(this.threeGroup.parent);
   }

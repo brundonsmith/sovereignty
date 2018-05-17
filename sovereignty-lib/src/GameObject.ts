@@ -1,9 +1,8 @@
 import { } from 'three';
 import { } from 'cannon';
+import check from 'simple-typechecker';
 
-import { deepMerge } from './utils';
-
-import { exists } from './utils';
+import { exists, deepMerge } from './utils';
 import Game from 'Game';
 import Scene from 'Scene';
 import Component from 'components/Component';
@@ -12,6 +11,15 @@ import RigidbodyComponent from 'components/RigidbodyComponent';
 import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class GameObject {
+
+  public static get properties() {
+    return {
+      name: "string",
+      extends: [ "string", null ],
+      components: [ {}, null ],
+      children: [ [{}], null ]
+    }
+  }
 
   public scene: Scene;
 
@@ -42,25 +50,26 @@ export default class GameObject {
     this.name = config.name || 'Object';
 
     // components
+    if(!Object.keys(config.components || {}).includes('Transform') && !Object.keys(config.components || {}).includes('TransformComponent')) {
+      this.components.push(new TransformComponent({}, this));
+    }
     Object.entries(config.components || {}).forEach(entry => {
       var componentConstructor = Game.componentTypes.find(type => type.name === entry[0] || type.name === entry[0] + 'Component')
 
       if(componentConstructor) {
+        check(entry[1], componentConstructor.properties || {});
         this.components.push(new componentConstructor(entry[1], this));
       } else {
-        console.warn(`Unknown component type "${entry[0]}"`)
+        console.warn(`Unknown component type "${entry[0]}"`);
       }
-    })
-    if(!this.components.some(component => component instanceof TransformComponent)) {
-      this.components.push(new TransformComponent({}, this));
-    }
+    });
 
     // children
     (config.children || []).forEach(childConfig => {
       var newGameObject = new GameObject(childConfig);
       this.transform.threeGroup.add(newGameObject.transform.threeGroup);
       this.children.push(newGameObject);
-    })
+    });
   }
 
   public initialize(scene: Scene): void {

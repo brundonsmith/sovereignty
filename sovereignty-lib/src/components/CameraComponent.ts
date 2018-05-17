@@ -1,17 +1,33 @@
 import { Camera, PerspectiveCamera, OrthographicCamera } from 'three';
 
+import { exists } from 'utils';
 import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
 
 export default class CameraComponent extends Component {
 
+  public static get properties() {
+    return {
+      type: [ "string", null ],
+      fov: [ "number", null ],
+      aspect: [ "number", null ],
+      near: [ "number", null ],
+      far: [ "number", null ],
+
+      left: [ "number", null ],
+      right: [ "number", null ],
+      top: [ "number", null ],
+      bottom: [ "number", null ],
+    }
+  }
+
   public threeCamera: Camera;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 
-    switch(config.type || 'perspective') {
+    switch((exists(config.type) ? config.type : 'perspective').toLowerCase()) {
       case 'perspective':
         this.threeCamera = new PerspectiveCamera(
           config.fov || 75,
@@ -19,7 +35,7 @@ export default class CameraComponent extends Component {
           config.near || 0.1,
           config.far || 1000
         );
-      break;
+        break;
       case 'orthographic':
         var ratio = window.innerWidth / window.innerHeight;
         var height = 5;
@@ -33,7 +49,9 @@ export default class CameraComponent extends Component {
           config.near || 0.1,
           config.far || 1000
         );
-      break;
+        break;
+      default:
+        console.error(`"${config.type}" is not a known camera type`)
     }
   }
 

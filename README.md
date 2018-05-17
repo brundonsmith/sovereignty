@@ -48,7 +48,6 @@ True documentation for these data structures is forthcoming. For now, you can lo
 
 ## Roadmap
 #### In progress/planned
-- `.obj` file import
 - Post-processing effect support
 - VR support
 - Audio support

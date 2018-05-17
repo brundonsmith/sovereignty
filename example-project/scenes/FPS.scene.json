@@ -31,6 +31,10 @@
     {
       "name": "Ground",
       "extends": "Floor"
+    },
+    {
+      "name": "NPC",
+      "extends": "Sanic"
     }
   ]
 }

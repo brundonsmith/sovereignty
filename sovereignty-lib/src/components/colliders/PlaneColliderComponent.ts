@@ -7,6 +7,12 @@ import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class PlaneColliderComponent extends ColliderComponent {
 
+  public static get properties() {
+    return Object.assign({
+      
+    }, ColliderComponent.properties)
+  }
+
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 

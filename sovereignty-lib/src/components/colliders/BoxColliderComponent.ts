@@ -7,6 +7,19 @@ import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class BoxColliderComponent extends ColliderComponent {
 
+  public static get properties() {
+    return Object.assign({
+      dimensions: [
+        {
+          x: [ "number", null ],
+          y: [ "number", null ],
+          z: [ "number", null ],
+        },
+        null
+      ]
+    }, ColliderComponent.properties)
+  }
+
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 

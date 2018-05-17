@@ -1,4 +1,5 @@
 import { WebGLRenderer, Clock } from 'three';
+import check from 'simple-typechecker';
 
 import { exists } from 'utils';
 import Scene from 'Scene';
@@ -11,6 +12,14 @@ function handleCanvasClick(e) {
 }
 
 export default class Game {
+
+  public static get properties() {
+    return {
+      title: [ "string", null ],
+      initialScene: [ "string", "number" ],
+      captureCursor: [ "boolean", null ]
+    }
+  }
 
   private activeScene: number = 0;
   private scenes: Array<Scene> = [];
@@ -38,6 +47,8 @@ export default class Game {
   constructor(config: {[key: string]: any}) {
     console.log(config);
     console.log(this);
+
+    check(config.game, Game.properties);
 
     document.title = config.game.title || '';
 
@@ -87,6 +98,7 @@ export default class Game {
   }
 
   public createScene(config: {[key: string]: any}): Scene {
+    check(config, Scene.properties);
     var newScene = new Scene(config);
     this.scenes.push(newScene);
     return newScene;

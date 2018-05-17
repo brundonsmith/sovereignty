@@ -3,6 +3,7 @@ import { Scene as ThreeScene, Renderer, Camera, AxesHelper, PerspectiveCamera,
   OrthographicCamera, MeshBasicMaterial, BoxGeometry, TextureLoader, BackSide,
   Mesh, AmbientLight } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
+import check from 'simple-typechecker';
 
 import Sky from './three-plugins/Sky';
 
@@ -11,6 +12,48 @@ import GameObject from 'GameObject';
 import CameraComponent from 'components/CameraComponent';
 
 export default class Scene {
+
+  public static get properties() {
+    return {
+      name: "string",
+      objects: [ { } ],
+      ambientColor: [ "string", "number", null ],
+      physics: [
+        {
+          gravity: [ "number", null ]
+        },
+        null
+      ],
+      sky: [
+        {
+          distance: [ "number", null ],
+          right: "string",
+          left: "string",
+          top: "string",
+          bottom: "string",
+          front: "string",
+          back: "string",
+        },
+        {
+          distance: [ "number", null ],
+          luminance: [ "number", null ],
+      		turbidity: [ "number", null ],
+      		rayleigh: [ "number", null ],
+      		mieCoefficient: [ "number", null ],
+      		mieDirectionalG: [ "number", null ],
+      		sunPosition: [
+            {
+              x: [ "number", null ],
+              y: [ "number", null ],
+              z: [ "number", null ]
+            },
+            null
+          ]
+        },
+        null
+      ]
+    }
+  }
 
   public name: string;
 
@@ -94,6 +137,7 @@ export default class Scene {
   }
 
   public createGameObject(config: {[key: string]: any}): GameObject {
+    check(config, GameObject.properties);
     var newGameObject = new GameObject(config);
     newGameObject.initialize(this);
     this.gameObjects.push(newGameObject);

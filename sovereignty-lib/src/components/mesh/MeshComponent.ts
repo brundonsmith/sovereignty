@@ -1,8 +1,9 @@
 import { Geometry, Material, MeshStandardMaterial, Mesh } from 'three';
 import { } from 'cannon';
 import * as THREE from 'three';
-import GLTF2Loader from 'three-gltf2-loader'
-GLTF2Loader(THREE);
+import 'three-plugins/LoaderSupport';
+import 'three-plugins/OBJLoader2';
+import 'three-plugins/GLTFLoader';
 
 import { exists } from 'utils';
 import Game from 'Game';
@@ -11,6 +12,19 @@ import GameObject from 'GameObject';
 import Component from 'components/Component';
 
 export default class MeshComponent extends Component {
+
+  public static get properties() {
+    return {
+      material: [
+        {
+          type: "string",
+          parameters: { }
+        },
+        "string",
+        null
+      ]
+    }
+  }
 
   public material: Material;
   public geometry: Geometry;
@@ -30,18 +44,12 @@ export default class MeshComponent extends Component {
     } else {
       this.material = new MeshStandardMaterial();
     }
-
-    if(exists(config.mesh)) {
-      //@ts-ignore
-      var loader = new THREE.GLTF2Loader();
-      loader.load(config.mesh, (model) => {
-        this.mesh = model.asset;
-      })
-    }
   }
 
   public initialize(scene: Scene): void {
-    this.transform.threeGroup.add(this.mesh);
+    if(exists(this.mesh)) {
+      this.transform.threeGroup.add(this.mesh);
+    }
   }
 
 }

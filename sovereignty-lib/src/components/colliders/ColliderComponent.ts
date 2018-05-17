@@ -7,6 +7,12 @@ import Component from 'components/Component';
 
 export default class ColliderComponent extends Component {
 
+  public static get properties() {
+    return {
+      showWireframe: [ "boolean", null ]
+    }
+  }
+
   public cannonShapes: Array<Shape> = [];
   public cannonShapeOffsets: Array<Vector3> = [];
   public cannonShapeEulers: Array<Vector3> = [];
