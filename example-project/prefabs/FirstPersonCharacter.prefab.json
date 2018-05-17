@@ -15,7 +15,8 @@
     {
       "name": "Camera",
       "components": {
-        "Camera": { }
+        "Camera": { },
+        "AudioListener": { }
       },
       "children": [
         {

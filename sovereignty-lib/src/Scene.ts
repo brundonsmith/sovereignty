@@ -1,7 +1,7 @@
 
 import { Scene as ThreeScene, Renderer, Camera, AxesHelper, PerspectiveCamera,
   OrthographicCamera, MeshBasicMaterial, BoxGeometry, TextureLoader, BackSide,
-  Mesh, AmbientLight } from 'three';
+  Mesh, AmbientLight, AudioListener } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
 import check from 'simple-typechecker';
 
@@ -10,6 +10,7 @@ import Sky from './three-plugins/Sky';
 import { exists } from 'utils';
 import GameObject from 'GameObject';
 import CameraComponent from 'components/CameraComponent';
+import AudioListenerComponent from 'components/AudioListenerComponent';
 
 export default class Scene {
 
@@ -64,6 +65,7 @@ export default class Scene {
   public allGameObjects: Array<GameObject> = [];
 
   public activeCamera: Camera | undefined;
+  public activeListener: AudioListener | undefined;
   public sky: any | undefined;
 
   constructor(config: {[key: string]: any}) {
@@ -75,12 +77,29 @@ export default class Scene {
 
       let camera = newObject.findComponentInChildren(CameraComponent);
       if(exists(camera)) {
+        if(exists(this.activeCamera)) {
+          console.warn(`Found two instances of CameraComponent in the same scene. Which one gets used will be random.`)
+        }
+
         this.activeCamera = (<CameraComponent> camera).threeCamera;
+      }
+
+      let listener = newObject.findComponentInChildren(AudioListenerComponent);
+      if(exists(listener)) {
+        if(exists(this.activeListener)) {
+          console.warn(`Found two instances of AudioListenerComponent in the same scene. Which one gets used will be random.`)
+        }
+
+        this.activeListener = (<AudioListenerComponent> listener).threeAudioListener;
       }
     })
 
     if(!exists(this.activeCamera)) {
       console.warn(`Couldn't find an object in the scene with a CameraComponent. A camera is required to make anything visible onscreen.`)
+    }
+
+    if(!exists(this.activeListener)) {
+      console.warn(`Couldn't find an object in the scene with an AudioListenerComponent. You won't be able to hear any sound without one.`)
     }
 
     // sky

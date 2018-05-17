@@ -18,10 +18,12 @@ import KeyboardMouseComponent from 'components/KeyboardMouseComponent';
 import SpriteComponent from 'components/SpriteComponent';
 import ParticleSystemComponent from 'components/ParticleSystemComponent';
 import ModelComponent from 'components/ModelComponent';
+import AudioListenerComponent from 'components/AudioListenerComponent';
+import AudioSourceComponent from 'components/AudioSourceComponent';
 
 export default [ Component, TransformComponent, CameraComponent, LightComponent,
   MeshComponent, PrimitiveMeshComponent, HeightmapMeshComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, CapsuleColliderComponent,
   RigidbodyComponent, KeyboardMouseComponent, SpriteComponent, ParticleSystemComponent,
-  ModelComponent ];
+  ModelComponent, AudioListenerComponent, AudioSourceComponent ];
