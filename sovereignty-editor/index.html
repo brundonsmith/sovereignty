@@ -2,13 +2,17 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-		<style>
-			body { margin: 0; overflow:hidden; height:100vh; width: 100vw; }
-			canvas, webview { width: 100%; height: 100% }
-		</style>
+		<link rel="stylesheet" href="app.css">
 	</head>
 	<body>
-		<webview></webview>
-		<script src="app.js"></script>
+		<sovereignty-editor></sovereignty-editor>
+
+		<script src="node_modules/vue/dist/vue.js"></script>
+		<script src="ui/_app.js"></script>
+		<script src="ui/panel.js"></script>
+		<script src="ui/scene.js"></script>
+		<script>
+			new Vue({ el: 'sovereignty-editor' })
+		</script>
 	</body>
 </html>

@@ -1,0 +1,11 @@
+
+.component-scene {
+  display:flex;
+  align-items: stretch;
+  justify-content: stretch;
+
+  > webview {
+    flex-grow:1;
+    flex-shrink:1;
+  }
+}
