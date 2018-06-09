@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const build = require('./index.js');
+const { build } = require('./index.js');
 var argv = require('minimist')(process.argv.slice(2));
 
 console.assert(argv.projectDir);

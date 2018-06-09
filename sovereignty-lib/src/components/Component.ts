@@ -10,6 +10,7 @@ import ColliderComponent from './colliders/ColliderComponent';
 export default class Component {
 
   public gameObject: GameObject;
+  public runInEditor: boolean = false;
 
   get transform(): TransformComponent {
     return this.gameObject.transform;
@@ -25,7 +26,7 @@ export default class Component {
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     this.gameObject = gameObject;
-    Object.assign(this, config);
+    this.runInEditor = config.runInEditor;
   }
 
   public initialize(scene: Scene): void { }

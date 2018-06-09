@@ -21,8 +21,13 @@ export default class Game {
     }
   }
 
-  private activeScene: number = 0;
+  public get activeScene() {
+    return this.scenes[this.activeSceneIndex];
+  }
+
+  private activeSceneIndex: number = 0;
   private scenes: Array<Scene> = [];
+  private editorMode: boolean;
   public static prefabs: Array<any> = [];
   public static materials: Array<any> = [];
   public static componentTypes: Array<any> = components;
@@ -82,15 +87,14 @@ export default class Game {
 
     if(exists(config.game.initialScene)) {
       if(typeof config.game.initialScene === 'number') {
-        this.activeScene = config.game.initialScene;
+        this.activeSceneIndex = config.game.initialScene;
       } else if(typeof config.game.initialScene === 'string') {
-        this.activeScene = this.scenes.findIndex(scene => scene.name === config.game.initialScene)
-        this.activeScene = Math.max(this.activeScene, 0);
+        this.activeSceneIndex = this.scenes.findIndex(scene => scene.name === config.game.initialScene)
+        this.activeSceneIndex = Math.max(this.activeSceneIndex, 0);
       }
     }
 
     // set up renderer
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;
 
 
@@ -104,12 +108,23 @@ export default class Game {
     return newScene;
   }
 
-  public start(containerElement: HTMLElement | undefined): void {
+  public goToScene(name: string) {
+    let sceneIndex = this.scenes.findIndex(scene => scene.name === name);
+    if(sceneIndex !== -1) {
+      this.activeSceneIndex = sceneIndex;
+    }
+  }
+
+  public start(containerElement: HTMLElement | undefined, editorMode: boolean): void {
     if(containerElement) {
       containerElement.appendChild(this.renderer.domElement);
+      this.renderer.setSize( containerElement.scrollWidth, containerElement.scrollHeight );
     } else {
       document.body.appendChild(this.renderer.domElement);
+      this.renderer.setSize( document.body.scrollWidth, document.body.scrollHeight );
     }
+
+    this.editorMode = editorMode;
 
     var updateLoop = () => {
     	requestAnimationFrame(updateLoop);
@@ -120,11 +135,11 @@ export default class Game {
   }
 
   private update(): void {
-    this.scenes[this.activeScene].update(this.clock.getDelta() * 1000);
+    this.activeScene.update(this.clock.getDelta() * 1000, this.editorMode);
     Input.update();
   }
 
   private render(): void {
-    this.scenes[this.activeScene].render(this.renderer);
+    this.activeScene.render(this.renderer);
   }
 }

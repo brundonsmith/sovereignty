@@ -1,5 +1,11 @@
 
+// HACK template "tag" which is just the identity substitution, allowing Atom
+// syntax highlighting on templates
+window.html = (strings, ...substs) =>
+  strings.reduce((full, str, index) => full + str + (substs[index] || ''), '');
+
 const { dialog } = require('electron').remote
+window.ipcRenderer = require('electron').ipcRenderer
 
 Vue.component('sovereignty-editor', {
   props: {
@@ -12,10 +18,15 @@ Vue.component('sovereignty-editor', {
       title: 'Select project directory',
       properties: [ 'openDirectory' ]
     }, function(filePaths) {
-      filePaths.forEach(path => ipcRenderer.send('build-project', path))
+      //filePaths.forEach(path => ipcRenderer.send('build-project', path))
+      filePaths.forEach(path => ipcRenderer.send('load-project', path))
+    })
+
+    window.ipcRenderer.on('project-loaded', (e, projectDir, data) => {
+      this.projectData = data;
     })
   },
-  template: `
+  template: html`
     <div v-bind:class="clazz">
       <panel
         v-bind:initialMode="rootPanel.mode"
@@ -24,6 +35,7 @@ Vue.component('sovereignty-editor', {
     </div>
   `,
   data: () => ({
+    projectData: null,
     rootPanel: {
       vertical: true,
       children: [

@@ -20,7 +20,7 @@ Vue.component('panel', {
   created: function() {
     this.mode = this.initialMode
   },
-  template: `
+  template: html`
     <div v-bind:class="clazz" v-bind:style="style">
 
       <div
@@ -38,7 +38,8 @@ Vue.component('panel', {
             v-bind:label="possibleMode" />
         </select>
 
-        <scene v-if="mode === 'scene'" />
+        <view-scene v-if="mode === 'scene'" />
+        <view-hierarchy v-if="mode === 'hierarchy'" />
 
         <panel
           v-if="children"

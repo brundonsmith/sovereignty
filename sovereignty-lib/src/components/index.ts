@@ -13,6 +13,8 @@ import SphereColliderComponent from './colliders/SphereColliderComponent';
 import BoxColliderComponent from './colliders/BoxColliderComponent';
 import CapsuleColliderComponent from './colliders/CapsuleColliderComponent';
 
+import FirstPersonController from './high-level/FirstPersonController';
+
 import RigidbodyComponent from 'components/RigidbodyComponent';
 import KeyboardMouseComponent from 'components/KeyboardMouseComponent';
 import SpriteComponent from 'components/SpriteComponent';
@@ -26,4 +28,4 @@ export default [ Component, TransformComponent, CameraComponent, LightComponent,
   ColliderComponent, PlaneColliderComponent, HeightmapColliderComponent,
   SphereColliderComponent, BoxColliderComponent, CapsuleColliderComponent,
   RigidbodyComponent, KeyboardMouseComponent, SpriteComponent, ParticleSystemComponent,
-  ModelComponent, AudioListenerComponent, AudioSourceComponent ];
+  ModelComponent, AudioListenerComponent, AudioSourceComponent, FirstPersonController ];

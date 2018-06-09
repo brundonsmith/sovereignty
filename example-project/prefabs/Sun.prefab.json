@@ -2,7 +2,7 @@
   "components": {
     "Transform": {
       "rotation": {
-        "x": -0.785,
+        "x": -0.785
       }
     },
     "Light": {

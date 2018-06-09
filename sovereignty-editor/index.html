@@ -2,17 +2,24 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-		<link rel="stylesheet" href="app.css">
+		<link rel="stylesheet" href="ui-dist/SovereigntyEditor.css">
 	</head>
 	<body>
-		<sovereignty-editor></sovereignty-editor>
+		<div id="root"></div>
 
-		<script src="node_modules/vue/dist/vue.js"></script>
-		<script src="ui/_app.js"></script>
-		<script src="ui/panel.js"></script>
-		<script src="ui/scene.js"></script>
+		<script src="../sovereignty-lib/index.js"></script>
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+		<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.1/prop-types.min.js"></script>
+
+		<script src="utils/Model.js"></script>
+		<script src="ui-dist/SovereigntyEditor.react.js"></script>
+		<script src="ui-dist/Panel.react.js"></script>
+		<script src="ui-dist/views/Scene.react.js"></script>
+		<script src="ui-dist/views/Hierarchy.react.js"></script>
+
 		<script>
-			new Vue({ el: 'sovereignty-editor' })
+			ReactDOM.render(React.createElement(SovereigntyEditor), document.querySelector('#root'))
 		</script>
 	</body>
 </html>

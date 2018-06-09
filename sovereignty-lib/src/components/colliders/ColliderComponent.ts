@@ -13,6 +13,13 @@ export default class ColliderComponent extends Component {
     }
   }
 
+  public get bounds(): { min: Vector3, max: Vector3 } {
+    return {
+      min: new Vector3(),
+      max: new Vector3()
+    };
+  }
+
   public cannonShapes: Array<Shape> = [];
   public cannonShapeOffsets: Array<Vector3> = [];
   public cannonShapeEulers: Array<Vector3> = [];

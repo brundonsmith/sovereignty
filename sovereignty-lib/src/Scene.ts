@@ -1,5 +1,5 @@
 
-import { Scene as ThreeScene, Renderer, Camera, AxesHelper, PerspectiveCamera,
+import { Scene as ThreeScene, Renderer, Camera, PerspectiveCamera,
   OrthographicCamera, MeshBasicMaterial, BoxGeometry, TextureLoader, BackSide,
   Mesh, AmbientLight, AudioListener } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
@@ -72,27 +72,7 @@ export default class Scene {
     this.name = config.name;
 
     // objects
-    config.objects.forEach(objectConfig => {
-      let newObject = this.createGameObject(objectConfig);
-
-      let camera = newObject.findComponentInChildren(CameraComponent);
-      if(exists(camera)) {
-        if(exists(this.activeCamera)) {
-          console.warn(`Found two instances of CameraComponent in the same scene. Which one gets used will be random.`)
-        }
-
-        this.activeCamera = (<CameraComponent> camera).threeCamera;
-      }
-
-      let listener = newObject.findComponentInChildren(AudioListenerComponent);
-      if(exists(listener)) {
-        if(exists(this.activeListener)) {
-          console.warn(`Found two instances of AudioListenerComponent in the same scene. Which one gets used will be random.`)
-        }
-
-        this.activeListener = (<AudioListenerComponent> listener).threeAudioListener;
-      }
-    })
+    config.objects.forEach(objectConfig => this.createGameObject(objectConfig))
 
     if(!exists(this.activeCamera)) {
       console.warn(`Couldn't find an object in the scene with a CameraComponent. A camera is required to make anything visible onscreen.`)
@@ -103,9 +83,7 @@ export default class Scene {
     }
 
     // sky
-    if(exists(config.sky)) {
-      this.createSkybox(config.sky);
-    }
+    this.createSkybox(config.sky);
 
     // cannon world
     config.physics = config.physics || {};
@@ -119,10 +97,9 @@ export default class Scene {
 
     // helpers
     this.threeScene.add(new AmbientLight(parseInt(config.ambientColor || 0x404040)));
-    this.threeScene.add(new AxesHelper( 5 ))
   }
 
-  private createSkybox(config: {[key: string]: any}): void {
+  private createSkybox(config: {[key: string]: any} | undefined): void {
     let distance = 1000;
     if(exists(this.activeCamera)) {
       if(this.activeCamera instanceof PerspectiveCamera) {
@@ -133,7 +110,7 @@ export default class Scene {
     }
 
     let sides = ['right', 'left', 'top', 'bottom', 'front', 'back'];
-    let skyboxSpecifiesTextures = sides.every(side => exists(config[side]))
+    let skyboxSpecifiesTextures = exists(config) && sides.every(side => exists(config[side]))
     if(skyboxSpecifiesTextures) {
       let textures = {};
       let materials = [];
@@ -148,7 +125,7 @@ export default class Scene {
     	this.sky = new Mesh(geometry, materials);
     } else {
       config.distance = config.distance || distance;
-      this.sky = new Sky(config);
+      this.sky = new Sky(config || {});
       this.sky.scale.setScalar(config.distance);
     }
 
@@ -160,6 +137,25 @@ export default class Scene {
     var newGameObject = new GameObject(config);
     newGameObject.initialize(this);
     this.gameObjects.push(newGameObject);
+
+    let camera = newGameObject.findComponentInChildren(CameraComponent);
+    if(exists(camera) && (!exists(this.activeCamera) || camera.runInEditor)) {
+      if(exists(this.activeCamera)) {
+        console.warn(`Found two instances of CameraComponent in the same scene. Which one gets used will be random.`)
+      }
+
+      this.activeCamera = (<CameraComponent> camera).threeCamera;
+    }
+
+    let listener = newGameObject.findComponentInChildren(AudioListenerComponent);
+    if(exists(listener)) {
+      if(exists(this.activeListener)) {
+        console.warn(`Found two instances of AudioListenerComponent in the same scene. Which one gets used will be random.`)
+      }
+
+      this.activeListener = (<AudioListenerComponent> listener).threeAudioListener;
+    }
+
     return newGameObject;
   }
 
@@ -171,11 +167,13 @@ export default class Scene {
     }
   }
 
-  public update(timeDelta: number): void {
-    this.cannonWorld.step(1 / 60);
+  public update(timeDelta: number, editorMode: boolean): void {
+    if(!editorMode) {
+      this.cannonWorld.step(1 / 60);
+    }
 
     this.gameObjects.forEach((gameObject: GameObject) =>
-      gameObject.update(timeDelta)
+      gameObject.update(timeDelta, editorMode)
     );
   }
 

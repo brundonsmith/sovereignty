@@ -5,15 +5,23 @@
   "main": "index.js",
   "scripts": {
     "start": "electron ./main.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:scss": "node-sass ui/_app.scss > app.css",
-    "watch:scss": "node-sass ui/_app.scss --watch > app.css"
+    "watch": "watch \"npm run build\" ./ui-react",
+    "build": "npm run build:scss && npm run build:js",
+    "build:js": "babel ui-react --out-dir ui-dist --source-maps",
+    "build:scss": "node-sass ui-react/SovereigntyEditor.scss ui-dist/SovereigntyEditor.css",
+    "watch:scss": "node-sass ui-react/SovereigntyEditor.scss ui-dist/SovereigntyEditor.css --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "electron": "^2.0.0",
-    "node-sass": "^4.9.0",
-    "vue": "^2.5.16"
+    "node-sass": "^4.9.0"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "watch": "^1.0.2"
   }
 }

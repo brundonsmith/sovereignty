@@ -1,10 +1,10 @@
 
-class Launcher extends Component {
+class Launcher extends SOVEREIGNTY.Component {
 
   constructor(config, gameObject) {
     super(config, gameObject);
 
-    this.projectilePrefab = Game.prefabs.find(prefab => prefab.name === config.projectile);
+    this.projectilePrefab = SOVEREIGNTY.Game.prefabs.find(prefab => prefab.name === config.projectile);
     this.launchVelocity = config.launchVelocity || 10;
   }
 
@@ -13,7 +13,7 @@ class Launcher extends Component {
 
   fire() {
     let newBall = this.gameObject.scene.createGameObject(this.projectilePrefab);
-    
+
     let ballPos = this.transform.worldPosition.add(this.transform.forward);
     newBall.transform.position = ballPos;
     newBall.rigidbody.cannonBody.position = toCannonVector(ballPos);

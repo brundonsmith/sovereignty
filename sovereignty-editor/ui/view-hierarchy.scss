@@ -1,0 +1,22 @@
+
+.component-view-hierarchy {
+
+}
+
+.component-hierarchy-level {
+
+  > .entry {
+
+    > .entry-heading {
+
+      > .caret {
+        display:inline-block;
+        vertical-align: middle;
+        margin-right:3px;
+      }
+    }
+    > .component-hierarchy-level {
+      margin-left: 5px;
+    }
+  }
+}

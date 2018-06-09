@@ -18,10 +18,15 @@ export default class RigidbodyComponent extends Component {
     }
   }
 
-  private cannonBody: Body;
+  public cannonBody: Body;
+  private static nextBodyID = 1;
+  readonly bodyID: number;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
+
+    this.bodyID = RigidbodyComponent.nextBodyID;
+    RigidbodyComponent.nextBodyID *= 2;
 
     var transform = this.transform;
     var collider = this.collider;
@@ -39,6 +44,8 @@ export default class RigidbodyComponent extends Component {
       position: new Vec3(transform.position.x, transform.position.y, transform.position.z),
       quaternion: quaternion,
       fixedRotation: config.fixedRotation,
+      collisionFilterGroup: this.bodyID,
+      collisionFilterMask: -1,
       material: new Material({
         friction: exists(config.friction) ? config.friction : 0.3
       })

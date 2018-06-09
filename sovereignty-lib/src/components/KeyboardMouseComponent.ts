@@ -3,7 +3,6 @@ import { } from 'cannon';
 
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import RigidbodyComponent from 'components/RigidbodyComponent';
 import Input from 'Input';
 
 export default class KeyboardMouseComponent extends Component {
@@ -22,33 +21,17 @@ export default class KeyboardMouseComponent extends Component {
     var turnDelta = this.turnSpeed * timeDelta / 1000;
 
     if(Input.keyDown('KeyW')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
-      } else {
-        this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
-      }
+      this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
     }
     if(Input.keyDown('KeyS')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(-1 * moveDelta));
-      } else {
-        this.transform.position.add(this.transform.forward.multiplyScalar(-1 * moveDelta));
-      }
+      this.transform.position.add(this.transform.backward.multiplyScalar(moveDelta));
     }
 
     if(Input.keyDown('KeyA')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.right.multiplyScalar(-1 * moveDelta));
-      } else {
-        this.transform.position.add(this.transform.right.multiplyScalar(-1 * moveDelta));
-      }
+      this.transform.position.add(this.transform.left.multiplyScalar(moveDelta));
     }
     if(Input.keyDown('KeyD')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.right.multiplyScalar(moveDelta));
-      } else {
-        this.transform.position.add(this.transform.right.multiplyScalar(moveDelta));
-      }
+      this.transform.position.add(this.transform.right.multiplyScalar(moveDelta));
     }
 
     this.transform.rotation.y -= Input.mouseDeltaX() * turnDelta;

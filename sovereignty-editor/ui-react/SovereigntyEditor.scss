@@ -1,0 +1,15 @@
+
+body { margin: 0; overflow: hidden; height: 100vh; width: 100vw; font-family: sans-serif; }
+
+@import './Panel.scss';
+
+@import './views/Scene.scss';
+@import './views/Hierarchy.scss';
+
+.component-sovereignty-editor {
+
+  > .component-panel {
+    width:100vw;
+    height:100vh;
+  }
+}

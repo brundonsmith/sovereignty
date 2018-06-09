@@ -11,3 +11,5 @@ sovereignty-builder/*linux*
 sovereignty-builder/*win32*
 sovereignty-builder/*darwin*
 sovereignty-builder/*mas*
+
+ui-dist

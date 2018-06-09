@@ -79,9 +79,17 @@ export default class GameObject {
     scene.allGameObjects.push(this);
   }
 
-  public update(timeDelta: number): void {
-    this.components.forEach(component => component.update(timeDelta));
-    this.children.forEach(child => child.update(timeDelta));
+  public update(timeDelta: number, editorMode: boolean): void {
+    if(editorMode) {
+      this.components
+        .filter(component => component.runInEditor || component.constructor.name === 'TransformComponent')
+        .forEach(component => component.update(timeDelta));
+    } else {
+      this.components
+        .forEach(component => component.update(timeDelta));
+    }
+
+    this.children.forEach(child => child.update(timeDelta, editorMode));
   }
 
   public hasComponent(type: (typeof Component) | string): boolean {
