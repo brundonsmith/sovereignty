@@ -1,7 +1,0 @@
-{
-  "components": {
-    "Mesh": {
-      "mesh": "assets/models/test_character.gltf"
-    }
-  }
-}

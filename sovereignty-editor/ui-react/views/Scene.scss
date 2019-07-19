@@ -1,0 +1,13 @@
+
+.component-scene {
+  display:flex;
+  align-items: stretch;
+  justify-content: stretch;
+
+  > webview,
+  > iframe {
+    flex-grow:1;
+    flex-shrink:1;
+    border:none;
+  }
+}

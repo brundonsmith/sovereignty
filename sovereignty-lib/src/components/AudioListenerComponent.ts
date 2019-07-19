@@ -1,10 +1,9 @@
-import { AudioListener, Scene } from 'three';
-import { World } from 'cannon';
+import { AudioListener } from 'three';
+import { } from 'cannon';
 
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
-import CameraComponent from 'components/CameraComponent';
 
 export default class AudioListenerComponent extends Component {
 
@@ -14,7 +13,9 @@ export default class AudioListenerComponent extends Component {
     super(config, gameObject);
 
     this.threeAudioListener = new AudioListener();
-    (<CameraComponent>this.gameObject.getComponent(CameraComponent)).threeCamera.add(this.threeAudioListener);
   }
 
+  public initialize(scene: Scene): void {
+    this.transform.threeGroup.add(this.threeAudioListener);
+  }
 }

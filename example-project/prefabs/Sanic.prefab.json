@@ -1,0 +1,30 @@
+{
+  "components": {
+    "Transform": { }
+  },
+  "children": [
+    {
+      "name": "model",
+      "components": {
+        "Transform": {
+          "position": {
+          },
+          "scale": {
+            "x": 5,
+            "y": 5,
+            "z": 5
+          }
+        },
+        "Model": {
+          "model": "assets/models/sanic/scene.gltf",
+          "defaultAnimation": "mixamo.com"
+        },
+        "AudioSource": {
+          "audioPath": "assets/audio/gotta_go_fast.mp3",
+          "autoplay": true,
+          "loop": true
+        }
+      }
+    }
+  ]
+}

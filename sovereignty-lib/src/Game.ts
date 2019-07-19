@@ -1,8 +1,8 @@
-import { Renderer, WebGLRenderer } from 'three';
+import { WebGLRenderer, Clock } from 'three';
+import check from 'simple-typechecker';
 
 import { exists } from 'utils';
-import GameScene from 'GameScene';
-import GameObject from 'GameObject';
+import Scene from 'Scene';
 import Input from './Input';
 
 import components from 'components';
@@ -13,15 +13,27 @@ function handleCanvasClick(e) {
 
 export default class Game {
 
-  private activeScene: number = 0;
-  private scenes: Array<GameScene> = [];
+  public static get properties() {
+    return {
+      title: [ "string", null ],
+      initialScene: [ "string", "number" ],
+      captureCursor: [ "boolean", null ]
+    }
+  }
+
+  public get activeScene() {
+    return this.scenes[this.activeSceneIndex];
+  }
+
+  private activeSceneIndex: number = 0;
+  private scenes: Array<Scene> = [];
+  private editorMode: boolean;
   public static prefabs: Array<any> = [];
   public static materials: Array<any> = [];
   public static componentTypes: Array<any> = components;
 
+  private clock: Clock = new Clock();
   private renderer: WebGLRenderer = new WebGLRenderer();
-
-  private lastUpdate: number = Date.now();
 
   public get captureCursor(): boolean {
     return this._captureCursor;
@@ -40,6 +52,8 @@ export default class Game {
   constructor(config: {[key: string]: any}) {
     console.log(config);
     console.log(this);
+
+    check(config.game, Game.properties);
 
     document.title = config.game.title || '';
 
@@ -73,33 +87,44 @@ export default class Game {
 
     if(exists(config.game.initialScene)) {
       if(typeof config.game.initialScene === 'number') {
-        this.activeScene = config.game.initialScene;
+        this.activeSceneIndex = config.game.initialScene;
       } else if(typeof config.game.initialScene === 'string') {
-        this.activeScene = this.scenes.findIndex(scene => scene.name === config.game.initialScene)
-        this.activeScene = Math.max(this.activeScene, 0);
+        this.activeSceneIndex = this.scenes.findIndex(scene => scene.name === config.game.initialScene)
+        this.activeSceneIndex = Math.max(this.activeSceneIndex, 0);
       }
     }
 
     // set up renderer
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;
 
 
     this.captureCursor = config.game.captureCursor;
   }
 
-  public createScene(config: {[key: string]: any}): GameScene {
-    var newScene = new GameScene(config);
+  public createScene(config: {[key: string]: any}): Scene {
+    check(config, Scene.properties);
+    var newScene = new Scene(config);
     this.scenes.push(newScene);
     return newScene;
   }
 
-  public start(containerElement?: HTMLElement): void {
+  public goToScene(name: string) {
+    let sceneIndex = this.scenes.findIndex(scene => scene.name === name);
+    if(sceneIndex !== -1) {
+      this.activeSceneIndex = sceneIndex;
+    }
+  }
+
+  public start(containerElement: HTMLElement | undefined, editorMode: boolean): void {
     if(containerElement) {
       containerElement.appendChild(this.renderer.domElement);
+      this.renderer.setSize( containerElement.scrollWidth, containerElement.scrollHeight );
     } else {
       document.body.appendChild(this.renderer.domElement);
+      this.renderer.setSize( document.body.scrollWidth, document.body.scrollHeight );
     }
+
+    this.editorMode = editorMode;
 
     var updateLoop = () => {
     	requestAnimationFrame(updateLoop);
@@ -110,12 +135,11 @@ export default class Game {
   }
 
   private update(): void {
-    this.scenes[this.activeScene].update(Date.now() - this.lastUpdate);
+    this.activeScene.update(this.clock.getDelta() * 1000, this.editorMode);
     Input.update();
-    this.lastUpdate = Date.now();
   }
 
   private render(): void {
-    this.scenes[this.activeScene].render(this.renderer);
+    this.activeScene.render(this.renderer);
   }
 }

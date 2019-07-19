@@ -17,7 +17,7 @@
           "position": {
             "y": 5
           }
-        },
+        }
       }
     },
     {
@@ -31,6 +31,10 @@
     {
       "name": "Ground",
       "extends": "Floor"
+    },
+    {
+      "name": "NPC",
+      "extends": "Sanic"
     }
   ]
 }

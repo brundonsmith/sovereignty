@@ -1,12 +1,10 @@
-import { Scene } from 'three';
-//@ts-ignore
-import { World } from 'cannon';
+import { } from 'three';
+import { } from 'cannon';
+import check from 'simple-typechecker';
 
-import { deepMerge } from './utils';
-
-import { exists } from './utils';
+import { exists, deepMerge } from './utils';
 import Game from 'Game';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import Component from 'components/Component';
 import TransformComponent from 'components/TransformComponent';
 import RigidbodyComponent from 'components/RigidbodyComponent';
@@ -14,7 +12,16 @@ import ColliderComponent from 'components/colliders/ColliderComponent';
 
 export default class GameObject {
 
-  public scene: GameScene;
+  public static get properties() {
+    return {
+      name: "string",
+      extends: [ "string", null ],
+      components: [ {}, null ],
+      children: [ [{}], null ]
+    }
+  }
+
+  public scene: Scene;
 
   public name: string;
   public components: Array<Component> = [];
@@ -43,37 +50,46 @@ export default class GameObject {
     this.name = config.name || 'Object';
 
     // components
+    if(!Object.keys(config.components || {}).includes('Transform') && !Object.keys(config.components || {}).includes('TransformComponent')) {
+      this.components.push(new TransformComponent({}, this));
+    }
     Object.entries(config.components || {}).forEach(entry => {
       var componentConstructor = Game.componentTypes.find(type => type.name === entry[0] || type.name === entry[0] + 'Component')
 
       if(componentConstructor) {
+        check(entry[1], componentConstructor.properties || {});
         this.components.push(new componentConstructor(entry[1], this));
       } else {
-        console.warn(`Unknown component type "${entry[0]}"`)
+        console.warn(`Unknown component type "${entry[0]}"`);
       }
-    })
-    if(!this.components.some(component => component instanceof TransformComponent)) {
-      this.components.push(new TransformComponent({}, this));
-    }
+    });
 
     // children
     (config.children || []).forEach(childConfig => {
       var newGameObject = new GameObject(childConfig);
       this.transform.threeGroup.add(newGameObject.transform.threeGroup);
       this.children.push(newGameObject);
-    })
+    });
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     this.scene = scene;
     this.components.forEach(component => component.initialize(scene));
     this.children.forEach(child => child.initialize(scene));
     scene.allGameObjects.push(this);
   }
 
-  public update(timeDelta: number): void {
-    this.components.forEach(component => component.update(timeDelta));
-    this.children.forEach(child => child.update(timeDelta));
+  public update(timeDelta: number, editorMode: boolean): void {
+    if(editorMode) {
+      this.components
+        .filter(component => component.runInEditor || component.constructor.name === 'TransformComponent')
+        .forEach(component => component.update(timeDelta));
+    } else {
+      this.components
+        .forEach(component => component.update(timeDelta));
+    }
+
+    this.children.forEach(child => child.update(timeDelta, editorMode));
   }
 
   public hasComponent(type: (typeof Component) | string): boolean {

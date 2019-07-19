@@ -1,13 +1,20 @@
-import { Geometry, PlaneGeometry, Material, MeshStandardMaterial, Mesh, Scene, Vector3, Group, Object3D } from 'three';
-import { World } from 'cannon';
+import { PlaneGeometry, MeshStandardMaterial, Mesh, Group, Object3D } from 'three';
+import { } from 'cannon';
 
 import GameObject from 'GameObject';
-import GameScene from 'GameScene';
-import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
+import Scene from 'Scene';
 import MeshComponent from 'components/mesh/MeshComponent';
 
 export default class HeightmapMeshComponent extends MeshComponent {
+
+  public static get properties() {
+    return Object.assign({
+      data: [ [ "number" ] ],
+      width: [ "number", null ],
+      height: [ "number", null ],
+      color: [ "string", "number", null ]
+    }, MeshComponent.properties)
+  }
 
   private meshContainer: Object3D = new Group();
 
@@ -20,8 +27,8 @@ export default class HeightmapMeshComponent extends MeshComponent {
     let dataWidth = config.data.reduce((max, row) => Math.max(row.length, max), 0)
 
     this.geometry = new PlaneGeometry(
-      config.width,
-      config.height,
+      config.width || 10,
+      config.height || 10,
       dataWidth - 1,
       dataHeight - 1
     );
@@ -41,7 +48,7 @@ export default class HeightmapMeshComponent extends MeshComponent {
     this.meshContainer.add(this.mesh);
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     this.transform.threeGroup.add(this.meshContainer);
   }
 

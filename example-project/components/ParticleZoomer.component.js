@@ -1,5 +1,5 @@
 
-class ParticleZoomer extends Component {
+class ParticleZoomer extends SOVEREIGNTY.Component {
 
   constructor(config, gameObject) {
     super(config, gameObject);

@@ -1,51 +1,89 @@
 
-import { Scene, Renderer, Camera, AxesHelper, PerspectiveCamera,
+import { Scene as ThreeScene, Renderer, Camera, PerspectiveCamera,
   OrthographicCamera, MeshBasicMaterial, BoxGeometry, TextureLoader, BackSide,
-  Mesh, AmbientLight } from 'three';
+  Mesh, AmbientLight, AudioListener } from 'three';
 import { World, NaiveBroadphase } from 'cannon';
+import check from 'simple-typechecker';
 
 import Sky from './three-plugins/Sky';
 
 import { exists } from 'utils';
 import GameObject from 'GameObject';
-import Component from 'components/Component';
 import CameraComponent from 'components/CameraComponent';
+import AudioListenerComponent from 'components/AudioListenerComponent';
 
+export default class Scene {
 
-export default class GameScene {
+  public static get properties() {
+    return {
+      name: "string",
+      objects: [ { } ],
+      ambientColor: [ "string", "number", null ],
+      physics: [
+        {
+          gravity: [ "number", null ]
+        },
+        null
+      ],
+      sky: [
+        {
+          distance: [ "number", null ],
+          right: "string",
+          left: "string",
+          top: "string",
+          bottom: "string",
+          front: "string",
+          back: "string",
+        },
+        {
+          distance: [ "number", null ],
+          luminance: [ "number", null ],
+      		turbidity: [ "number", null ],
+      		rayleigh: [ "number", null ],
+      		mieCoefficient: [ "number", null ],
+      		mieDirectionalG: [ "number", null ],
+      		sunPosition: [
+            {
+              x: [ "number", null ],
+              y: [ "number", null ],
+              z: [ "number", null ]
+            },
+            null
+          ]
+        },
+        null
+      ]
+    }
+  }
 
   public name: string;
 
-  public threeScene: Scene = new Scene();
+  public threeScene: ThreeScene = new ThreeScene();
   public cannonWorld: World = new World();
 
   private gameObjects: Array<GameObject> = [];
   public allGameObjects: Array<GameObject> = [];
 
   public activeCamera: Camera | undefined;
+  public activeListener: AudioListener | undefined;
   public sky: any | undefined;
 
   constructor(config: {[key: string]: any}) {
     this.name = config.name;
 
     // objects
-    config.objects.forEach(objectConfig => {
-      let newObject = this.createGameObject(objectConfig);
-
-      let camera = newObject.findComponentInChildren(CameraComponent);
-      if(exists(camera)) {
-        this.activeCamera = (<CameraComponent> camera).threeCamera;
-      }
-    })
+    config.objects.forEach(objectConfig => this.createGameObject(objectConfig))
 
     if(!exists(this.activeCamera)) {
       console.warn(`Couldn't find an object in the scene with a CameraComponent. A camera is required to make anything visible onscreen.`)
     }
 
-    // sky
-    if(exists(config.sky)) {
-      this.createSkybox(config.sky);
+    if(!exists(this.activeListener)) {
+      console.warn(`Couldn't find an object in the scene with an AudioListenerComponent. You won't be able to hear any sound without one.`)
     }
+
+    // sky
+    this.createSkybox(config.sky);
 
     // cannon world
     config.physics = config.physics || {};
@@ -59,10 +97,9 @@ export default class GameScene {
 
     // helpers
     this.threeScene.add(new AmbientLight(parseInt(config.ambientColor || 0x404040)));
-    this.threeScene.add(new AxesHelper( 5 ))
   }
 
-  private createSkybox(config: {[key: string]: any}): void {
+  private createSkybox(config: {[key: string]: any} | undefined): void {
     let distance = 1000;
     if(exists(this.activeCamera)) {
       if(this.activeCamera instanceof PerspectiveCamera) {
@@ -73,7 +110,7 @@ export default class GameScene {
     }
 
     let sides = ['right', 'left', 'top', 'bottom', 'front', 'back'];
-    let skyboxSpecifiesTextures = sides.every(side => exists(config[side]))
+    let skyboxSpecifiesTextures = exists(config) && sides.every(side => exists(config[side]))
     if(skyboxSpecifiesTextures) {
       let textures = {};
       let materials = [];
@@ -88,7 +125,7 @@ export default class GameScene {
     	this.sky = new Mesh(geometry, materials);
     } else {
       config.distance = config.distance || distance;
-      this.sky = new Sky(config);
+      this.sky = new Sky(config || {});
       this.sky.scale.setScalar(config.distance);
     }
 
@@ -96,9 +133,29 @@ export default class GameScene {
   }
 
   public createGameObject(config: {[key: string]: any}): GameObject {
+    check(config, GameObject.properties);
     var newGameObject = new GameObject(config);
     newGameObject.initialize(this);
     this.gameObjects.push(newGameObject);
+
+    let camera = newGameObject.findComponentInChildren(CameraComponent);
+    if(exists(camera) && (!exists(this.activeCamera) || camera.runInEditor)) {
+      if(exists(this.activeCamera)) {
+        console.warn(`Found two instances of CameraComponent in the same scene. Which one gets used will be random.`)
+      }
+
+      this.activeCamera = (<CameraComponent> camera).threeCamera;
+    }
+
+    let listener = newGameObject.findComponentInChildren(AudioListenerComponent);
+    if(exists(listener)) {
+      if(exists(this.activeListener)) {
+        console.warn(`Found two instances of AudioListenerComponent in the same scene. Which one gets used will be random.`)
+      }
+
+      this.activeListener = (<AudioListenerComponent> listener).threeAudioListener;
+    }
+
     return newGameObject;
   }
 
@@ -110,11 +167,13 @@ export default class GameScene {
     }
   }
 
-  public update(timeDelta: number): void {
-    this.cannonWorld.step(1 / 600, timeDelta / 1000, 10);
+  public update(timeDelta: number, editorMode: boolean): void {
+    if(!editorMode) {
+      this.cannonWorld.step(1 / 60);
+    }
 
     this.gameObjects.forEach((gameObject: GameObject) =>
-      gameObject.update(timeDelta)
+      gameObject.update(timeDelta, editorMode)
     );
   }
 

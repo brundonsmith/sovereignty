@@ -13,14 +13,13 @@
     "@types/node": "^9.6.2",
     "@types/three": "^0.91.3",
     "cannon": "^0.6.2",
+    "simple-typechecker": "^1.0.0",
     "three": "^0.91.0",
     "three-gltf2-loader": "^1.2.0"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
     "ts-loader": "^4.1.0",
-    "typescript": "^2.8.1",
-    "typescript-eslint-parser": "^14.0.0",
+    "typescript": "^2.8.3",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.14"
   }

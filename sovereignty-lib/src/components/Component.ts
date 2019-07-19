@@ -1,7 +1,7 @@
-import { Scene } from 'three';
-import { World, IBodyEvent } from 'cannon';
+import { } from 'three';
+import { IBodyEvent } from 'cannon';
 
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import TransformComponent from 'components/TransformComponent';
 import RigidbodyComponent from 'components/RigidbodyComponent';
@@ -10,6 +10,7 @@ import ColliderComponent from './colliders/ColliderComponent';
 export default class Component {
 
   public gameObject: GameObject;
+  public runInEditor: boolean = false;
 
   get transform(): TransformComponent {
     return this.gameObject.transform;
@@ -25,10 +26,10 @@ export default class Component {
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     this.gameObject = gameObject;
-    Object.assign(this, config);
+    this.runInEditor = config.runInEditor;
   }
 
-  public initialize(scene: GameScene): void { }
+  public initialize(scene: Scene): void { }
   public update(timeDelta: number): void { }
 
   public onCollision(e: IBodyEvent) { }

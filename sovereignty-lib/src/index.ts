@@ -2,8 +2,20 @@ import * as THREE from 'three';
 import * as CANNON from 'cannon';
 
 import Game from 'Game';
-import Component from 'components/Component';
+import Scene from 'Scene';
+import GameObject from 'GameObject';
 import Input from 'Input';
 
-Object.assign(<any>window, { Game, Component, Input, THREE, CANNON })
-export { Game, Component, Input };
+import components from 'components';
+var componentsObject = components.reduce((obj, comp) => {
+  obj[comp.name] = comp;
+  return obj;
+}, {})
+
+Object.assign(<any>window, {
+  THREE,
+  CANNON,
+  SOVEREIGNTY: Object.assign({
+    Game, Input, Scene, GameObject
+  }, componentsObject)
+})

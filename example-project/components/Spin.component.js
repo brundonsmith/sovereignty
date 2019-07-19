@@ -1,5 +1,5 @@
 
-class Spin extends Component {
+class Spin extends SOVEREIGNTY.Component {
 
   update(timeDelta) {
     this.transform.rotation.x += 0.1;

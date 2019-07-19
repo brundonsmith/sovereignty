@@ -1,18 +1,34 @@
-import { Geometry, BoxGeometry, SphereGeometry, CylinderGeometry, PlaneGeometry, Material, Mesh, Scene } from 'three';
-import { World } from 'cannon';
+import { BoxGeometry, SphereGeometry, CylinderGeometry, PlaneGeometry, Mesh } from 'three';
+import { } from 'cannon';
 
 import { exists } from 'utils';
 import GameObject from 'GameObject';
-import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
 import MeshComponent from 'components/mesh/MeshComponent';
 
 export default class PrimitiveMeshComponent extends MeshComponent {
 
+  public static get properties() {
+    return Object.assign({
+      shape: [ "string", null ],
+
+      width: [ "number", null ],
+      height: [ "number", null ],
+      depth: [ "number", null ],
+
+      radius: [ "number", null ],
+      widthSegments: [ "number", null ],
+      heightSegments: [ "number", null ],
+
+      radiusTop: [ "number", null ],
+      radiusBottom: [ "number", null ],
+      radialSegments: [ "number", null ],
+    }, MeshComponent.properties)
+  }
+
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
 
-    switch((exists(config.shape) ? config.shape.toLowerCase() : 'box').toLowerCase()) {
+    switch((exists(config.shape) ? config.shape : 'box').toLowerCase()) {
       case 'box':
         this.geometry = new BoxGeometry(
           config.width,

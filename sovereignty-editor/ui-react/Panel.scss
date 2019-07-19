@@ -1,0 +1,76 @@
+
+.component-panel {
+  display:flex;
+  flex-grow:0;
+  flex-shrink:0;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+
+  &.index-1 {
+    flex-grow:1;
+    flex-shrink:1;
+    min-width:0;
+    min-height:0;
+  }
+
+  > .resize-bar {
+    background-color:red;
+    flex-grow:0;
+    flex-shrink:0;
+  }
+
+  > .contents {
+    display:flex;
+    flex-grow:1;
+    flex-shrink:1;
+    align-items:stretch;
+  }
+
+  &:not(.has-children) {
+
+    > .contents {
+      flex-direction:column;
+      overflow-y:auto;
+
+      > select {
+        flex-grow:0;
+        flex-shrink:0;
+      }
+      > :not(select) {
+        flex-grow:1;
+        flex-shrink:1;
+      }
+    }
+  }
+
+  &.vertical,
+  &.horizontal {
+    display:flex;
+
+    > .resize-bar {
+      flex-basis: 4px;
+      align-self: stretch;
+      cursor:col-resize;
+    }
+  }
+
+  &.vertical {
+    flex-direction: row;
+
+    &.has-children {
+      > .contents {
+        flex-direction: column;
+      }
+    }
+  }
+  &.horizontal {
+    flex-direction: column;
+
+    &.has-children {
+      > .contents {
+        flex-direction: row;
+      }
+    }
+  }
+}

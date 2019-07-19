@@ -1,10 +1,8 @@
-import { Light, PointLight, PerspectiveCamera, Scene, Math as ThreeMath } from 'three';
-import { World } from 'cannon';
+import { Math as ThreeMath } from 'three';
+import { } from 'cannon';
 
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
-import RigidbodyComponent from 'components/RigidbodyComponent';
 import Input from 'Input';
 
 export default class KeyboardMouseComponent extends Component {
@@ -22,34 +20,18 @@ export default class KeyboardMouseComponent extends Component {
     var moveDelta = this.moveSpeed * timeDelta / 1000;
     var turnDelta = this.turnSpeed * timeDelta / 1000;
 
-    if(Input.keyDown('w')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(moveDelta));
-      } else {
-        this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
-      }
+    if(Input.keyDown('KeyW')) {
+      this.transform.position.add(this.transform.forward.multiplyScalar(moveDelta));
     }
-    if(Input.keyDown('s')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.forward.multiplyScalar(-1 * moveDelta));
-      } else {
-        this.transform.position.add(this.transform.forward.multiplyScalar(-1 * moveDelta));
-      }
+    if(Input.keyDown('KeyS')) {
+      this.transform.position.add(this.transform.backward.multiplyScalar(moveDelta));
     }
 
-    if(Input.keyDown('a')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.right.multiplyScalar(-1 * moveDelta));
-      } else {
-        this.transform.position.add(this.transform.right.multiplyScalar(-1 * moveDelta));
-      }
+    if(Input.keyDown('KeyA')) {
+      this.transform.position.add(this.transform.left.multiplyScalar(moveDelta));
     }
-    if(Input.keyDown('d')) {
-      if(this.gameObject.hasComponent(RigidbodyComponent)) {
-        this.rigidbody.applyImpulse(this.transform.right.multiplyScalar(moveDelta));
-      } else {
-        this.transform.position.add(this.transform.right.multiplyScalar(moveDelta));
-      }
+    if(Input.keyDown('KeyD')) {
+      this.transform.position.add(this.transform.right.multiplyScalar(moveDelta));
     }
 
     this.transform.rotation.y -= Input.mouseDeltaX() * turnDelta;

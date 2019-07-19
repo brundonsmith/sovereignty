@@ -1,17 +1,30 @@
-import { Geometry, BoxGeometry, Material, MeshBasicMaterial, Mesh, Scene } from 'three';
-import { World } from 'cannon';
+import { Geometry, Material, MeshStandardMaterial, Mesh } from 'three';
+import { } from 'cannon';
 import * as THREE from 'three';
-import GLTF2Loader from 'three-gltf2-loader'
-GLTF2Loader(THREE);
+import 'three-plugins/LoaderSupport';
+import 'three-plugins/OBJLoader2';
+import 'three-plugins/GLTFLoader';
 
 import { exists } from 'utils';
 import Game from 'Game';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
 
 export default class MeshComponent extends Component {
+
+  public static get properties() {
+    return {
+      material: [
+        {
+          type: "string",
+          parameters: { }
+        },
+        "string",
+        null
+      ]
+    }
+  }
 
   public material: Material;
   public geometry: Geometry;
@@ -29,20 +42,14 @@ export default class MeshComponent extends Component {
 
       this.material = new THREE[(config.material.type || 'MeshStandard') + 'Material'](config.material.parameters);
     } else {
-      this.material = new THREE.MeshStandardMaterial();
-    }
-
-    if(exists(config.mesh)) {
-      //@ts-ignore
-      var loader = new THREE.GLTF2Loader();
-      loader.load(config.mesh, (model) => {
-        this.mesh = model.asset;
-      })
+      this.material = new MeshStandardMaterial();
     }
   }
 
-  public initialize(scene: GameScene): void {
-    this.transform.threeGroup.add(this.mesh);
+  public initialize(scene: Scene): void {
+    if(exists(this.mesh)) {
+      this.transform.threeGroup.add(this.mesh);
+    }
   }
 
 }

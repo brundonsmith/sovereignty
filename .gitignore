@@ -1,4 +1,5 @@
 node_modules
+npm-debug.log
 **/.DS_Store
 
 example-project/build
@@ -10,3 +11,5 @@ sovereignty-builder/*linux*
 sovereignty-builder/*win32*
 sovereignty-builder/*darwin*
 sovereignty-builder/*mas*
+
+ui-dist

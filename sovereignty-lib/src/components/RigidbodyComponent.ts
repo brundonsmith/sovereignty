@@ -1,21 +1,32 @@
-import { Scene, Vector3, Euler } from 'three';
+import { Vector3 } from 'three';
 //@ts-ignore
 import { Body, World, Quaternion, Vec3, Material } from 'cannon';
 
 import { exists, toCannonVector, toThreeVector, toThreeQuaternion } from '../utils';
-import GameScene from 'GameScene';
+import Scene from 'Scene';
 import GameObject from 'GameObject';
 import Component from 'components/Component';
-import TransformComponent from 'components/TransformComponent';
-import ColliderComponent from './colliders/ColliderComponent';
-import SphereColliderComponent from './colliders/SphereColliderComponent';
 
 export default class RigidbodyComponent extends Component {
 
-  private cannonBody: Body;
+  public static get properties() {
+    return {
+      kinematic: [ "boolean", null ],
+      mass: [ "number", null ],
+      fixedRotation: [ "boolean", null ],
+      friction: [ "number", null ],
+    }
+  }
+
+  public cannonBody: Body;
+  private static nextBodyID = 1;
+  readonly bodyID: number;
 
   constructor(config: {[key: string]: any}, gameObject: GameObject) {
     super(config, gameObject);
+
+    this.bodyID = RigidbodyComponent.nextBodyID;
+    RigidbodyComponent.nextBodyID *= 2;
 
     var transform = this.transform;
     var collider = this.collider;
@@ -33,20 +44,28 @@ export default class RigidbodyComponent extends Component {
       position: new Vec3(transform.position.x, transform.position.y, transform.position.z),
       quaternion: quaternion,
       fixedRotation: config.fixedRotation,
+      collisionFilterGroup: this.bodyID,
+      collisionFilterMask: -1,
       material: new Material({
         friction: exists(config.friction) ? config.friction : 0.3
       })
     })
-    collider.cannonShapes.forEach((shape, index) =>
-      this.cannonBody.addShape(shape, toCannonVector(collider.cannonShapeOffsets[index]))
-    );
+    collider.cannonShapes.forEach((shape, index) => {
+      if(exists(collider.cannonShapeEulers[index])) {
+        let quat = new Quaternion();
+        quat.setFromEuler(collider.cannonShapeEulers[index].x, collider.cannonShapeEulers[index].y, collider.cannonShapeEulers[index].z);
+        this.cannonBody.addShape(shape, toCannonVector(collider.cannonShapeOffsets[index]), quat);
+      } else {
+        this.cannonBody.addShape(shape, toCannonVector(collider.cannonShapeOffsets[index]))
+      }
+    });
 
     this.cannonBody.addEventListener('collide', (e) => {
       this.gameObject.components.forEach(component => component.onCollision(e))
     });
   }
 
-  public initialize(scene: GameScene): void {
+  public initialize(scene: Scene): void {
     scene.cannonWorld.addBody(this.cannonBody);
   }
 
