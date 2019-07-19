@@ -94,7 +94,7 @@ export default class Game {
     return newScene;
   }
 
-  public start(containerElement: HTMLElement | undefined): void {
+  public start(containerElement?: HTMLElement): void {
     if(containerElement) {
       containerElement.appendChild(this.renderer.domElement);
     } else {

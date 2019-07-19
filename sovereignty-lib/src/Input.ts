@@ -140,6 +140,6 @@ class Input {
 
 }
 
-const inputInstance = new Input();
+const instance = new Input();
 
-export default inputInstance;
+export default instance;
