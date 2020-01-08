@@ -83,7 +83,9 @@ export default class Scene {
     }
 
     // sky
-    this.createSkybox(config.sky);
+    if(config.sky) {
+      this.createSkybox(config.sky);
+    }
 
     // cannon world
     config.physics = config.physics || {};
