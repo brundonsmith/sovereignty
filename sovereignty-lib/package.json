@@ -2,6 +2,7 @@
   "name": "sovereignty-lib",
   "version": "0.1.0",
   "description": "The core class library of sovereignty.js",
+  "repository": {},
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -10,17 +11,16 @@
   "author": "Brandon Smith",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^9.6.2",
-    "@types/three": "^0.91.3",
-    "cannon": "^0.6.2",
-    "simple-typechecker": "^1.0.0",
-    "three": "^0.91.0",
-    "three-gltf2-loader": "^1.2.0"
+    "@types/node": "13.1.x",
+    "cannon": "0.6.x",
+    "simple-typechecker": "1.0.x",
+    "three": "0.112.x",
+    "three-gltf2-loader": "1.2.x"
   },
   "devDependencies": {
-    "ts-loader": "^4.1.0",
-    "typescript": "^2.8.3",
-    "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.14"
+    "ts-loader": "6.2.x",
+    "typescript": "3.7.x",
+    "webpack": "4.41.x",
+    "webpack-cli": "3.3.x"
   }
 }

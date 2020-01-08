@@ -10,11 +10,11 @@
     "sovereignty": "./cli.js"
   },
   "dependencies": {
-    "minimist": "^1.2.0",
-    "ncp": "^2.0.0",
-    "recursive-readdir": "^2.2.2"
+    "minimist": "1.2.x",
+    "ncp": "2.0.x",
+    "recursive-readdir": "2.2.x"
   },
   "devDependencies": {
-    "electron-packager": "^12.0.1"
+    "electron-packager": "14.1.x"
   }
 }
