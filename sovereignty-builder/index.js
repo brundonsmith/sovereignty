@@ -95,7 +95,7 @@ function writeWebFiles(projectDir, outputDir, assetsDir, game, scenes, prefabs, 
 
     // TODO remove "../" once it's on NPM
     // Library
-    ncp('../sovereignty-lib/index.js', path.resolve(outputDir, 'web', 'sovereignty-lib.js')),
+    ncp(path.resolve(__dirname, '../sovereignty-lib/index.js'), path.resolve(outputDir, 'web', 'sovereignty-lib.js')),
 
     // Assets
     assetsDir
