@@ -1,5 +1,5 @@
 
-class FirstPersonController extends SOVEREIGNTY.Component {
+class FirstPersonShooterController extends SOVEREIGNTY.Component {
 
   constructor(config, gameObject) {
     super(config, gameObject);
