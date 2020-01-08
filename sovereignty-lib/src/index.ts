@@ -15,7 +15,8 @@ var componentsObject = components.reduce((obj, comp) => {
 Object.assign(<any>window, {
   THREE,
   CANNON,
-  SOVEREIGNTY: Object.assign({
-    Game, Input, Scene, GameObject
-  }, componentsObject)
+  SOVEREIGNTY: {
+    Game, Input, Scene, GameObject,
+    ...componentsObject
+  }
 })
